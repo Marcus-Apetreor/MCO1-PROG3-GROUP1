@@ -14,9 +14,7 @@ public class CharacterCreationScreen {
         while (true) {
             System.out.println("Character Creation Menu\n");
             ConsoleMethods.printOptions(characterCreationOptions);
-    
             String userInput = sc.nextLine();
-    
             ConsoleMethods.arrowSelector(userInput, 4);
     
             if (ConsoleMethods.optionCondition(0, userInput)) {
@@ -39,26 +37,38 @@ public class CharacterCreationScreen {
                 
                 if(ConsoleMethods.optionCondition(0, jobClassInput)) {
                     playerInstance.setJobClass(jobClasses[0]);
+                    playerInstance.setStats(15,11,13,14,9,9);
+                    playerInstance.setPlayerLevel(9);
                     break;
                 }
                 else if(ConsoleMethods.optionCondition(1, jobClassInput)) {
                     playerInstance.setJobClass(jobClasses[1]);
+                    playerInstance.setStats(12,13,15,12,9,8);
+                    playerInstance.setPlayerLevel(9);
                     break;
                 }
                 else if(ConsoleMethods.optionCondition(2, jobClassInput)) {
                     playerInstance.setJobClass(jobClasses[2]);
+                    playerInstance.setStats(11,11,16,10,10,8);
+                    playerInstance.setPlayerLevel(8);
                     break;
                 }
                 else if(ConsoleMethods.optionCondition(3, jobClassInput)) {
                     playerInstance.setJobClass(jobClasses[3]);
+                    playerInstance.setStats(14,12,9,16,7,8);
+                    playerInstance.setPlayerLevel(7);
                     break;
                 }
                 else if(ConsoleMethods.optionCondition(4, jobClassInput)) {
                     playerInstance.setJobClass(jobClasses[4]);
+                    playerInstance.setStats(9,9,12,8,16,7);
+                    playerInstance.setPlayerLevel(6);
                     break;
                 }
                 else if(ConsoleMethods.optionCondition(5, jobClassInput)) {
                     playerInstance.setJobClass(jobClasses[5]);
+                    playerInstance.setStats(10,8,10,11,7,16);
+                    playerInstance.setPlayerLevel(7);
                     break;
                 } ConsoleMethods.clearConsole();
                 }
