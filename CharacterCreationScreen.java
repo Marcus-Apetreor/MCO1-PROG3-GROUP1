@@ -75,10 +75,23 @@ public class CharacterCreationScreen {
                 ConsoleMethods.resetSelectedOption();
     
             } else if (ConsoleMethods.optionCondition(2, userInput)) {
+                ConsoleMethods.clearConsole();
                 playerInstance.playerCard();
+                try{
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                ConsoleMethods.clearConsole();
                 //print jobclass and stats and etc..
                 System.out.println("Travelling to Stormveil Castle...");
-                //put logic for fasttravel to stormveil castle
+                try{
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                ConsoleMethods.clearConsole();
+                Maps.mapMenu();
                 break;
     
             } else if (ConsoleMethods.optionCondition(3, userInput)) {
