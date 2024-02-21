@@ -78,7 +78,7 @@ public class CharacterCreationScreen {
                 ConsoleMethods.clearConsole();
                 playerInstance.playerCard();
                 try{
-                    Thread.sleep(2000);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -86,12 +86,13 @@ public class CharacterCreationScreen {
                 //print jobclass and stats and etc..
                 System.out.println("Travelling to Stormveil Castle...");
                 try{
-                    Thread.sleep(2000);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 ConsoleMethods.clearConsole();
-                Maps.mapMenu();
+                Maps mapsInstance = new StormveilCastle();
+                mapsInstance.play();
                 break;
     
             } else if (ConsoleMethods.optionCondition(3, userInput)) {
@@ -104,5 +105,4 @@ public class CharacterCreationScreen {
         }
         sc.close();
     }
-    
 }

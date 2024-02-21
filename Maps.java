@@ -1,39 +1,101 @@
-public class Maps {
-    private String[][][][] tileMap;
+import java.util.Scanner;
 
-    public Maps(String[][][][] tileMap) {
+public class Maps {
+    private String[][][] tileMap;
+    private int playerRoom;
+    private int playerRow;
+    private int playerCol;
+
+    public Maps(String[][][] tileMap,int playerRoom,int playerRow,int playerCol) {
         this.tileMap = tileMap;
+        this.playerRoom = playerRoom; // Starting room for the player
+        this.playerRow = playerRow; // Starting row for the player
+        this.playerCol = playerCol; // Starting column for the player
     }
 
-    public void displayMap() {
-        for (String[][][] level : tileMap) {
-            for (String[][] row : level) {
-                for (String[] column : row) {
-                    for (String element : column) {
-                        if ("emptyTile".equals(element)) {
-                            System.out.print("_");
-                        } else if ("bossTile".equals(element)){
-                            System.out.print("B");
-                        } else if ("spawnTile".equals(element)){
-                            System.out.print("S");
-                        } else if (element.startsWith("doorTile")) {
-                            System.out.print("D");
-                        } else if (element.startsWith("fastTravelTile")){
-                            System.out.print("F");
-                        } else {
-                            System.out.print(element + " ");
-                        }
-                    }
-                    System.out.println();
+    public void printCurrentRoom() {
+        for (int i = 0; i < tileMap[playerRoom].length; i++) {
+            for (int j = 0; j < tileMap[playerRoom][i].length; j++) {
+                if (i == playerRow && j == playerCol) {
+                    System.out.print("----P---- "); // Print 'P' for player's location
+                } else {
+                    System.out.print(tileMap[playerRoom][i][j] + " ");
                 }
-                System.out.println();
             }
             System.out.println();
         }
+    }    
+
+    public void movePlayer(char direction) {
+        int newRow = playerRow;
+        int newCol = playerCol;
+    
+        switch (direction) {
+            case 'w':
+                newRow--;
+                break;
+            case 'a':
+                newCol--;
+                break;
+            case 's':
+                newRow++;
+                break;
+            case 'd':
+                newCol++;
+                break;
+            default:
+                System.out.println("Invalid direction!");
+                return;
+        }
+    
+        if (isValidMove(newRow, newCol)) {
+            if (tileMap[playerRoom][newRow][newCol].startsWith("doorTile")) {
+                String doorName = tileMap[playerRoom][newRow][newCol];
+                boolean found = false;
+                for (int i = 0; i < tileMap.length; i++) {
+                    if (i != playerRoom && tileMap[i][newRow][newCol].equals(doorName)) {
+                        playerRoom = i;
+                        for (int j = 0; j < tileMap[playerRoom].length; j++) {
+                            for (int k = 0; k < tileMap[playerRoom][j].length; k++) {
+                                if (tileMap[playerRoom][j][k].equals(doorName)) {
+                                    playerRow = j;
+                                    playerCol = k;
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            if (found) {
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+            } else {
+                playerRow = newRow;
+                playerCol = newCol;
+            }
+            System.out.println("Player moved to: (" + playerRoom + ", " + playerRow + ", " + playerCol + ")");
+        } else {
+            System.out.println("Invalid move! Out of bounds.");
+        }
+    }    
+
+    private boolean isValidMove(int row, int col) {
+        return row >= 0 && row < tileMap[playerRoom].length && col >= 0 && col < tileMap[playerRoom][row].length;
     }
 
-    public static void mapMenu(){
-        StormveilCastle stormveilCastle = new StormveilCastle();
-        stormveilCastle.displayMap();
-    }
+    public void play() {
+        Scanner scanner = new Scanner(System.in);
+        char direction;
+    
+        while (true) {
+            printCurrentRoom();
+            System.out.println("Player location: (" + playerRoom + ", " + playerRow + ", " + playerCol + ")");
+            System.out.print("Enter direction (w/a/s/d): ");
+            direction = scanner.next().charAt(0);
+            movePlayer(direction);
+            ConsoleMethods.clearConsole();
+        }
+    }    
 }
