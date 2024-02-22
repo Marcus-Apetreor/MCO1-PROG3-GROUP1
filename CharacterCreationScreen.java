@@ -4,6 +4,7 @@ public class CharacterCreationScreen {
 
     private static String[] characterCreationOptions = {"Name", "Select Job Class", "Confirm", "Back"};
     private static String[] jobClasses = {"Vagabond", "Samurai", "Warrior", "Hero", "Astrologer", "Prophet"};
+
     public static void characterCreation(){
         ConsoleMethods.refreshScreen();
     
@@ -18,13 +19,21 @@ public class CharacterCreationScreen {
             ConsoleMethods.arrowSelector(userInput, 4);
     
             if (ConsoleMethods.optionCondition(0, userInput)) {
+                boolean errorFlag = true;
+                while(errorFlag){
                 System.out.println("Input username [max of 25 characters] :");
                 String playerInstanceName = sc.nextLine();
                 if (playerInstanceName.length() > 25) {
                     playerInstanceName = playerInstanceName.substring(0, 25);
+                } else if (playerInstanceName != "") {
+                    playerInstance.setPlayerName(playerInstanceName);
+                    errorFlag = false;
+                    ConsoleMethods.clearConsole();
+                } else {
+                    ConsoleMethods.clearConsole();
+                    System.out.println("Please enter a username.");
                 }
-                playerInstance.setPlayerName(playerInstanceName);
-    
+                }
             } else if (ConsoleMethods.optionCondition(1, userInput)) {
                 ConsoleMethods.refreshScreen();
                 while (true){
@@ -73,12 +82,20 @@ public class CharacterCreationScreen {
                 } ConsoleMethods.clearConsole();
                 }
                 ConsoleMethods.resetSelectedOption();
+                ConsoleMethods.clearConsole();
     
             } else if (ConsoleMethods.optionCondition(2, userInput)) {
+                if (playerInstance.getPlayerName() == ""){
+                    ConsoleMethods.clearConsole();
+                    System.out.println("Please input a player name to proceed.");
+                } else if (playerInstance.getJobClass() == ""){
+                    ConsoleMethods.clearConsole();
+                    System.out.println("Please input a job class to proceed.");
+                } else {
                 ConsoleMethods.clearConsole();
                 playerInstance.playerCard();
                 try{
-                    Thread.sleep(500);
+                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -86,7 +103,7 @@ public class CharacterCreationScreen {
                 //print jobclass and stats and etc..
                 System.out.println("Travelling to Stormveil Castle...");
                 try{
-                    Thread.sleep(500);
+                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -94,6 +111,7 @@ public class CharacterCreationScreen {
                 Maps mapsInstance = new StormveilCastle();
                 mapsInstance.play();
                 break;
+                }
     
             } else if (ConsoleMethods.optionCondition(3, userInput)) {
                 System.out.println("Going back to main menu...");
@@ -101,7 +119,6 @@ public class CharacterCreationScreen {
                 TitleScreen.main(characterCreationOptions);
                 break;
             }
-        ConsoleMethods.clearConsole();
         }
         sc.close();
     }
