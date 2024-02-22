@@ -38,6 +38,7 @@ public class ConsoleMethods {
                 selectedOption = 0;
             }
         }
+        ConsoleMethods.clearConsole();
     }
 
     public static boolean optionCondition(int choiceNumber, String userInput) {

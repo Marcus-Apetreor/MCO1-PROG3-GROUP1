@@ -114,6 +114,7 @@ public class CharacterCreationScreen {
                 }
     
             } else if (ConsoleMethods.optionCondition(3, userInput)) {
+                ConsoleMethods.clearConsole();
                 System.out.println("Going back to main menu...");
                 playerInstance = null;
                 TitleScreen.main(characterCreationOptions);

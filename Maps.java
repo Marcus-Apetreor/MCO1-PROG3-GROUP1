@@ -86,14 +86,14 @@ public class Maps {
     }
 
     public void play() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         char direction;
     
         while (true) {
             printCurrentRoom();
             System.out.println("Player location: (" + playerRoom + ", " + playerRow + ", " + playerCol + ")");
             System.out.print("Enter direction (w/a/s/d): ");
-            direction = scanner.next().charAt(0);
+            direction = sc.next().charAt(0);
             movePlayer(direction);
             ConsoleMethods.clearConsole();
         }
