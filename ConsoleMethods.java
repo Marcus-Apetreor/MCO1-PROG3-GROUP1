@@ -1,7 +1,10 @@
+import java.util.*;
+
 public class ConsoleMethods {
 
+    //selector and option methods
     private static int selectedOption=0;
-    
+
     public static void printOptions(String[] options){
         for (int i = 0; i < options.length; i++) {
             if (i == selectedOption) {
@@ -15,14 +18,26 @@ public class ConsoleMethods {
         }
         helpfulPrompt();
     }    
+    public static void printListOptions(ArrayList<String> options){
+        for (int i = 0; i < options.size(); i++) {
+            if (i == selectedOption) {
+                System.out.print(">");
+            } else {
+                System.out.print(" ");
+            }
 
-    public static void helpfulPrompt(){
-        System.out.println("\n<Input [w] to scroll Up, [s] to scroll Down> \n<Input [Space] To Select> \n");
-    }
+            // Print the option
+            System.out.println(" " + options.get(i));
+        }
+        helpfulPrompt();
+    }    
 
-    public static void clearConsole() {
-        System.out.print("\033[H\033[2J");  
-        System.out.flush();  
+    public static boolean optionCondition(int choiceNumber, String userInput) {
+        if(selectedOption == choiceNumber && userInput.equalsIgnoreCase(" ")){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static void arrowSelector(String userInput, int maxChoices) {
@@ -40,23 +55,8 @@ public class ConsoleMethods {
         }
         ConsoleMethods.clearConsole();
     }
-
-    public static boolean optionCondition(int choiceNumber, String userInput) {
-        if(selectedOption == choiceNumber && userInput.equalsIgnoreCase(" ")){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public static boolean confirmation(String userInput) {
-        if (userInput.equalsIgnoreCase(" ")){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
+    
+    //clear/refresh console methods
     public static void resetSelectedOption() {
         selectedOption = 0;
     }
@@ -66,7 +66,24 @@ public class ConsoleMethods {
         clearConsole();
     }
 
-    public static int getSelectedOption() {
-        return selectedOption;
+    public static void clearConsole() {
+        System.out.print("\033[H\033[2J");  
+        System.out.flush();  
+    }
+
+    //aesthetic console methods
+    public static void loadingScreen(){
+        for(int i=1; i<=3; i++){
+            try {
+                Thread.sleep(200);
+              } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+              }
+            System.out.println(".");
+        }
+    }
+
+    public static void helpfulPrompt(){
+        System.out.println("\n<Input [w] to scroll Up, [s] to scroll Down> \n<Input [Space] To Select> \n");
     }
 }

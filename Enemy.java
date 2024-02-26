@@ -7,19 +7,19 @@ public class Enemy {
     }
 
     // enemy stats
-    private Type type;
-    private String name;
-    private int health;
-    private int attack;
-    private double physicalDefense;
-    private double sorceryDefense;
-    private double incantationDefense;
-    private boolean isDefeated;
+    protected Type type;
+    protected String name;
+    protected int health;
+    protected int attack;
+    protected double physicalDefense;
+    protected double sorceryDefense;
+    protected double incantationDefense;
+    protected boolean isDefeated;
 
-    // constants for stats ranges based on enemy type
-    private static final int[][] HEALTH_RANGES = {{20, 30}, {25, 35}, {70, 80}};
-    private static final int[][] ATTACK_RANGES = {{70, 80}, {110, 120}, {120, 130}};
-    private static final double[][] DEFENSE_RANGES = {
+    private static final String[][] enemyNames = {{"Godrick Soldier", "Living Jar"},{"Godrick Archer", "Glintstone Sorcerer"},{"Godrick Knight", "Battlemage"}};
+    private static final int[][] healthRanges = {{20, 30}, {25, 35}, {70, 80}};
+    private static final int[][] attackRanges = {{70, 80}, {110, 120}, {120, 130}};
+    private static final double[][] defenseRanges = {
             {0.20, 0.50, 0.25}, // Physical Defense
             {0.15, 0.15, 0.25}, // Sorcery Defense
             {0.10, 0.20, 0.20}  // Incantation Defense
@@ -36,15 +36,15 @@ public class Enemy {
         this.isDefeated = false;
     }
 
-    // initialize enemy stats based on type and area index,, idk if right
+    // initialize enemy stats based on type and area index
     private void initializeStats(int areaIndex) {
         int typeIndex = type.ordinal();
-
-        health = randomValue(HEALTH_RANGES[typeIndex]) * areaIndex;
-        attack = randomValue(ATTACK_RANGES[typeIndex]) * areaIndex;
-        physicalDefense = DEFENSE_RANGES[0][typeIndex];
-        sorceryDefense = DEFENSE_RANGES[1][typeIndex];
-        incantationDefense = DEFENSE_RANGES[2][typeIndex];
+        name = (enemyNames[typeIndex][areaIndex-1]);
+        health = randomValue(healthRanges[typeIndex]) * areaIndex;
+        attack = randomValue(attackRanges[typeIndex]) * areaIndex;
+        physicalDefense = defenseRanges[0][typeIndex];
+        sorceryDefense = defenseRanges[1][typeIndex];
+        incantationDefense = defenseRanges[2][typeIndex];
     }
 
     // helper method to get a random value within a given range
@@ -61,36 +61,26 @@ public class Enemy {
         isDefeated = true;
     }
 
-    // Getters
+    // type setter
     public Type getType() {
         return type;
+    }
+    public void setType(Type type) {
+        this.type=type;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name=name;
+    }
+
     public int getHealth() {
         return health;
     }
 
-    public int getAttack() {
-        return attack;
-    }
-
-    public double getPhysicalDefense() {
-        return physicalDefense;
-    }
-
-    public double getSorceryDefense() {
-        return sorceryDefense;
-    }
-
-    public double getIncantationDefense() {
-        return incantationDefense;
-    }
-
-    // setter for health
     public void setHealth(int health) {
         this.health = health;
         if (this.health <= 0) {
@@ -98,14 +88,61 @@ public class Enemy {
         }
     }
 
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public void setAttack(int attack){
+        this.attack=attack;
+    }
+
+    public double getPhysicalDefense() {
+        return physicalDefense;
+    }
+    
+    public void setPhysicalDefense(double physicalDefense){
+        this.physicalDefense=physicalDefense;
+    }
+
+    public double getSorceryDefense() {
+        return sorceryDefense;
+    }
+
+    public void setSorceryDefense(double sorceryDefense){
+        this.sorceryDefense=sorceryDefense;
+    }
+
+    public double getIncantationDefense() {
+        return incantationDefense;
+    }
+
+    public void setIncantationDefense(double incantationDefense){
+        this.incantationDefense=incantationDefense;
+    }
+
     // this method would be used when an enemy spawns
     public static Enemy spawnEnemy(int areaIndex) {
-        // randomly select the enemy type
-        Type type = Type.values()[random.nextInt(Type.values().length)];
+        int randomType = random.nextInt(3) + 1;
+        Type type;
+
+        switch (randomType) {
+            case 1:
+                type = Type.TYPE1;
+                break;
+            case 2:
+                type = Type.TYPE2;
+                break;
+            case 3:
+                type = Type.TYPE3;
+                break;
+            default :
+                type = Type.TYPE1;
+                break;
+        }
 
         String name = "Enemy";
 
         return new Enemy(type, name, areaIndex);
     }
 }
-

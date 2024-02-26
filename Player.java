@@ -24,7 +24,9 @@ public class Player {
         while(true){
             if(this.runeCount<levelUpCost){
                 System.out.println("You do not have enough runes.");
+                break;
             } else {
+                System.out.println("Which attribute do you want to level up?");
                 ConsoleMethods.printOptions(statChoices);
                 String userInput = sc.nextLine();
                 ConsoleMethods.arrowSelector(userInput, 6);
@@ -71,11 +73,11 @@ public class Player {
     }
 
     //methods for soulCount
-    public int getSoulCount(){
+    public int getRuneCount(){
         return runeCount;
     }
 
-    public void setSoulCount(int runeCount){
+    public void addRunes(int runeCount){
         this.runeCount = runeCount;
     }
 

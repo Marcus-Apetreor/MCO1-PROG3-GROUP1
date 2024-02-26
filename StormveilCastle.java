@@ -1,10 +1,10 @@
-public class StormveilCastle extends Maps {
+public final class StormveilCastle extends Maps {
     
     public StormveilCastle(){
         super(new String[][][] 
         {
             {
-                {"emptyTile", "emptyTile", "fastTravelTile1", "emptyTile", "emptyTile"}, 
+                {"emptyTile", "emptyTile", "fastTravelTileS1", "emptyTile", "emptyTile"}, 
                  {"emptyTile", "emptyTile", "emptyTile", "emptyTile", "emptyTile"},
                  {"emptyTile", "emptyTile", "emptyTile", "emptyTile", "emptyTile"},
                  {"emptyTile", "emptyTile", "bossTile", "emptyTile", "emptyTile"},
@@ -28,7 +28,7 @@ public class StormveilCastle extends Maps {
                  {"emptyTile", "emptyTile", "emptyTile"},
                  {"emptyTile", "emptyTile", "emptyTile"},
                  {"emptyTile", "emptyTile", "emptyTile"},
-                 {"emptyTile", "fastTravelTile0", "emptyTile"}
+                 {"emptyTile", "fastTravelTileS0", "emptyTile"}
             }
         }, 2, 6, 1);
     }

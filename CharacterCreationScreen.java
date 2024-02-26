@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class CharacterCreationScreen {
-
+    private static Player playerInstance;
     private static String[] characterCreationOptions = {"Name", "Select Job Class", "Confirm", "Back"};
     private static String[] jobClasses = {"Vagabond", "Samurai", "Warrior", "Hero", "Astrologer", "Prophet"};
 
@@ -10,7 +10,7 @@ public class CharacterCreationScreen {
     
         Scanner sc = new Scanner(System.in);
     
-        Player playerInstance = new Player();
+        playerInstance = new Player();
     
         while (true) {
             System.out.println("Character Creation Menu\n");
@@ -93,23 +93,7 @@ public class CharacterCreationScreen {
                     System.out.println("Please input a job class to proceed.");
                 } else {
                 ConsoleMethods.clearConsole();
-                playerInstance.playerCard();
-                try{
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                ConsoleMethods.clearConsole();
-                //print jobclass and stats and etc..
-                System.out.println("Travelling to Stormveil Castle...");
-                try{
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                ConsoleMethods.clearConsole();
-                Maps mapsInstance = new StormveilCastle();
-                mapsInstance.play();
+                GameLobby.GameSelector();
                 break;
                 }
     
@@ -122,5 +106,9 @@ public class CharacterCreationScreen {
             }
         }
         sc.close();
+    }
+
+    public static Player getPlayerInstance(){
+        return playerInstance;
     }
 }
