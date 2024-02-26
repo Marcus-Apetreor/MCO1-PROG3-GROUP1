@@ -1,13 +1,12 @@
 import java.util.Random;
 
 public class Enemy {
-    // enum for enemy types
-    public enum Type {
-        TYPE1, TYPE2, TYPE3
+    public enum CharacterType {
+        TYPE1, TYPE2, TYPE3,
+        GODRICK, RENNALA, ELDEN_BEAST, PATCHES
     }
 
-    // enemy stats
-    protected Type type;
+    protected CharacterType type;
     protected String name;
     protected int health;
     protected int attack;
@@ -25,18 +24,14 @@ public class Enemy {
             {0.10, 0.20, 0.20}  // Incantation Defense
     };
 
-    // random number generator
     private static final Random random = new Random();
 
-    // Constructor
-    public Enemy(Type type, String name, int areaIndex) {
+    public Enemy(CharacterType type, int areaIndex) {
         this.type = type;
-        this.name = name;
         initializeStats(areaIndex);
         this.isDefeated = false;
     }
 
-    // initialize enemy stats based on type and area index
     private void initializeStats(int areaIndex) {
         int typeIndex = type.ordinal();
         name = (enemyNames[typeIndex][areaIndex-1]);
@@ -47,12 +42,10 @@ public class Enemy {
         incantationDefense = defenseRanges[2][typeIndex];
     }
 
-    // helper method to get a random value within a given range
     private int randomValue(int[] range) {
         return random.nextInt(range[1] - range[0] + 1) + range[0];
     }
 
-    // methods to interact with the enemy
     public boolean isDefeated() {
         return isDefeated;
     }
@@ -61,12 +54,12 @@ public class Enemy {
         isDefeated = true;
     }
 
-    // type setter
-    public Type getType() {
+    public CharacterType getType() {
         return type;
     }
-    public void setType(Type type) {
-        this.type=type;
+
+    public void setType(CharacterType type) {
+        this.type = type;
     }
 
     public String getName() {
@@ -74,7 +67,7 @@ public class Enemy {
     }
 
     public void setName(String name) {
-        this.name=name;
+        this.name = name;
     }
 
     public int getHealth() {
@@ -88,21 +81,20 @@ public class Enemy {
         }
     }
 
-
     public int getAttack() {
         return attack;
     }
 
     public void setAttack(int attack){
-        this.attack=attack;
+        this.attack = attack;
     }
 
     public double getPhysicalDefense() {
         return physicalDefense;
     }
-    
+
     public void setPhysicalDefense(double physicalDefense){
-        this.physicalDefense=physicalDefense;
+        this.physicalDefense = physicalDefense;
     }
 
     public double getSorceryDefense() {
@@ -110,7 +102,7 @@ public class Enemy {
     }
 
     public void setSorceryDefense(double sorceryDefense){
-        this.sorceryDefense=sorceryDefense;
+        this.sorceryDefense = sorceryDefense;
     }
 
     public double getIncantationDefense() {
@@ -118,31 +110,28 @@ public class Enemy {
     }
 
     public void setIncantationDefense(double incantationDefense){
-        this.incantationDefense=incantationDefense;
+        this.incantationDefense = incantationDefense;
     }
 
-    // this method would be used when an enemy spawns
     public static Enemy spawnEnemy(int areaIndex) {
         int randomType = random.nextInt(3) + 1;
-        Type type;
+        CharacterType type;
 
         switch (randomType) {
             case 1:
-                type = Type.TYPE1;
+                type = CharacterType.TYPE1;
                 break;
             case 2:
-                type = Type.TYPE2;
+                type = CharacterType.TYPE2;
                 break;
             case 3:
-                type = Type.TYPE3;
+                type = CharacterType.TYPE3;
                 break;
             default :
-                type = Type.TYPE1;
+                type = CharacterType.TYPE1;
                 break;
         }
 
-        String name = "Enemy";
-
-        return new Enemy(type, name, areaIndex);
+        return new Enemy(type, areaIndex);
     }
 }

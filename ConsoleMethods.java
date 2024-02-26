@@ -74,13 +74,14 @@ public class ConsoleMethods {
     //aesthetic console methods
     public static void loadingScreen(){
         for(int i=1; i<=3; i++){
+            System.out.print(".");
             try {
                 Thread.sleep(200);
               } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
               }
-            System.out.println(".");
         }
+        clearConsole();
     }
 
     public static void helpfulPrompt(){

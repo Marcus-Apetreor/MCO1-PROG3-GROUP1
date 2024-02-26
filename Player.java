@@ -5,7 +5,7 @@ public class Player {
     private String playerName;
     private String jobClass = "";
     private int playerLevel = 1;
-    private int runeCount;
+    private int runeCount = 500000;
     private Stats playerStats = new Stats();
         
     //getters and setters for level
@@ -17,16 +17,17 @@ public class Player {
         this.playerLevel = playerLevel;
     }
 
-    public void levelUp(){
+    public void levelUp(Scanner sc){
+        ConsoleMethods.refreshScreen();
         int levelUpCost = (playerLevel*100)/2;
         String[] statChoices = {"Vigor", "Endurance", "Dexterity", "Strength", "Intelligence", "Faith"};
-        Scanner sc = new Scanner(System.in);
         while(true){
             if(this.runeCount<levelUpCost){
                 System.out.println("You do not have enough runes.");
                 break;
             } else {
                 System.out.println("Which attribute do you want to level up?");
+                playerCard();
                 ConsoleMethods.printOptions(statChoices);
                 String userInput = sc.nextLine();
                 ConsoleMethods.arrowSelector(userInput, 6);
@@ -57,8 +58,6 @@ public class Player {
                 }
             }
         }
-        sc.close();
-        playerCard();
     }
 
     //methods for playerName

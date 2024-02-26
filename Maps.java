@@ -132,9 +132,10 @@ public class Maps {
     }
 
     public void play() {
+        ConsoleMethods.refreshScreen();
         Scanner sc = new Scanner(System.in);
         String direction;
-    
+        
         while (true) {
             printCurrentRoom();
             System.out.println("Player location: (" + playerRoom + ", " + playerRow + ", " + playerCol + ")");
@@ -175,8 +176,8 @@ public class Maps {
         }
     }
 
-    public Enemy bossTile(int areaIndex){
-        Enemy boss = Boss.spawnBoss(areaIndex);
+    public Boss bossTile(int areaIndex){
+        Boss boss = Boss.spawnBoss(areaIndex);
         System.out.println(boss.getName() + " has appeared!");
         System.out.println("Health: " + boss.getHealth());
         System.out.println("Attack: " + boss.getAttack());

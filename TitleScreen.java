@@ -24,8 +24,6 @@ public class TitleScreen {
                 System.out.println("Exiting the game...");
                 break;
             }
-
-            ConsoleMethods.clearConsole();
         }
         sc.close();
     }

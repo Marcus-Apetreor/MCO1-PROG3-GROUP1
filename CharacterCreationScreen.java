@@ -79,10 +79,8 @@ public class CharacterCreationScreen {
                     playerInstance.setStats(10,8,10,11,7,16);
                     playerInstance.setPlayerLevel(7);
                     break;
-                } ConsoleMethods.clearConsole();
                 }
-                ConsoleMethods.resetSelectedOption();
-                ConsoleMethods.clearConsole();
+                }
     
             } else if (ConsoleMethods.optionCondition(2, userInput)) {
                 if (playerInstance.getPlayerName() == ""){
@@ -92,7 +90,6 @@ public class CharacterCreationScreen {
                     ConsoleMethods.clearConsole();
                     System.out.println("Please input a job class to proceed.");
                 } else {
-                ConsoleMethods.clearConsole();
                 GameLobby.GameSelector();
                 break;
                 }
