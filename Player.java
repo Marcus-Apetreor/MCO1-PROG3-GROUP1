@@ -32,26 +32,31 @@ public class Player {
                 ConsoleMethods.arrowSelector(userInput, 6);
                 if (ConsoleMethods.optionCondition(0, userInput)){
                     this.playerStats.addStats(1,0,0,0,0,0);
+                    runeCount=-levelUpCost;
                     break;
                 } else if (ConsoleMethods.optionCondition(1, userInput)){
                     this.playerStats.addStats(0,1,0,0,0,0);
+                    runeCount=-levelUpCost;
                     break;
                 } else if (ConsoleMethods.optionCondition(2, userInput)){
                     this.playerStats.addStats(0,0,1,0,0,0);
+                    runeCount=-levelUpCost;
                     break;
                 } else if (ConsoleMethods.optionCondition(3, userInput)){
                     this.playerStats.addStats(0,0,0,1,0,0);
+                    runeCount=-levelUpCost;
                     break;
                 } else if (ConsoleMethods.optionCondition(4, userInput)){
                     this.playerStats.addStats(0,0,0,0,1,0);
+                    runeCount=-levelUpCost;
                     break;
                 } else if (ConsoleMethods.optionCondition(5, userInput)){
                     this.playerStats.addStats(0,0,0,0,0,1);
+                    runeCount=-levelUpCost;
                     break;
                 }
             }
         }
-        runeCount=-levelUpCost;
         sc.close();
         playerCard();
     }
