@@ -51,6 +51,7 @@ public class Player {
                 }
             }
         }
+        runeCount=-levelUpCost;
         sc.close();
         playerCard();
     }
