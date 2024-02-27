@@ -6,7 +6,6 @@ import java.util.Random;
  * It also handles enemy spawning and initialization of enemy stats.
  * 
  * @author Marcus Apetreor, Vincent Vuelva
- * @attributes
  */
 public class Enemy {
     public enum EnemyType {

@@ -29,7 +29,11 @@ public class Maps {
      * @param playerRoom The initial room of the player.
      * @param playerRow The initial row of the player.
      * @param playerCol The initial column of the player.
-     * @param areaIndex The index of the current area or map.
+     * @param bossRoom The room of the boss room fast travel tile.
+     * @param bossRow The row of the boss room fast travel tile.
+     * @param bossCol The column of the boss room fast travel tile.
+     * @param areaIndex The index of the current area.
+     * @param prefix The prefix of the current map.
      */
     public Maps(String[][][] tileMap, int playerRoom, int playerRow, int playerCol, int bossRoom, int bossRow, int bossCol, int areaIndex, String prefix) {
         unlockedFastTravelTiles.add(tileMap[playerRoom][playerRow][playerCol]);
@@ -79,8 +83,7 @@ public class Maps {
     }    
     
     /** 
-     * @return ArrayList<String>
-     * returns the arraylist of unlocked fast travel tiles so that the compiler can detect when a fast travel tile is accessible
+     * @return ArrayList String Returns the arraylist of unlocked fast travel tiles so that the compiler can detect when a fast travel tile is accessible.
      */
     public ArrayList<String> getUnlockedFastTravelTiles(){
         return unlockedFastTravelTiles;

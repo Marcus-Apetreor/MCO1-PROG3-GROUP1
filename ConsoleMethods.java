@@ -32,7 +32,7 @@ public class ConsoleMethods {
      * Checks if a specific option has been selected by the user.
      * 
      * @param choiceNumber The number of the choice that the user is currently on.
-     * @param userInput    User input to check if the player has inputted <space>.
+     * @param userInput    User input to check if the player has inputted "space".
      * @return             True if the specific option has been selected by the user, false otherwise.
      */
     public static boolean optionCondition(int choiceNumber, String userInput) {
