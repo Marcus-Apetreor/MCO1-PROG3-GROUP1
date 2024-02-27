@@ -29,6 +29,7 @@ public class TitleScreen {
     }
 
     public static void printTitle() {
+        ConsoleMethods.clearConsole();
         System.out.println("'||''''| '||`     ||`                    '||'''|,                        '||''''| ");
         System.out.println(" ||   .   ||      ||                      ||   ||                         ||   .  ");
         System.out.println(" ||'''|   ||  .|''||  .|''|, `||''|,      ||...|' .|''|, .|''|, '||  ||`  ||'''|  ");

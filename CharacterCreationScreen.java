@@ -81,7 +81,7 @@ public class CharacterCreationScreen {
                     break;
                 }
                 }
-    
+                ConsoleMethods.refreshScreen();
             } else if (ConsoleMethods.optionCondition(2, userInput)) {
                 if (playerInstance.getPlayerName() == ""){
                     ConsoleMethods.clearConsole();

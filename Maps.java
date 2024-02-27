@@ -36,8 +36,10 @@ public class Maps {
                     System.out.print(".xXx. ");
                 } else if (tileMap[playerRoom][i][j].startsWith("doorTile")) {
                     System.out.print("|  °| ");
-                } else if (tileMap[playerRoom][i][j].startsWith("fastTravelTile")) {
-                    System.out.print("o---o ");
+                } else if (unlockedFastTravelTiles.contains(tileMap[playerRoom][i][j])) {
+                    System.out.print("o<O>o ");
+                } else if (!unlockedFastTravelTiles.contains(tileMap[playerRoom][i][j])) {
+                    System.out.println("o<X>o");
                 }
             }
             System.out.println();
@@ -56,6 +58,7 @@ public class Maps {
             newRow++;
         } else if (direction.equalsIgnoreCase("d")) {
             newCol++;
+        } else if (direction.equalsIgnoreCase("e")) {
         } else {
             ConsoleMethods.clearConsole();
             System.out.println("Invalid direction!");
@@ -63,12 +66,9 @@ public class Maps {
         }
         ConsoleMethods.clearConsole();
     
-        if (isValidMove(newRow, newCol)||
-        tileMap[playerRoom][playerRow][playerCol].startsWith("doorTile")||
-        tileMap[playerRoom][playerRow][playerCol].equals("spawnTile")||
-        tileMap[playerRoom][playerRow][playerCol].equals("bossTile")) {
-            if (tileMap[playerRoom][playerRow][playerCol].startsWith("doorTile")){
-                String doorTile = tileMap[playerRoom][playerRow][playerCol];
+        if (isValidMove(newRow, newCol)){
+            if (tileMap[playerRoom][newRow][newCol].startsWith("doorTile")){
+                String doorTile = tileMap[playerRoom][newRow][newCol];
                 int currentRoom = playerRoom;
                 for (int i=0; i<tileMap.length; i++){
                     if (i==currentRoom){
@@ -97,13 +97,20 @@ public class Maps {
                     int doorCol = coordinates[2];
                     tileMap[doorRoom][doorRow][doorCol] = usedDoorName;
                 }
-                if (tileMap[playerRoom][playerRow][playerCol].equals("spawnTile")) {
+                if (unlockedFastTravelTiles.contains(tileMap[playerRoom][newRow][newCol])) {
+                    ConsoleMethods.clearConsole();
+                    System.out.println("You have found a site of grace. Would you like to teleport back?");
+                    System.out.println("Input [e] to teleport.");
+                    if(direction.equalsIgnoreCase("e")){
+                        GameLobby.GameSelector();
+                    }
+                }
+                if (tileMap[playerRoom][newRow][newCol].equals("spawnTile")) {
                     ConsoleMethods.clearConsole();
                     enemyTile(areaIndex);
-                    tileMap[playerRoom][playerRow][playerCol] = "emptyTile";
-                    return;
+                    tileMap[playerRoom][newRow][newCol] = "emptyTile";
                 }
-                if (tileMap[playerRoom][playerRow][playerCol].equals("bossTile")) {
+                if (tileMap[playerRoom][newRow][newCol].equals("bossTile")) {
                     ConsoleMethods.clearConsole();
                     bossTile(areaIndex);
                     tileMap[playerRoom][playerRow][playerCol] = "emptyTile";
@@ -117,7 +124,7 @@ public class Maps {
                             }
                         }
                     }
-                    return;
+                    tileMap[playerRoom][newRow][newCol] = "emptyTile";
                 }
                 playerRow = newRow;
                 playerCol = newCol;
@@ -152,17 +159,8 @@ public class Maps {
             isEnemy=true;
         }
         if (isEnemy){
-            String noun = "An";
             Enemy enemy = Enemy.spawnEnemy(areaIndex);
-            char[] vowels = {'A', 'E', 'I', 'O', 'U'};
-            for (char vowel : vowels) {
-                if (enemy.getName().startsWith(String.valueOf(vowel))) {
-                    noun = "A";
-                    break;
-                }
-            }
-            System.out.println(noun + " " + enemy.getName() + " has appeared!");
-            System.out.println("Type: " + enemy.getType());
+            System.out.println("A " + enemy.getName() + " has appeared!");
             System.out.println("Health: " + enemy.getHealth());
             System.out.println("Attack: " + enemy.getAttack());
             System.out.println("Physical Defense: " + enemy.getPhysicalDefense());

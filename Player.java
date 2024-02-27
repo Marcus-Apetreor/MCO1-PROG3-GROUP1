@@ -18,7 +18,6 @@ public class Player {
     }
 
     public void levelUp(Scanner sc){
-        ConsoleMethods.refreshScreen();
         int levelUpCost = (playerLevel*100)/2;
         String[] statChoices = {"Vigor", "Endurance", "Dexterity", "Strength", "Intelligence", "Faith"};
         while(true){
@@ -26,7 +25,8 @@ public class Player {
                 System.out.println("You do not have enough runes.");
                 break;
             } else {
-                System.out.println("Which attribute do you want to level up?");
+                ConsoleMethods.refreshScreen();
+                System.out.println("Choose an attribute to level up.");
                 playerCard();
                 ConsoleMethods.printOptions(statChoices);
                 String userInput = sc.nextLine();
