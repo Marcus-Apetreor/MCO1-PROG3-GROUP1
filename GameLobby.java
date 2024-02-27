@@ -9,9 +9,9 @@ import java.util.*;
 public class GameLobby {
 
     private static String[] gameSelectorOptions = {"Fast Travel", "Level Up", "Inventory", "Shop", "Exit Game"};
-    private static ArrayList<String> unlockedMapOptions = new ArrayList<String>();
     private static String[] mapOptions = {"Stormveil Castle", "Raya Lucaria Academy", "The Elden Throne"};
-    
+    private static int lockedOptions = 2;
+
     /**
      * Facilitates the Game Lobby menu and its functionalities.
      * 
@@ -19,7 +19,6 @@ public class GameLobby {
      */
     public static void GameSelector(Scanner sc){
         ConsoleMethods.refreshScreen();
-        unlockedMapOptions.add(mapOptions[0]);
         while (true) {
             CharacterCreationScreen.getPlayerInstance().playerCard();
             System.out.println("Roundtable Hold\n\n");
@@ -30,12 +29,12 @@ public class GameLobby {
             if (ConsoleMethods.optionCondition(0, userInput)) {
                 ConsoleMethods.refreshScreen();
                 while (true){
-                    System.out.println("Fast travel areas unlocked:");
-                    ConsoleMethods.printOptions(mapOptions);
+                    System.out.println("Floors:");
+                    ConsoleMethods.printOptionsLocked(mapOptions, lockedOptions);
                     
                     String locationInput = sc.nextLine();
                     
-                    ConsoleMethods.arrowSelector(locationInput, 6);
+                    ConsoleMethods.arrowSelector(locationInput, 3-lockedOptions);
                     
                     if(ConsoleMethods.optionCondition(0, locationInput)) {
                         System.err.println("Fast Travelling to Stormveil Castle");
@@ -45,21 +44,14 @@ public class GameLobby {
                         break;
                     }
                     else if(ConsoleMethods.optionCondition(1, locationInput)) {
-                        if (unlockedMapOptions.contains(mapOptions[1])){
-                        } else {
-                            System.out.println("LOCKED, please complete " + mapOptions[0] + " first!");
-                            break;
-                        }
+                        System.out.println("Come back another time.");
                         break;
                     } else if(ConsoleMethods.optionCondition(2, locationInput)) {
-                        if (unlockedMapOptions.contains(mapOptions[2])){
-                        } else {
-                            System.out.println("LOCKED, please complete " + mapOptions[1] + " first!");
-                            break;
-                        }
+                        System.out.println("Come back another time.");
                         break;
                     }
                 }
+                ConsoleMethods.refreshScreen();
             } else if (ConsoleMethods.optionCondition(1, userInput)) {
                 CharacterCreationScreen.getPlayerInstance().levelUp(sc);
             } else if (ConsoleMethods.optionCondition(2, userInput)) {

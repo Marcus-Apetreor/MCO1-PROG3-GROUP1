@@ -29,6 +29,30 @@ public class ConsoleMethods {
     }
 
     /**
+     * Prints an array of options with a selector on the currently selected option. There are locked options which may be unlocked if the passed "locked" value is lessened.
+     * 
+     * @param options An array of options to be printed.
+     * @param locked The ammount of locked options.
+     */
+    public static void printOptionsLocked(String[] options, int locked) {
+        for (int i = 0; i < options.length; i++) {
+            if (i == selectedOption) {
+                System.out.print(">");
+            } else {
+                System.out.print(" ");
+            }
+    
+            // Print the option
+            if (i >= options.length - locked) {
+                System.out.println(" " + options[i] + " [LOCKED]");
+            } else {
+                System.out.println(" " + options[i]);
+            }
+        }
+        helpfulPrompt();
+    }    
+
+    /**
      * Checks if a specific option has been selected by the user.
      * 
      * @param choiceNumber The number of the choice that the user is currently on.

@@ -21,6 +21,17 @@ public class Maps {
     private int areaIndex;
     private static ArrayList<String> unlockedFastTravelTiles = new ArrayList<>();
     private boolean getOut = false;
+
+
+    public static int getUnlockedFastTravelTilesCount() {
+        int count = 0;
+        for (String tile : unlockedFastTravelTiles) {
+            if (tile.endsWith("1")) {
+                count++;
+            }
+        }
+        return count;
+    }
     
     /**
      * Constructor for creating map instances.
@@ -68,7 +79,7 @@ public class Maps {
                 System.err.println("Where would you like to spawn?");
                 ConsoleMethods.printOptions(spawnOptions);
                 String userInput = sc.nextLine();
-                ConsoleMethods.arrowSelector(userInput, 2);
+                ConsoleMethods.arrowSelector(userInput, 5);
                 if (ConsoleMethods.optionCondition(0,userInput)){
                     break;
                 } else if (ConsoleMethods.optionCondition(1, userInput)){
