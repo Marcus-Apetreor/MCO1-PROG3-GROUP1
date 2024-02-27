@@ -93,15 +93,15 @@ public class CharacterCreationScreen {
                 }
                 ConsoleMethods.refreshScreen();
             } else if (ConsoleMethods.optionCondition(2, userInput)) {
-                if (playerInstance.getPlayerName().isEmpty()){
+                if (playerInstance.getPlayerName().isEmpty()&&playerInstance.getJobClass().isEmpty()){
                     ConsoleMethods.clearConsole();
-                    System.out.println("Please input a player name to proceed.");
+                    System.out.println("Please input a player name and a job class to proceed");
                 } else if (playerInstance.getJobClass().isEmpty()){
                     ConsoleMethods.clearConsole();
                     System.out.println("Please input a job class to proceed.");
-                } else if (playerInstance.getPlayerName().isEmpty()&&playerInstance.getJobClass().isEmpty()) {
+                } else if (playerInstance.getPlayerName().isEmpty()) {
                     ConsoleMethods.clearConsole();
-                    System.out.println("Please input a player name and a job class to proceed");
+                    System.out.println("Please input a player name to proceed.");
                 } else {
                 GameLobby.GameSelector(sc);
                 break;
