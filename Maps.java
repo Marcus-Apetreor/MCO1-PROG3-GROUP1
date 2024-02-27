@@ -64,7 +64,7 @@ public class Maps {
                 } else if (unlockedFastTravelTiles.contains(tileMap[playerRoom][i][j])) {
                     System.out.print("o<O>o ");
                 } else if (!unlockedFastTravelTiles.contains(tileMap[playerRoom][i][j])) {
-                    System.out.println("o<X>o");
+                    System.out.print("o<X>o ");
                 }
             }
             System.out.println();
