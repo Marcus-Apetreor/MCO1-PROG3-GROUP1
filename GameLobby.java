@@ -21,8 +21,8 @@ public class GameLobby {
         ConsoleMethods.refreshScreen();
         unlockedMapOptions.add(mapOptions[0]);
         while (true) {
-            System.out.print("Roundtable Hold\n\n");
-            System.out.println("You have " + CharacterCreationScreen.getPlayerInstance().getRuneCount() + " Runes.");
+            CharacterCreationScreen.getPlayerInstance().playerCard();
+            System.out.println("Roundtable Hold\n\n");
             ConsoleMethods.printOptions(gameSelectorOptions);
             String userInput = sc.nextLine();
             ConsoleMethods.arrowSelector(userInput, 5);

@@ -6,12 +6,13 @@ import java.util.Random;
  * It also handles enemy spawning and initialization of enemy stats.
  * 
  * @author Marcus Apetreor, Vincent Vuelva
+ * @attributes
  */
 public class Enemy {
     public enum EnemyType {
         TYPE1, TYPE2, TYPE3
     }
-
+    
     protected EnemyType type;
     protected String name;
     protected int health;
@@ -217,9 +218,10 @@ public class Enemy {
     }
 
     /**
-     * Spawns an enemy specific to the area index.
+     * Spawns a enemy specific to the area index.
      * 
-     * @return Enemy 
+     * @param areaIndex The index of the area where the boss is spawned.
+     * @return An Enemy object representing the spawned enemy.
      */
     public static Enemy spawnEnemy(int areaIndex) {
         int randomType = random.nextInt(3) + 1;
