@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class Player {
 
-    private String playerName;
+    private String playerName = "";
     private String jobClass = "";
     private int playerLevel = 1;
     private int runeCount;

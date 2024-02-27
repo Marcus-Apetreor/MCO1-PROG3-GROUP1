@@ -29,19 +29,20 @@ public class CharacterCreationScreen {
     
             if (ConsoleMethods.optionCondition(0, userInput)) {
                 boolean errorFlag = true;
-                while(errorFlag){
+                while (errorFlag) {
                     System.out.println("Input username [max of 25 characters] :");
-                    String playerInstanceName = sc.nextLine();
-                    if (playerInstanceName != null || playerInstanceName != "" || playerInstanceName != " ") {
-                        if (playerInstanceName.length()>25){
+                    String playerInstanceName = sc.nextLine().trim(); // Trim to remove leading/trailing whitespaces
+                    if (!playerInstanceName.isEmpty()) { // Check if the input is not empty
+                        if (playerInstanceName.length() > 25) {
                             playerInstanceName = playerInstanceName.substring(0, 25);
                         }
                         playerInstance.setPlayerName(playerInstanceName);
                         errorFlag = false;
                         ConsoleMethods.clearConsole();
+                    } else {
+                        ConsoleMethods.clearConsole();
+                        System.out.println("Please enter a username.");
                     }
-                    ConsoleMethods.clearConsole();
-                    System.out.println("Please enter a username.");
                 }
             } else if (ConsoleMethods.optionCondition(1, userInput)) {
                 ConsoleMethods.refreshScreen();
@@ -92,10 +93,10 @@ public class CharacterCreationScreen {
                 }
                 ConsoleMethods.refreshScreen();
             } else if (ConsoleMethods.optionCondition(2, userInput)) {
-                if (playerInstance.getPlayerName() != null || playerInstance.getPlayerName() != "" || playerInstance.getPlayerName() != " "){
+                if (playerInstance.getPlayerName().isEmpty()){
                     ConsoleMethods.clearConsole();
                     System.out.println("Please input a player name to proceed.");
-                } else if (playerInstance.getJobClass() == ""){
+                } else if (playerInstance.getJobClass().isEmpty()){
                     ConsoleMethods.clearConsole();
                     System.out.println("Please input a job class to proceed.");
                 } else {
