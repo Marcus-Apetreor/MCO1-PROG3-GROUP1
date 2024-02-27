@@ -5,7 +5,7 @@ public class Player {
     private String playerName;
     private String jobClass = "";
     private int playerLevel = 1;
-    private int runeCount = 500000;
+    private int runeCount;
     private Stats playerStats = new Stats();
         
     //getters and setters for level
