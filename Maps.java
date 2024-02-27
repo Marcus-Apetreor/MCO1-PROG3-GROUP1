@@ -36,7 +36,7 @@ public class Maps {
                     System.out.print(".xXx. ");
                 } else if (tileMap[playerRoom][i][j].startsWith("doorTile")) {
                     System.out.print("|  °| ");
-                } else if (tileMap[playerRoom][i][j].startsWith("lockedTravelTile")) {
+                } else if (tileMap[playerRoom][i][j].startsWith("fastTravelTile")) {
                     System.out.print("o---o ");
                 }
             }
@@ -138,7 +138,6 @@ public class Maps {
         
         while (true) {
             printCurrentRoom();
-            System.out.println("Player location: (" + playerRoom + ", " + playerRow + ", " + playerCol + ")");
             System.out.print("Enter direction (w/a/s/d): ");
             direction = sc.nextLine();
             movePlayer(direction);

@@ -4,22 +4,24 @@ public class Boss extends Enemy {
 
     private int attackRanges[][]={{150,300},{200,300},{250,500}};
     private int healthValues[]={200,400,800};
-    private String enemyNames[]={"Godrick the Grafted", "Rennala, Queen of the Full Moon", "The Elden Beast"};
+    private String bossNames[]={"Godrick the Grafted", "Rennala, Queen of the Full Moon", "The Elden Beast"};
     private double defenseValues[][]={{0.35,0.2,0.15},{0.15,0.35,0.25},{0.25,0.5,0.4}};
 
-    public Boss(CharacterType type, int areaIndex) {
+    public Boss(EnemyType type, int areaIndex) {
         super(type, areaIndex);
+        this.type=type;
         initializeStats(areaIndex); // Initialize stats based on type
         this.isDefeated = false;
     }
 
     private void initializeStats(int areaIndex) {
-        name = (enemyNames[areaIndex-1]);
-        health = healthValues[areaIndex-1];
-        attack = randomValue(attackRanges[areaIndex]);
-        physicalDefense = defenseValues[areaIndex][0];
-        sorceryDefense = defenseValues[areaIndex][1];
-        incantationDefense = defenseValues[areaIndex][2];
+        int bossAreaIndex = areaIndex-1;
+        name = bossNames[bossAreaIndex];
+        health = healthValues[bossAreaIndex];
+        attack = randomValue(attackRanges[bossAreaIndex]);
+        physicalDefense = defenseValues[bossAreaIndex][0];
+        sorceryDefense = defenseValues[bossAreaIndex][1];
+        incantationDefense = defenseValues[bossAreaIndex][2];
     }
 
     private int randomValue(int[] range) {
@@ -28,19 +30,19 @@ public class Boss extends Enemy {
     }
 
     public static Boss spawnBoss(int areaIndex) {
-        Enemy.CharacterType type;
-        switch (areaIndex) {
+        Enemy.EnemyType type;
+        switch (areaIndex-1) {
             case 1:
-                type = CharacterType.GODRICK;
+                type = EnemyType.TYPE1;
                 break;
             case 2:
-                type = CharacterType.RENNALA;
+                type = EnemyType.TYPE2;
                 break;
             case 3:
-                type = CharacterType.ELDEN_BEAST;
+                type = EnemyType.TYPE3;
                 break;
             default :
-                type = CharacterType.PATCHES;
+                type = EnemyType.TYPE1;
                 break;
         }
         return new Boss(type, areaIndex);

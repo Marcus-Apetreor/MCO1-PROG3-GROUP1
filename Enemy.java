@@ -1,12 +1,11 @@
 import java.util.Random;
 
 public class Enemy {
-    public enum CharacterType {
-        TYPE1, TYPE2, TYPE3,
-        GODRICK, RENNALA, ELDEN_BEAST, PATCHES
+    public enum EnemyType {
+        TYPE1, TYPE2, TYPE3
     }
 
-    protected CharacterType type;
+    protected EnemyType type;
     protected String name;
     protected int health;
     protected int attack;
@@ -26,7 +25,7 @@ public class Enemy {
 
     private static final Random random = new Random();
 
-    public Enemy(CharacterType type, int areaIndex) {
+    public Enemy(EnemyType type, int areaIndex) {
         this.type = type;
         initializeStats(areaIndex);
         this.isDefeated = false;
@@ -54,11 +53,11 @@ public class Enemy {
         isDefeated = true;
     }
 
-    public CharacterType getType() {
+    public EnemyType getType() {
         return type;
     }
 
-    public void setType(CharacterType type) {
+    public void setType(EnemyType type) {
         this.type = type;
     }
 
@@ -115,20 +114,20 @@ public class Enemy {
 
     public static Enemy spawnEnemy(int areaIndex) {
         int randomType = random.nextInt(3) + 1;
-        CharacterType type;
+        EnemyType type;
 
         switch (randomType) {
             case 1:
-                type = CharacterType.TYPE1;
+                type = EnemyType.TYPE1;
                 break;
             case 2:
-                type = CharacterType.TYPE2;
+                type = EnemyType.TYPE2;
                 break;
             case 3:
-                type = CharacterType.TYPE3;
+                type = EnemyType.TYPE3;
                 break;
             default :
-                type = CharacterType.TYPE1;
+                type = EnemyType.TYPE1;
                 break;
         }
 
