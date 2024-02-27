@@ -99,6 +99,9 @@ public class CharacterCreationScreen {
                 } else if (playerInstance.getJobClass().isEmpty()){
                     ConsoleMethods.clearConsole();
                     System.out.println("Please input a job class to proceed.");
+                } else if (playerInstance.getPlayerName().isEmpty()&&playerInstance.getJobClass().isEmpty()) {
+                    ConsoleMethods.clearConsole();
+                    System.out.println("Please input a player name and a job class to proceed");
                 } else {
                 GameLobby.GameSelector(sc);
                 break;
