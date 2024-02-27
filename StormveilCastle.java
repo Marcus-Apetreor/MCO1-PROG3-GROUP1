@@ -14,7 +14,7 @@ public final class StormveilCastle extends Maps {
         super(new String[][][] 
         {
             {
-                {"emptyTile", "emptyTile", "fastTravelTileS1", "emptyTile", "emptyTile"}, 
+                {"emptyTile", "emptyTile", "SFastTravelTile1", "emptyTile", "emptyTile"}, 
                  {"emptyTile", "emptyTile", "emptyTile", "emptyTile", "emptyTile"},
                  {"emptyTile", "emptyTile", "emptyTile", "emptyTile", "emptyTile"},
                  {"emptyTile", "emptyTile", "bossTile", "emptyTile", "emptyTile"},
@@ -38,8 +38,8 @@ public final class StormveilCastle extends Maps {
                  {"emptyTile", "emptyTile", "emptyTile"},
                  {"emptyTile", "emptyTile", "emptyTile"},
                  {"emptyTile", "emptyTile", "emptyTile"},
-                 {"emptyTile", "fastTravelTileS0", "emptyTile"}
+                 {"emptyTile", "SFastTravelTile0", "emptyTile"}
             }
-        }, 2, 6, 1, 1);
+        }, 2, 6, 1, 0, 0, 2, 1, "S");
     }
 }

@@ -12,10 +12,14 @@ public class Maps {
     private int playerRoom;
     private int playerRow;
     private int playerCol;
+    private int bossRoom;
+    private int bossRow;
+    private int bossCol;
+    private String prefix;
     private String usedDoorName;
     private int[] usedDoorCoordinates;
     private int areaIndex;
-    private ArrayList<String> unlockedFastTravelTiles = new ArrayList<>();
+    private static ArrayList<String> unlockedFastTravelTiles = new ArrayList<>();
     private boolean getOut = false;
     
     /**
@@ -27,15 +31,52 @@ public class Maps {
      * @param playerCol The initial column of the player.
      * @param areaIndex The index of the current area or map.
      */
-    public Maps(String[][][] tileMap,int playerRoom,int playerRow,int playerCol, int areaIndex) {
+    public Maps(String[][][] tileMap, int playerRoom, int playerRow, int playerCol, int bossRoom, int bossRow, int bossCol, int areaIndex, String prefix) {
         unlockedFastTravelTiles.add(tileMap[playerRoom][playerRow][playerCol]);
         this.tileMap = tileMap;
         this.playerRoom = playerRoom; // Starting room for the player
         this.playerRow = playerRow; // Starting row for the player
         this.playerCol = playerCol; // Starting column for the player
+        this.bossRoom = bossRoom;
+        this.bossRow = bossRow;
+        this.bossCol = bossCol;
+        this.prefix = prefix;
         this.areaIndex = areaIndex;
     }
 
+    
+    /**
+     * Initiates the game loop for map traversal and interaction.
+     * 
+     * @param sc The scanner object to accept user input.
+     */
+    public void chooseSpawnLocation(Scanner sc) {
+        boolean bossRoomUnlocked = false;
+        String[] spawnOptions = {"Start", "Boss"};
+        for (String tile : unlockedFastTravelTiles) {
+            if (tile.startsWith(prefix) && tile.endsWith("1")) {
+                bossRoomUnlocked = true;
+                break;
+            }
+        }
+        if (bossRoomUnlocked) {
+            while(true){
+                System.err.println("Where would you like to spawn?");
+                ConsoleMethods.printOptions(spawnOptions);
+                String userInput = sc.nextLine();
+                ConsoleMethods.arrowSelector(userInput, 5);
+                if (ConsoleMethods.optionCondition(0,userInput)){
+                    break;
+                } else if (ConsoleMethods.optionCondition(1, userInput)){
+                    playerRoom = bossRoom;
+                    playerRow = bossRow;
+                    playerCol = bossCol;
+                    break;
+                }
+            }
+        }
+        play(sc);
+    }    
     
     /** 
      * @return ArrayList<String>
@@ -70,7 +111,6 @@ public class Maps {
             System.out.println();
         }
     }    
-
     
     /**
      * Moves the player on the map according to the given direction.
@@ -80,7 +120,7 @@ public class Maps {
     public void movePlayer(String direction) {
         int newRow = playerRow;
         int newCol = playerCol;
-        
+
         if (direction.equalsIgnoreCase("w")){
             newRow--;
         } else if (direction.equalsIgnoreCase("a")) {
@@ -149,7 +189,7 @@ public class Maps {
                     for (int i=0; i<tileMap.length; i++){
                         for (int j=0; j<tileMap[i].length; j++){
                             for (int k=0; k<tileMap[i][j].length; k++){
-                                if(tileMap[i][j][k].startsWith("fastTravelTile")){
+                                if(tileMap[i][j][k].endsWith("1")){
                                     String fastTravelTile = tileMap[i][j][k];
                                     unlockedFastTravelTiles.add(fastTravelTile);
                                 }

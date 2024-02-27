@@ -41,7 +41,7 @@ public class GameLobby {
                         System.err.println("Fast Travelling to Stormveil Castle");
                         ConsoleMethods.loadingScreen();
                         Maps stormveilCastle = new StormveilCastle();
-                        stormveilCastle.play(sc);
+                        stormveilCastle.chooseSpawnLocation(sc);
                         break;
                     }
                     else if(ConsoleMethods.optionCondition(1, locationInput)) {
