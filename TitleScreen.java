@@ -1,34 +1,52 @@
 import java.util.*;
 
+/**
+ * Class representing the title screen of the game.
+ * Allows players to start the game or exit.
+ * 
+ * Authors: Marcus Apetreor, Vincent Vuelva
+ */
 public class TitleScreen {
 
+    // Options available on the title screen
     private static String[] titleOptions = {"Start", "Exit"};
 
+    /**
+     * Main method representing the title screen.
+     * @param args Command-line arguments
+     */
     public static void main(String[] args) {
         ConsoleMethods.refreshScreen();
         Scanner sc = new Scanner(System.in);
 
+        // Display title screen until the player chooses to start or exit
         while (true) {
-            printTitle();
-            ConsoleMethods.printOptions(titleOptions);
+            printTitle(); // Print the title in ASCII art
+            ConsoleMethods.printOptions(titleOptions); // Print title options
 
             String userInput = sc.nextLine();
 
-            ConsoleMethods.arrowSelector(userInput, 2);
+            ConsoleMethods.arrowSelector(userInput, 2); // Select option based on user input
 
+            // Start the game if the player chooses to start
             if (ConsoleMethods.optionCondition(0,userInput)) {
                 System.out.println("Starting the game...");
-                CharacterCreationScreen.characterCreation();
+                CharacterCreationScreen.characterCreation(sc); // Proceed to character creation
                 break;
-            } else if (ConsoleMethods.optionCondition(1,userInput)) {
+            } 
+            // Exit the game if the player chooses to exit
+            else if (ConsoleMethods.optionCondition(1,userInput)) {
                 System.out.println("Exiting the game...");
                 break;
             }
         }
-        sc.close();
+        sc.close(); // Close the scanner
     }
 
-    public static void printTitle() {
+    /**
+     * Helper method to print the title in ASCII art.
+     */
+    private final static void printTitle() {
         ConsoleMethods.clearConsole();
         System.out.println("'||''''| '||`     ||`                    '||'''|,                        '||''''| ");
         System.out.println(" ||   .   ||      ||                      ||   ||                         ||   .  ");
@@ -37,7 +55,6 @@ public class TitleScreen {
         System.out.println(".||....| .||. `|..||. `|...  .||  ||.    .||  \\\\. `|..|' `|..||  `|..'|. .||....| ");
         System.out.println("                                                             ||                   ");
         System.out.println("                                                          `..|'                   ");
-        System.out.println();
         System.out.println();
         System.out.println("<>-<> <>-<> <>-<> ");
         System.out.println();

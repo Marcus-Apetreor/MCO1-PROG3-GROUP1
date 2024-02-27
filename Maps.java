@@ -1,5 +1,11 @@
 import java.util.*;
 
+/**
+ * Class to facilitate map traversal, map loading, and manage map rules.
+ * It allows players to move around the game world, encounter enemies, find items, and interact with various tiles.
+ * 
+ * @author Marcus Apetreor, Vincent Vuelva
+ */
 public class Maps {
     private static final Random random = new Random();
     private final String[][][] tileMap;
@@ -8,21 +14,40 @@ public class Maps {
     private int playerCol;
     private String usedDoorName;
     private int[] usedDoorCoordinates;
-    private int areaIndex=1;
+    private int areaIndex;
     private ArrayList<String> unlockedFastTravelTiles = new ArrayList<>();
-
-    public Maps(String[][][] tileMap,int playerRoom,int playerRow,int playerCol) {
+    private boolean getOut = false;
+    
+    /**
+     * Constructor for creating map instances.
+     * 
+     * @param tileMap The 3D array representing the map layout.
+     * @param playerRoom The initial room of the player.
+     * @param playerRow The initial row of the player.
+     * @param playerCol The initial column of the player.
+     * @param areaIndex The index of the current area or map.
+     */
+    public Maps(String[][][] tileMap,int playerRoom,int playerRow,int playerCol, int areaIndex) {
         unlockedFastTravelTiles.add(tileMap[playerRoom][playerRow][playerCol]);
         this.tileMap = tileMap;
         this.playerRoom = playerRoom; // Starting room for the player
         this.playerRow = playerRow; // Starting row for the player
         this.playerCol = playerCol; // Starting column for the player
+        this.areaIndex = areaIndex;
     }
 
+    
+    /** 
+     * @return ArrayList<String>
+     * returns the arraylist of unlocked fast travel tiles so that the compiler can detect when a fast travel tile is accessible
+     */
     public ArrayList<String> getUnlockedFastTravelTiles(){
         return unlockedFastTravelTiles;
     }
 
+    /**
+     * Prints the current room layout with the player's position.
+     */
     public void printCurrentRoom() {
         for (int i = 0; i < tileMap[playerRoom].length; i++) {
             for (int j = 0; j < tileMap[playerRoom][i].length; j++) {
@@ -46,6 +71,12 @@ public class Maps {
         }
     }    
 
+    
+    /**
+     * Moves the player on the map according to the given direction.
+     * 
+     * @param direction The direction in which the player should move.
+     */
     public void movePlayer(String direction) {
         int newRow = playerRow;
         int newCol = playerCol;
@@ -102,12 +133,13 @@ public class Maps {
                     System.out.println("You have found a site of grace. Would you like to teleport back?");
                     System.out.println("Input [e] to teleport.");
                     if(direction.equalsIgnoreCase("e")){
-                        GameLobby.GameSelector();
+                        ConsoleMethods.clearConsole();
+                        getOut = true;
                     }
                 }
                 if (tileMap[playerRoom][newRow][newCol].equals("spawnTile")) {
                     ConsoleMethods.clearConsole();
-                    enemyTile(areaIndex);
+                    spawnTile(areaIndex);
                     tileMap[playerRoom][newRow][newCol] = "emptyTile";
                 }
                 if (tileMap[playerRoom][newRow][newCol].equals("bossTile")) {
@@ -134,24 +166,43 @@ public class Maps {
         }
     }    
 
+    
+    /**
+     * Checks if a move to the specified row and column is within bounds.
+     * 
+     * @param row The row index.
+     * @param col The column index.
+     * @return boolean True if the move is valid, false otherwise.
+     */
     private boolean isValidMove(int row, int col) {
         return row >= 0 && row < tileMap[playerRoom].length && col >= 0 && col < tileMap[playerRoom][row].length;
     }
 
-    public void play() {
+    
+    /**
+     * Initiates the game loop for map traversal and interaction.
+     * 
+     * @param sc The scanner object to accept user input.
+     */
+    public void play(Scanner sc) {
         ConsoleMethods.refreshScreen();
-        Scanner sc = new Scanner(System.in);
         String direction;
         
-        while (true) {
+        while (!getOut) {
             printCurrentRoom();
             System.out.print("Enter direction (w/a/s/d): ");
             direction = sc.nextLine();
             movePlayer(direction);
         }
     }    
-
-    public void enemyTile(int areaIndex){
+    
+    
+    /**
+     * Handles the mechanics when a player steps onto a spawn tile.
+     * 
+     * @param areaIndex The index of the current area.
+     */
+    public void spawnTile(int areaIndex){
         boolean isEnemy;
         if (random.nextDouble()<=0.25){
             isEnemy=false;
@@ -173,6 +224,13 @@ public class Maps {
         }
     }
 
+    
+    /**
+     * Handles the mechanics when a player steps onto a boss tile.
+     * 
+     * @param areaIndex The index of the current area.
+     * @return Boss The instantiated boss.
+     */
     public Boss bossTile(int areaIndex){
         Boss boss = Boss.spawnBoss(areaIndex);
         System.out.println(boss.getName() + " has appeared!");

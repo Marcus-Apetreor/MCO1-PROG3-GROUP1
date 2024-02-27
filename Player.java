@@ -1,5 +1,10 @@
 import java.util.*;
-
+/**
+ * Class for representing a player character in the game.
+ * It contains player attributes and methods related to leveling up and managing stats.
+ * 
+ * @author Marcus Apetreor, Vincent Vuelva
+ */
 public class Player {
 
     private String playerName;
@@ -8,19 +13,37 @@ public class Player {
     private int runeCount;
     private Stats playerStats = new Stats();
         
-    //getters and setters for level
+    
+    /** 
+     * Getter for the player's level.
+     * 
+     * @return int The player's level.
+     */
     public int getPlayerLevel(){
         return playerLevel;
     }
 
+    
+    /** 
+     * Setter for the player's level.
+     * 
+     * @param playerLevel The level to set for the player.
+     */
     public void setPlayerLevel(int playerLevel){
         this.playerLevel = playerLevel;
     }
 
+    /** 
+     * Method to level up the player's stats.
+     * 
+     * @param sc The scanner object to accept user input.
+     */
     public void levelUp(Scanner sc){
         int levelUpCost = (playerLevel*100)/2;
         String[] statChoices = {"Vigor", "Endurance", "Dexterity", "Strength", "Intelligence", "Faith"};
         while(true){
+            System.out.println("You have " + CharacterCreationScreen.getPlayerInstance().getRuneCount() + " Runes.");
+            System.out.println("You need " + levelUpCost + " Runes to level up.");
             if(this.runeCount<levelUpCost){
                 System.out.println("You do not have enough runes.");
                 break;
@@ -60,40 +83,84 @@ public class Player {
         }
     }
 
+    
+    /** 
+     * Getter for the player's name.
+     * 
+     * @return String The player's name.
+     */
     //methods for playerName
     public String getPlayerName(){
         return playerName;
     }
+    
+    /** 
+     * Setter for the player's name.
+     * 
+     * @param playerName The name to set for the player.
+     */
     public void setPlayerName(String playerName){
         this.playerName = playerName;
     }
 
-    //methods for jobClass
+    
+    /** 
+     * Getter for the player's job class.
+     * 
+     * @return String The player's job class.
+     */
     public String getJobClass(){
         return jobClass;
     }
 
+    
+    /** 
+     * Setter for the player's job class.
+     * 
+     * @param jobClass The job class to set for the player.
+     */
     public void setJobClass(String jobClass){
         this.jobClass = jobClass; 
     }
 
+    
+    /** 
+     * Getter for the player's rune count.
+     * 
+     * @return int The player's rune count.
+     */
     //methods for soulCount
     public int getRuneCount(){
         return runeCount;
     }
 
+    
+    /** 
+     * Setter for adding runes to the player's total rune count.
+     * 
+     * @param runeCount The number of runes to add.
+     */
     public void addRunes(int runeCount){
         this.runeCount = runeCount;
     }
 
-    //methods for stats
-
+    /** 
+     * Setter for the player's stats.
+     * 
+     * @param Vigor The vigor stat attribute for the player.
+     * @param Endurance The endurance stat attribute for the player.
+     * @param Dexterity The dexterity stat attribute for the player.
+     * @param Strength The strength stat attribute for the player.
+     * @param Intelligence The intelligence stat attribute for the player.
+     * @param Faith The faith stat attribute for the player.
+     */
     public void setStats(int Vigor,int Endurance,int Dexterity,int Strength,int Intelligence,int Faith){
         this.playerStats.setStats(Vigor, Endurance, Dexterity, Strength, Intelligence, Faith);
     }
 
-    //methods for soul count calculation (leveling up or buying from shop or selling to shop)
-
+    /**
+     * Method to print the player's card with all the player info.
+     */
     public void playerCard(){
         System.out.println("Name: " + playerName);
         System.out.println("-----------");

@@ -1,14 +1,23 @@
 import java.util.*;
-
+/**
+ * Class to facilitate character creation and instantiation of a player instance.
+ * Allows users to create a character with specific attributes.
+ * 
+ * @author Marcus Apetreor, Vincent Vuelva
+ */
 public class CharacterCreationScreen {
     private static Player playerInstance;
     private static String[] characterCreationOptions = {"Name", "Select Job Class", "Confirm", "Back"};
     private static String[] jobClasses = {"Vagabond", "Samurai", "Warrior", "Hero", "Astrologer", "Prophet"};
 
-    public static void characterCreation(){
-        ConsoleMethods.refreshScreen();
     
-        Scanner sc = new Scanner(System.in);
+    /**
+     * Displays the character creation menu and allows users to craft a player instance.
+     * 
+     * @param sc The scanner object to reuse for input.
+     */
+    public static void characterCreation(Scanner sc){
+        ConsoleMethods.refreshScreen();
     
         playerInstance = new Player();
     
@@ -90,7 +99,7 @@ public class CharacterCreationScreen {
                     ConsoleMethods.clearConsole();
                     System.out.println("Please input a job class to proceed.");
                 } else {
-                GameLobby.GameSelector();
+                GameLobby.GameSelector(sc);
                 break;
                 }
     
@@ -102,9 +111,14 @@ public class CharacterCreationScreen {
                 break;
             }
         }
-        sc.close();
     }
 
+    
+    /**
+     * Returns the player instance created during character creation.
+     * 
+     * @return The player instance.
+     */
     public static Player getPlayerInstance(){
         return playerInstance;
     }

@@ -1,3 +1,9 @@
+/**
+ * Class that represents player statistics and provides methods to manage them.
+ * It houses attributes and methods related to player stats.
+ * 
+ * @author Marcus Apetreor, Vincent Vuelva
+ */
 public class Stats {
     private int Vigor;
     private int Endurance;
@@ -6,6 +12,9 @@ public class Stats {
     private int Intelligence;
     private int Faith;
 
+    /**
+     * Method to print all of the stats.
+     */
     public void statCard(){
         System.out.println("VIG: " + Vigor);
         System.out.println("END: " + Endurance);
@@ -15,6 +24,16 @@ public class Stats {
         System.out.println("FTH: " + Faith);
     }
 
+    /** 
+     * Setter for the player's stats.
+     * 
+     * @param Vigor The vigor stat attribute to set.
+     * @param Endurance The endurance stat attribute to set.
+     * @param Dexterity The dexterity stat attribute to set.
+     * @param Strength The strength stat attribute to set.
+     * @param Intelligence The intelligence stat attribute to set.
+     * @param Faith The faith stat attribute to set.
+     */
     public void setStats(int Vigor, int Endurance, int Dexterity, int Strength, int Intelligence, int Faith){
         this.Vigor = Vigor;
         this.Endurance = Endurance;
@@ -24,12 +43,22 @@ public class Stats {
         this.Faith = Faith;
     }
 
+    /** 
+     * Method to add stats to the player's existing stats.
+     * 
+     * @param Vigor The amount of stat point to add for vigor.
+     * @param Endurance The amount of stat point to add for endurance.
+     * @param Dexterity The amount of stat point to add for dexterity.
+     * @param Strength The amount of stat point to add for strength.
+     * @param Intelligence The amount of stat point to add for intelligence.
+     * @param Faith The amount of stat point to add for faith.
+     */
     public void addStats(int Vigor, int Endurance, int Dexterity, int Strength, int Intelligence, int Faith){
-        this.Vigor =+ Vigor;
-        this.Endurance =+ Endurance;
-        this.Dexterity =+ Dexterity;
-        this.Strength =+ Strength;
-        this.Intelligence =+ Intelligence;
-        this.Faith =+ Faith;
+        this.Vigor += Vigor;
+        this.Endurance += Endurance;
+        this.Dexterity += Dexterity;
+        this.Strength += Strength;
+        this.Intelligence += Intelligence;
+        this.Faith += Faith;
     }
 }
