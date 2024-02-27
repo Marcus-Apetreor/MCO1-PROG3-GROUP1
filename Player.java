@@ -39,48 +39,56 @@ public class Player {
      * @param sc The scanner object to accept user input.
      */
     public void levelUp(Scanner sc){
+        ConsoleMethods.resetSelectedOption();
         int levelUpCost = (playerLevel*100)/2;
         String[] statChoices = {"Vigor", "Endurance", "Dexterity", "Strength", "Intelligence", "Faith"};
         while(true){
             System.out.println("You have " + CharacterCreationScreen.getPlayerInstance().getRuneCount() + " Runes.");
             System.out.println("You need " + levelUpCost + " Runes to level up.");
-            if(this.runeCount<levelUpCost){
+            if(this.runeCount-levelUpCost<0){
                 System.out.println("You do not have enough runes.");
                 break;
             } else {
-                ConsoleMethods.refreshScreen();
+                System.out.println("Your stats:");
+                CharacterCreationScreen.getPlayerInstance().playerCard();
                 System.out.println("Choose an attribute to level up.");
-                playerCard();
                 ConsoleMethods.printOptions(statChoices);
                 String userInput = sc.nextLine();
                 ConsoleMethods.arrowSelector(userInput, 6);
                 if (ConsoleMethods.optionCondition(0, userInput)){
                     this.playerStats.addStats(1,0,0,0,0,0);
-                    runeCount=-levelUpCost;
+                    playerLevel++;
+                    runeCount-=levelUpCost;
                     break;
                 } else if (ConsoleMethods.optionCondition(1, userInput)){
                     this.playerStats.addStats(0,1,0,0,0,0);
-                    runeCount=-levelUpCost;
+                    playerLevel++;
+                    runeCount-=levelUpCost;
                     break;
                 } else if (ConsoleMethods.optionCondition(2, userInput)){
                     this.playerStats.addStats(0,0,1,0,0,0);
-                    runeCount=-levelUpCost;
+                    playerLevel++;
+                    runeCount-=levelUpCost;
                     break;
                 } else if (ConsoleMethods.optionCondition(3, userInput)){
                     this.playerStats.addStats(0,0,0,1,0,0);
-                    runeCount=-levelUpCost;
+                    playerLevel++;
+                    runeCount-=levelUpCost;
                     break;
                 } else if (ConsoleMethods.optionCondition(4, userInput)){
                     this.playerStats.addStats(0,0,0,0,1,0);
-                    runeCount=-levelUpCost;
+                    playerLevel++;
+                    runeCount-=levelUpCost;
                     break;
                 } else if (ConsoleMethods.optionCondition(5, userInput)){
                     this.playerStats.addStats(0,0,0,0,0,1);
-                    runeCount=-levelUpCost;
+                    playerLevel++;
+                    runeCount-=levelUpCost;
                     break;
                 }
             }
         }
+        ConsoleMethods.resetSelectedOption();
     }
 
     
@@ -141,7 +149,7 @@ public class Player {
      * @param runeCount The number of runes to add.
      */
     public void addRunes(int runeCount){
-        this.runeCount = runeCount;
+        this.runeCount += runeCount;
     }
 
     /** 

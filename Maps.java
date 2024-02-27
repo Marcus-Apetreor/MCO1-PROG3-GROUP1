@@ -68,7 +68,7 @@ public class Maps {
                 System.err.println("Where would you like to spawn?");
                 ConsoleMethods.printOptions(spawnOptions);
                 String userInput = sc.nextLine();
-                ConsoleMethods.arrowSelector(userInput, 5);
+                ConsoleMethods.arrowSelector(userInput, 2);
                 if (ConsoleMethods.optionCondition(0,userInput)){
                     break;
                 } else if (ConsoleMethods.optionCondition(1, userInput)){
