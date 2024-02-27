@@ -30,19 +30,18 @@ public class CharacterCreationScreen {
             if (ConsoleMethods.optionCondition(0, userInput)) {
                 boolean errorFlag = true;
                 while(errorFlag){
-                System.out.println("Input username [max of 25 characters] :");
-                String playerInstanceName = sc.nextLine();
-                if (playerInstanceName != "") {
-                    if (playerInstanceName.length()>25){
-                        playerInstanceName = playerInstanceName.substring(0, 25);
+                    System.out.println("Input username [max of 25 characters] :");
+                    String playerInstanceName = sc.nextLine();
+                    if (playerInstanceName != null || playerInstanceName != "") {
+                        if (playerInstanceName.length()>25){
+                            playerInstanceName = playerInstanceName.substring(0, 25);
+                        }
+                        playerInstance.setPlayerName(playerInstanceName);
+                        errorFlag = false;
+                        ConsoleMethods.clearConsole();
                     }
-                    playerInstance.setPlayerName(playerInstanceName);
-                    errorFlag = false;
-                    ConsoleMethods.clearConsole();
-                } else {
                     ConsoleMethods.clearConsole();
                     System.out.println("Please enter a username.");
-                }
                 }
             } else if (ConsoleMethods.optionCondition(1, userInput)) {
                 ConsoleMethods.refreshScreen();
