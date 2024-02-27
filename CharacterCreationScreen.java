@@ -32,7 +32,7 @@ public class CharacterCreationScreen {
                 while(errorFlag){
                     System.out.println("Input username [max of 25 characters] :");
                     String playerInstanceName = sc.nextLine();
-                    if (playerInstanceName != null || playerInstanceName != "") {
+                    if (playerInstanceName != null || playerInstanceName != "" || playerInstanceName != " ") {
                         if (playerInstanceName.length()>25){
                             playerInstanceName = playerInstanceName.substring(0, 25);
                         }
@@ -92,7 +92,7 @@ public class CharacterCreationScreen {
                 }
                 ConsoleMethods.refreshScreen();
             } else if (ConsoleMethods.optionCondition(2, userInput)) {
-                if (playerInstance.getPlayerName() == ""){
+                if (playerInstance.getPlayerName() != null || playerInstance.getPlayerName() != "" || playerInstance.getPlayerName() != " "){
                     ConsoleMethods.clearConsole();
                     System.out.println("Please input a player name to proceed.");
                 } else if (playerInstance.getJobClass() == ""){
