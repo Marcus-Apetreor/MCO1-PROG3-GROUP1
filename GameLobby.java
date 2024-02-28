@@ -40,7 +40,6 @@ public class GameLobby {
                 while (true){
                     System.out.println("Floors:");
                     ConsoleMethods.printOptionsLocked(mapOptions, lockedOptions);
-                    System.out.println(lockedOptions);
                     
                     String locationInput = sc.nextLine();
                     
