@@ -11,6 +11,15 @@ public class GameLobby {
     private static String[] gameSelectorOptions = {"Fast Travel", "Level Up", "Inventory", "Shop", "Exit Game"};
     private static String[] mapOptions = {"Stormveil Castle", "Raya Lucaria Academy", "The Elden Throne"};
     private static int lockedOptions = 2;
+    
+    /**
+     * A sort of setter function that subtracts the integer n from the ammount of locked options, meaning the player has unlocked more floors if this method is called.
+     * 
+     * @param n The value in which to subtract the locked options, meaning the player has unlocked this many floors after the first floor.
+     */
+    public static void setLockedOptions(int n){
+        lockedOptions-=n;
+    }
 
     /**
      * Facilitates the Game Lobby menu and its functionalities.
@@ -31,6 +40,7 @@ public class GameLobby {
                 while (true){
                     System.out.println("Floors:");
                     ConsoleMethods.printOptionsLocked(mapOptions, lockedOptions);
+                    System.out.println(lockedOptions);
                     
                     String locationInput = sc.nextLine();
                     
@@ -60,6 +70,8 @@ public class GameLobby {
                 System.out.println("Feature not yet added.");
             } else if (ConsoleMethods.optionCondition(4, userInput)) {
                 System.out.println("Going back to main menu...");
+                Maps.clearUnlockedFastTravelTiles();
+                lockedOptions=2;
                 TitleScreen.main(gameSelectorOptions);
                 break;
             }

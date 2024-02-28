@@ -21,17 +21,6 @@ public class Maps {
     private int areaIndex;
     private static ArrayList<String> unlockedFastTravelTiles = new ArrayList<>();
     private boolean getOut = false;
-
-
-    public static int getUnlockedFastTravelTilesCount() {
-        int count = 0;
-        for (String tile : unlockedFastTravelTiles) {
-            if (tile.endsWith("1")) {
-                count++;
-            }
-        }
-        return count;
-    }
     
     /**
      * Constructor for creating map instances.
@@ -58,7 +47,13 @@ public class Maps {
         this.prefix = prefix;
         this.areaIndex = areaIndex;
     }
-
+    
+    /**
+     * Helper method to clear unlockedFastTravelTiles if this is called.
+     */
+    public static void clearUnlockedFastTravelTiles() {
+        unlockedFastTravelTiles.clear();
+    }
     
     /**
      * Initiates the game loop for map traversal and interaction.
@@ -69,7 +64,7 @@ public class Maps {
         boolean bossRoomUnlocked = false;
         String[] spawnOptions = {"Start", "Boss"};
         for (String tile : unlockedFastTravelTiles) {
-            if (tile.startsWith(prefix) && tile.endsWith("1")) {
+            if (tile.startsWith(prefix) && tile.endsWith("FastTravelTile1")) {
                 bossRoomUnlocked = true;
                 break;
             }
@@ -79,7 +74,7 @@ public class Maps {
                 System.err.println("Where would you like to spawn?");
                 ConsoleMethods.printOptions(spawnOptions);
                 String userInput = sc.nextLine();
-                ConsoleMethods.arrowSelector(userInput, 5);
+                ConsoleMethods.arrowSelector(userInput, 2);
                 if (ConsoleMethods.optionCondition(0,userInput)){
                     break;
                 } else if (ConsoleMethods.optionCondition(1, userInput)){
@@ -92,13 +87,6 @@ public class Maps {
         }
         play(sc);
     }    
-    
-    /** 
-     * @return ArrayList String Returns the arraylist of unlocked fast travel tiles so that the compiler can detect when a fast travel tile is accessible.
-     */
-    public ArrayList<String> getUnlockedFastTravelTiles(){
-        return unlockedFastTravelTiles;
-    }
 
     /**
      * Prints the current room layout with the player's position.
@@ -134,8 +122,9 @@ public class Maps {
     public void movePlayer(String direction) {
         int newRow = playerRow;
         int newCol = playerCol;
-
-        if (direction.equalsIgnoreCase("w")){
+        int count = 0;
+    
+        if (direction.equalsIgnoreCase("w")) {
             newRow--;
         } else if (direction.equalsIgnoreCase("a")) {
             newCol--;
@@ -151,28 +140,28 @@ public class Maps {
         }
         ConsoleMethods.clearConsole();
     
-        if (isValidMove(newRow, newCol)){
-            if (tileMap[playerRoom][newRow][newCol].startsWith("doorTile")){
+        if (isValidMove(newRow, newCol)) {
+            if (tileMap[playerRoom][newRow][newCol].startsWith("doorTile")) {
                 String doorTile = tileMap[playerRoom][newRow][newCol];
                 int currentRoom = playerRoom;
-                for (int i=0; i<tileMap.length; i++){
-                    if (i==currentRoom){
+                for (int i = 0; i < tileMap.length; i++) {
+                    if (i == currentRoom) {
                         continue;
                     }
-                    for (int j=0; j<tileMap[i].length; j++){
-                        for (int k=0; k<tileMap[i][j].length; k++){
-                            if (doorTile.equals(tileMap[i][j][k])){
+                    for (int j = 0; j < tileMap[i].length; j++) {
+                        for (int k = 0; k < tileMap[i][j].length; k++) {
+                            if (doorTile.equals(tileMap[i][j][k])) {
                                 playerRoom = i;
                                 playerRow = j;
                                 playerCol = k;
-                                usedDoorName=doorTile;
-                                int[] coordinates={i, j, k};
+                                usedDoorName = doorTile;
+                                int[] coordinates = {i, j, k};
                                 this.usedDoorCoordinates = coordinates;
                                 tileMap[i][j][k] = "";
                             }
                         }
                     }
-
+    
                 }
             } else {
                 int[] coordinates = usedDoorCoordinates;
@@ -186,7 +175,7 @@ public class Maps {
                     ConsoleMethods.clearConsole();
                     System.out.println("You have found a site of grace. Would you like to teleport back?");
                     System.out.println("Input [e] to teleport.");
-                    if(direction.equalsIgnoreCase("e")){
+                    if (direction.equalsIgnoreCase("e")) {
                         ConsoleMethods.clearConsole();
                         getOut = true;
                     }
@@ -200,12 +189,15 @@ public class Maps {
                     ConsoleMethods.clearConsole();
                     bossTile(areaIndex);
                     tileMap[playerRoom][playerRow][playerCol] = "emptyTile";
-                    for (int i=0; i<tileMap.length; i++){
-                        for (int j=0; j<tileMap[i].length; j++){
-                            for (int k=0; k<tileMap[i][j].length; k++){
-                                if(tileMap[i][j][k].endsWith("1")){
-                                    String fastTravelTile = tileMap[i][j][k];
-                                    unlockedFastTravelTiles.add(fastTravelTile);
+                    for (int i = 0; i < tileMap.length; i++) {
+                        for (int j = 0; j < tileMap[i].length; j++) {
+                            for (int k = 0; k < tileMap[i][j].length; k++) {
+                                if (tileMap[i][j][k].endsWith("FastTravelTile1") && tileMap[i][j][k].startsWith(prefix)) {
+                                    if (!unlockedFastTravelTiles.contains(tileMap[i][j][k])) {
+                                        unlockedFastTravelTiles.add(tileMap[i][j][k]);
+                                        count++;
+                                        GameLobby.setLockedOptions(count);
+                                    }
                                 }
                             }
                         }
@@ -218,7 +210,8 @@ public class Maps {
         } else {
             System.out.println("Invalid move! Out of bounds.");
         }
-    }    
+    }
+     
 
     
     /**
