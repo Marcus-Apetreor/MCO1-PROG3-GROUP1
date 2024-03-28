@@ -12,18 +12,6 @@ public class Stats {
     private int Intelligence;
     private int Faith;
 
-    /**
-     * Method to print all of the stats.
-     */
-    public void statCard(){
-        System.out.println("VIG: " + Vigor);
-        System.out.println("END: " + Endurance);
-        System.out.println("DEX: " + Dexterity);
-        System.out.println("STR: " + Strength);
-        System.out.println("INT: " + Intelligence);
-        System.out.println("FTH: " + Faith);
-    }
-
     /** 
      * Setter for the player's stats.
      * 
@@ -41,6 +29,15 @@ public class Stats {
         this.Strength = Strength;
         this.Intelligence = Intelligence;
         this.Faith = Faith;
+    }
+
+    public void setStats(Stats stats){
+        this.Vigor = stats.Vigor;
+        this.Endurance = stats.Endurance;
+        this.Dexterity = stats.Dexterity;
+        this.Strength = stats.Strength;
+        this.Intelligence = stats.Intelligence;
+        this.Faith = stats.Faith;
     }
 
     /** 
@@ -61,4 +58,38 @@ public class Stats {
         this.Intelligence += Intelligence;
         this.Faith += Faith;
     }
+
+    public void addStats(Stats stats){
+        this.Vigor += stats.getVigor();
+        this.Endurance += stats.getEndurance();
+        this.Dexterity += stats.getDexterity();
+        this.Strength += stats.getStrength();
+        this.Intelligence += stats.getIntelligence();
+        this.Faith += stats.getFaith();
+    }
+
+    public int getVigor() {
+        return Vigor;
+    }
+    
+    public int getEndurance() {
+        return Endurance;
+    }
+    
+    public int getDexterity() {
+        return Dexterity;
+    }
+    
+    public int getStrength() {
+        return Strength;
+    }
+    
+    public int getIntelligence() {
+        return Intelligence;
+    }
+    
+    public int getFaith() {
+        return Faith;
+    }
+    
 }

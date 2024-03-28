@@ -8,11 +8,30 @@ import java.util.*;
 public class Player {
 
     private String playerName = "";
-    private String jobClass = "";
+    private String jobName = "";
     private int playerLevel = 1;
     private int runeCount;
-    private Stats playerStats = new Stats();
-        
+    private Stats playerStats;
+    private Stats weaponStats;
+    private ArrayList<Weapons> playerInventory = new ArrayList<Weapons>();
+    private Weapons equippedWeapon;
+
+    public void addWeapon(Weapons weapon){
+        playerInventory.add(weapon);
+    }
+
+    public void setEquippedWeapon(int i){
+        this.equippedWeapon = playerInventory.get(i);
+        this.weaponStats = equippedWeapon.getStats();
+    }
+
+    public Weapons getEquippedWeapon(){
+        return equippedWeapon;
+    }
+
+    public ArrayList<Weapons> getPlayerInventory(){
+        return playerInventory;
+    }
     
     /** 
      * Getter for the player's level.
@@ -33,64 +52,11 @@ public class Player {
         this.playerLevel = playerLevel;
     }
 
-    /** 
-     * Method to level up the player's stats.
-     * 
-     * @param sc The scanner object to accept user input.
-     */
-    public void levelUp(Scanner sc){
-        ConsoleMethods.resetSelectedOption();
-        int levelUpCost = (playerLevel*100)/2;
-        String[] statChoices = {"Vigor", "Endurance", "Dexterity", "Strength", "Intelligence", "Faith"};
-        while(true){
-            System.out.println("You have " + CharacterCreationScreen.getPlayerInstance().getRuneCount() + " Runes.");
-            System.out.println("You need " + levelUpCost + " Runes to level up.");
-            if(this.runeCount-levelUpCost<0){
-                System.out.println("You do not have enough runes.");
-                break;
-            } else {
-                System.out.println("Your stats:");
-                CharacterCreationScreen.getPlayerInstance().playerCard();
-                System.out.println("Choose an attribute to level up.");
-                ConsoleMethods.printOptions(statChoices);
-                String userInput = sc.nextLine();
-                ConsoleMethods.arrowSelector(userInput, 6);
-                if (ConsoleMethods.optionCondition(0, userInput)){
-                    this.playerStats.addStats(1,0,0,0,0,0);
-                    playerLevel++;
-                    runeCount-=levelUpCost;
-                    break;
-                } else if (ConsoleMethods.optionCondition(1, userInput)){
-                    this.playerStats.addStats(0,1,0,0,0,0);
-                    playerLevel++;
-                    runeCount-=levelUpCost;
-                    break;
-                } else if (ConsoleMethods.optionCondition(2, userInput)){
-                    this.playerStats.addStats(0,0,1,0,0,0);
-                    playerLevel++;
-                    runeCount-=levelUpCost;
-                    break;
-                } else if (ConsoleMethods.optionCondition(3, userInput)){
-                    this.playerStats.addStats(0,0,0,1,0,0);
-                    playerLevel++;
-                    runeCount-=levelUpCost;
-                    break;
-                } else if (ConsoleMethods.optionCondition(4, userInput)){
-                    this.playerStats.addStats(0,0,0,0,1,0);
-                    playerLevel++;
-                    runeCount-=levelUpCost;
-                    break;
-                } else if (ConsoleMethods.optionCondition(5, userInput)){
-                    this.playerStats.addStats(0,0,0,0,0,1);
-                    playerLevel++;
-                    runeCount-=levelUpCost;
-                    break;
-                }
-            }
-        }
-        ConsoleMethods.resetSelectedOption();
+    public void setJobClass(JobClass jobClass){
+        this.jobName=jobClass.getJobName();
+        this.playerLevel=jobClass.getJobLevel();
+        this.playerStats.setStats(jobClass.getJobStats());
     }
-
     
     /** 
      * Getter for the player's name.
@@ -110,27 +76,6 @@ public class Player {
     public void setPlayerName(String playerName){
         this.playerName = playerName;
     }
-
-    
-    /** 
-     * Getter for the player's job class.
-     * 
-     * @return String The player's job class.
-     */
-    public String getJobClass(){
-        return jobClass;
-    }
-
-    
-    /** 
-     * Setter for the player's job class.
-     * 
-     * @param jobClass The job class to set for the player.
-     */
-    public void setJobClass(String jobClass){
-        this.jobClass = jobClass; 
-    }
-
     
     /** 
      * Getter for the player's rune count.
@@ -142,6 +87,9 @@ public class Player {
         return runeCount;
     }
 
+    public void setRuneCount(int runeCount){
+        this.runeCount=runeCount;
+    }
     
     /** 
      * Setter for adding runes to the player's total rune count.
@@ -166,17 +114,11 @@ public class Player {
         this.playerStats.setStats(Vigor, Endurance, Dexterity, Strength, Intelligence, Faith);
     }
 
-    /**
-     * Method to print the player's card with all the player info.
-     */
-    public void playerCard(){
-        System.out.println("Name: " + playerName);
-        System.out.println("-----------");
-        System.out.println("Level: " + playerLevel);
-        System.out.println("Job Class: " + jobClass);
-        System.out.println("Rune: " + runeCount);
-        System.out.println("\nStats: ");
-        this.playerStats.statCard();
-        System.out.println();
+    public Stats getStats(){
+        return playerStats;
+    }
+
+    public void addStats(int Vigor,int Endurance,int Dexterity,int Strength,int Intelligence,int Faith){
+        this.playerStats.addStats(Vigor, Endurance, Dexterity, Strength, Intelligence, Faith);
     }
 }

@@ -14,7 +14,7 @@ public class Enemy {
     
     protected EnemyType type;
     protected String name;
-    protected int health;
+    protected double health;
     protected int attack;
     protected double physicalDefense;
     protected double sorceryDefense;
@@ -128,17 +128,17 @@ public class Enemy {
      * 
      * @return The health of the enemy.
      */
-    public int getHealth() {
+    public double getHealth() {
         return health;
     }
 
     /**
      * Set the health of the enemy.
      * 
-     * @param health The health of the enemy.
+     * @param d The health of the enemy.
      */
-    public void setHealth(int health) {
-        this.health = health;
+    public void setHealth(double d) {
+        this.health = d;
         if (this.health <= 0) {
             defeat();
         }

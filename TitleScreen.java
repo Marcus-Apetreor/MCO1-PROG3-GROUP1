@@ -1,62 +1,31 @@
-import java.util.*;
+import java.awt.FlowLayout;
+import java.awt.*;
+import javax.swing.*;
 
-/**
- * Class representing the title screen of the game.
- * Allows players to start the game or exit.
- * 
- * Authors: Marcus Apetreor, Vincent Vuelva
- */
-public class TitleScreen {
+public class TitleScreen extends JFrame {
 
-    // Options available on the title screen
-    private static String[] titleOptions = {"Start", "Exit"};
+    public TitleScreen() {
+        JFrame frame = new JFrame();
+        frame.setTitle("Elden Rogue");
+        frame.setSize(800, 600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
 
-    /**
-     * Main method representing the title screen.
-     * @param args Command-line arguments
-     */
-    public static void main(String[] args) {
-        ConsoleMethods.refreshScreen();
-        Scanner sc = new Scanner(System.in);
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
+        panel.setBackground(Color.BLACK);
 
-        // Display title screen until the player chooses to start or exit
-        while (true) {
-            printTitle(); // Print the title in ASCII art
-            ConsoleMethods.printOptions(titleOptions); // Print title options
+        JButton startButton = new JButton();
+        startButton.setText("Start");
+        panel.add(startButton);
 
-            String userInput = sc.nextLine();
+        JButton endButton = new JButton();
+        endButton.setText("End");
+        panel.add(endButton);
 
-            ConsoleMethods.arrowSelector(userInput, 2); // Select option based on user input
+        frame.add(panel,BorderLayout.SOUTH);
 
-            // Start the game if the player chooses to start
-            if (ConsoleMethods.optionCondition(0,userInput)) {
-                System.out.println("Starting the game...");
-                CharacterCreationScreen.characterCreation(sc); // Proceed to character creation
-                break;
-            } 
-            // Exit the game if the player chooses to exit
-            else if (ConsoleMethods.optionCondition(1,userInput)) {
-                System.out.println("Exiting the game...");
-                break;
-            }
-        }
-        sc.close(); // Close the scanner
-    }
-
-    /**
-     * Helper method to print the title in ASCII art.
-     */
-    private final static void printTitle() {
-        ConsoleMethods.clearConsole();
-        System.out.println("'||''''| '||`     ||`                    '||'''|,                        '||''''| ");
-        System.out.println(" ||   .   ||      ||                      ||   ||                         ||   .  ");
-        System.out.println(" ||'''|   ||  .|''||  .|''|, `||''|,      ||...|' .|''|, .|''|, '||  ||`  ||'''|  ");
-        System.out.println(" ||       ||  ||  ||  ||..||  ||  ||      || \\\\   ||  || ||  ||  ||  ||   ||      ");
-        System.out.println(".||....| .||. `|..||. `|...  .||  ||.    .||  \\\\. `|..|' `|..||  `|..'|. .||....| ");
-        System.out.println("                                                             ||                   ");
-        System.out.println("                                                          `..|'                   ");
-        System.out.println();
-        System.out.println("<>-<> <>-<> <>-<> ");
-        System.out.println();
+        frame.setVisible(true);
     }
 }

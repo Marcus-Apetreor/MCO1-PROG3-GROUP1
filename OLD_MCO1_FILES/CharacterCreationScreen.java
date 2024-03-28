@@ -1,4 +1,9 @@
+package OLD_MCO1_FILES;
 import java.util.*;
+
+import ConsoleMethods;
+import Model;
+import Player;
 /**
  * Class to facilitate character creation and instantiation of a player instance.
  * Allows users to create a character with specific attributes.
@@ -6,9 +11,8 @@ import java.util.*;
  * @author Marcus Apetreor, Vincent Vuelva
  */
 public class CharacterCreationScreen {
-    private static Player playerInstance;
     private static String[] characterCreationOptions = {"Name", "Select Job Class", "Confirm", "Back"};
-    private static String[] jobClasses = {"Vagabond", "Samurai", "Warrior", "Hero", "Astrologer", "Prophet"};
+    private Player playerInstance = Model.getPlayer();
 
     
     /**
@@ -18,8 +22,6 @@ public class CharacterCreationScreen {
      */
     public static void characterCreation(Scanner sc){
         ConsoleMethods.refreshScreen();
-    
-        playerInstance = new Player();
     
         while (true) {
             System.out.println("Character Creation Menu\n");
@@ -55,9 +57,7 @@ public class CharacterCreationScreen {
                 ConsoleMethods.arrowSelector(jobClassInput, 6);
                 
                 if(ConsoleMethods.optionCondition(0, jobClassInput)) {
-                    playerInstance.setJobClass(jobClasses[0]);
-                    playerInstance.setStats(15,11,13,14,9,9);
-                    playerInstance.setPlayerLevel(9);
+                    playerInstance.setJobClass(vagabond);
                     break;
                 }
                 else if(ConsoleMethods.optionCondition(1, jobClassInput)) {
@@ -117,13 +117,4 @@ public class CharacterCreationScreen {
         }
     }
 
-    
-    /**
-     * Returns the player instance created during character creation.
-     * 
-     * @return The player instance.
-     */
-    public static Player getPlayerInstance(){
-        return playerInstance;
-    }
 }

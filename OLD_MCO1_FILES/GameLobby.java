@@ -1,4 +1,8 @@
+package OLD_MCO1_FILES;
 import java.util.*;
+
+import ConsoleMethods;
+import StormveilCastle;
 
 /**
  * Class to manage the Game Lobby menu and its functionalities.
@@ -29,7 +33,6 @@ public class GameLobby {
     public static void GameSelector(Scanner sc){
         ConsoleMethods.refreshScreen();
         while (true) {
-            CharacterCreationScreen.getPlayerInstance().playerCard();
             System.out.println("Roundtable Hold\n\n");
             ConsoleMethods.printOptions(gameSelectorOptions);
             String userInput = sc.nextLine();
@@ -48,7 +51,7 @@ public class GameLobby {
                     if(ConsoleMethods.optionCondition(0, locationInput)) {
                         System.err.println("Fast Travelling to Stormveil Castle");
                         ConsoleMethods.loadingScreen();
-                        Maps stormveilCastle = new StormveilCastle();
+                        MapModel stormveilCastle = new StormveilCastle();
                         stormveilCastle.chooseSpawnLocation(sc);
                         break;
                     }
@@ -69,7 +72,7 @@ public class GameLobby {
                 System.out.println("Feature not yet added.");
             } else if (ConsoleMethods.optionCondition(4, userInput)) {
                 System.out.println("Going back to main menu...");
-                Maps.clearUnlockedFastTravelTiles();
+                MapModel.clearUnlockedFastTravelTiles();
                 lockedOptions=2;
                 TitleScreen.main(gameSelectorOptions);
                 break;
