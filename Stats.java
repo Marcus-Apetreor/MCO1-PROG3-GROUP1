@@ -68,6 +68,42 @@ public class Stats {
         this.Faith += stats.getFaith();
     }
 
+    public String getStatName(int i){
+        switch(i){
+            case 0:
+                return "Vigor";
+            case 1:
+                return "Endurance";
+            case 2:
+                return "Dexterity";
+            case 3:
+                return "Strength";
+            case 4:
+                return "Intelligence";
+            case 5:
+                return "Faith";
+        }
+        return null;
+    }
+
+    public int getStatValue(int i){
+        switch(i){
+            case 0:
+                return Vigor;
+            case 1:
+                return Endurance;
+            case 2:
+                return Dexterity;
+            case 3:
+                return Strength;
+            case 4:
+                return Intelligence;
+            case 5:
+                return Faith;
+        }
+        return 0;
+    }
+
     public int getVigor() {
         return Vigor;
     }

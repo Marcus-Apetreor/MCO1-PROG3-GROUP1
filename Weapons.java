@@ -5,6 +5,7 @@ public class Weapons {
     public Weapons(String Name, int Cost, int Vigor, int Endurance, int Dexterity, int Strength, int Intelligence, int Faith){
         this.name=Name;
         this.cost=Cost;
+        this.weaponStats = new Stats();
         this.weaponStats.setStats(Vigor, Endurance, Dexterity, Strength, Intelligence, Faith);
     }
     public int getPrice(){

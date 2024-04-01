@@ -3,20 +3,16 @@ import java.util.*;
 public class Model {
 
     //player 
-    private static Player playerInstance;
+    private static Player playerInstance = new Player();
     private int runeCount = playerInstance.getRuneCount();
     private int playerLevel = playerInstance.getPlayerLevel();
     private ArrayList<Weapons> playerInventory = playerInstance.getPlayerInventory();
-    private static double playerHealth = Battle.maxHealth(playerInstance.getStats().getVigor(), playerInstance.getEquippedWeapon().getStats().getVigor());
-    private static double playerDodge = Battle.dodgeRate(playerInstance.getStats().getEndurance(), playerInstance.getEquippedWeapon().getStats().getEndurance());
-    private static double weaponPhysicalDamage = 0;
-    private static double weaponSorceryDamage = 0;
-    private static double weaponIncantationDamage = 0;
-    private static double playerPhysicalDamage = playerInstance.getStats().getStrength() + weaponPhysicalDamage;
-    private static double playerSorceryDamage = playerInstance.getStats().getIntelligence() + weaponSorceryDamage;
-    private static double playerIncantationDamage = playerInstance.getStats().getFaith() + weaponIncantationDamage;
+    private double playerHealth = 0;
 
-    // swords
+    //no weapon
+    private Weapons fists = new Weapons("Fists", 0, 0, 0, 0, 0, 0, 0);
+
+    //swords
     private Swords shortSword = new Swords("Short Sword", 1000, 0, 15, 13, 15, 15, 15);
     private Swords rogiersRapier = new Swords("Rogier's Rapier", 2000, 10, 25, 18, 35, 35, 35);
     private Swords codedSword = new Swords("Coded Sword", 4000, 20, 35, 21, 40, 40, 40);
@@ -59,6 +55,10 @@ public class Model {
     private JobClass hero = new JobClass(7,"Hero", 14, 12, 9, 16, 7, 8);
     private JobClass astrologer = new JobClass(6,"Astrologer", 9, 9, 12, 8, 16, 7);
     private JobClass prophet = new JobClass(7,"Prophet", 10,8, 10, 11, 7, 16);
+    private JobClass[] jobClasses = {vagabond, samurai, warrior, hero, astrologer, prophet};
+
+    //no jobclass
+    private JobClass jobClass = new JobClass(0, "jobless", 0, 0, 0, 0, 0, 0);
 
     //maps
     private Map stormveilCastle = new StormveilCastle();
@@ -78,13 +78,48 @@ public class Model {
 
     //battle
     private boolean turn = true;
+    
+    //constructor
+    public Model(){
+        initializeShop();
+        playerInstance.addWeapon(fists);
+        playerInstance.setEquippedWeapon(0);
+        playerInstance.setJobClass(jobClass);
+    }
 
-    //methods
-    public void initializeWeaponDamage(){
-        if (playerInstance.getEquippedWeapon()!=null){
-            weaponPhysicalDamage += playerInstance.getEquippedWeapon().getStats().getStrength();
-            weaponSorceryDamage += playerInstance.getEquippedWeapon().getStats().getIntelligence();
-            weaponIncantationDamage += playerInstance.getEquippedWeapon().getStats().getFaith();
+    public double getMaxHealth(){
+        return 100*((playerInstance.getStats().getVigor() + playerInstance.getEquippedWeapon().getStats().getVigor())/2);
+    }
+    public void setMaxHealth(double playerHealth){
+        playerHealth = getMaxHealth();
+    }
+    
+    public double dodgeRate(){
+        return (20+((playerInstance.getStats().getEndurance() + playerInstance.getEquippedWeapon().getStats().getEndurance())/2))/100;
+    }
+    
+    public void physicalDamage(Enemy enemy){
+        double damage=(playerInstance.getStats().getStrength() + playerInstance.getEquippedWeapon().getStats().getStrength()) * (1-enemy.getPhysicalDefense());
+        enemy.setHealth(enemy.getHealth()-(int)damage);
+    }
+    
+    public void sorceryDamage(Enemy enemy){
+        double damage=(playerInstance.getStats().getIntelligence() + playerInstance.getEquippedWeapon().getStats().getIntelligence()) * (1-enemy.getSorceryDefense());
+        enemy.setHealth(enemy.getHealth()-(int)damage);
+    }
+
+    public void incantationDamage(Enemy enemy){
+        double damage=(playerInstance.getStats().getFaith() + playerInstance.getEquippedWeapon().getStats().getFaith()) * (1-enemy.getIncantationDefense());
+        enemy.setHealth(enemy.getHealth()-(int)damage);
+    }
+
+    public boolean calculateDodge(double chance) {
+        double randomValue = new Random().nextDouble() * 100;
+
+        if (randomValue < chance) {
+            return true; // Dodge successful
+        } else {
+            return false; // Dodge unsuccessful
         }
     }
 
@@ -126,8 +161,12 @@ public class Model {
         shopInventory.add(dragonSeal); //23
     }
 
+    public JobClass[] getJobClasses(){
+        return jobClasses;
+    }
+
     public void setPlayerName(String name){
-        playerInstance.setPlayerName(name.substring(0, 25));
+        playerInstance.setPlayerName(name.substring(0, Math.min(name.length(), 25)));
     }
 
     public static Player getPlayer(){
@@ -179,26 +218,26 @@ public class Model {
         if (userInput == 1 && turn){
             //attack options
             if(attackInput == 1){
-                Battle.physicalDamage(playerPhysicalDamage, enemy);
+                physicalDamage(enemy);
             } else if (attackInput == 2){
-                Battle.sorceryDamage(playerSorceryDamage, enemy);
+                sorceryDamage(enemy);
             } else if (attackInput == 3){
-                Battle.incantationDamage(playerIncantationDamage, enemy);
+                incantationDamage(enemy);
             }
             turn = false;
         //dodge
         } else if (userInput == 2 && turn){
-            if(Battle.calculateDodge(playerDodge)){
+            if(calculateDodge(dodgeRate())){
                 //success
             } else {
-                playerHealth -= enemy.getAttack();
+                setMaxHealth(enemy.getAttack());
                 //fail
             }
             turn = true;
 
         //enemy turn
         } else {
-            playerHealth -= enemy.getAttack();
+            setMaxHealth(enemy.getAttack());
             turn = true;
         }
     }
@@ -209,6 +248,19 @@ public class Model {
 
     public void equipWeapon(int i){
         playerInstance.setEquippedWeapon(i);
+    }
+
+    public Map getMap(int i){
+        switch(i){
+            case 1:
+                return stormveilCastle;
+            case 2:
+                return RayaLucariaAcademy;
+            case 3:
+                return TheEldenThrone;
+            default:
+                return null;
+        }
     }
 
 }

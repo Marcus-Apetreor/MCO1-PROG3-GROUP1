@@ -6,6 +6,7 @@ public class JobClass {
     public JobClass(int jobLevel, String jobName, int Vigor, int Endurance, int Dexterity, int Strength, int Intelligence, int Faith){
         this.jobName=jobName;
         this.jobLevel=jobLevel;
+        this.jobStats = new Stats();
         this.jobStats.setStats(Vigor, Endurance, Dexterity, Strength, Intelligence, Faith);
     }
 

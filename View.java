@@ -3,21 +3,21 @@ import javax.swing.*;
 import java.awt.*;
 
 public class View extends JFrame {
-    private JTextArea textArea;
-    private JList<String> list;
-    private int selectedIndex = -1; // Add this line
-    private Controller controller;
-    // private String[] mainMenuOptions = {"Start", "Exit"};
-    // private String[] jobClassOptions = {"Vagabond", "Samurai", "Warrior", "Hero", "Astrologer", "Prophet"};
-    // private String[] gameLobbyOptions = {"Fast Travel", "Level Up", "Inventory", "Shop", "Exit Game"};
+    protected static Controller controller;
 
-    public void view(){
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                TitleScreen titleScreen = new TitleScreen();
-                titleScreen.show();
-            }
-        });
+    public View(String title) {
+        super("Elden Rogue" + " - " + title);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(600, 400);
+        setLocationRelativeTo(null);
+    }
+    
+    public View(Controller c) {
+        controller = c;
+        TitleScreen titleScreen = new TitleScreen(controller);
+    }
+
+    public static Controller getController(){
+        return controller;
     }
 }

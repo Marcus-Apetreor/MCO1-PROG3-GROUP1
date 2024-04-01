@@ -2,93 +2,69 @@ import OLD_MAP_FILES.MapController;
 
 public class Controller {
     private Model model;
-    private View view;
     private MapController mapController;
+    private Player playerInstance = Model.getPlayer();
 
-    public Controller(Model model, View view){
+    public Controller(Model model){
         this.model = model;
-        this.view = view;
     }
 
     //title screen methods
-    public void mainMenu(){
-        view.mainMenu();
-        switch(view.getSelectedIndex()){
-            case 0:
-                createCharacter();
-                break;
-            case 1:
-                exit();
-                break;
-            default:
-                view.error();
-                mainMenu();
-        }
-    }
-
     public void exit(){
         System.exit(0);
     }
 
     //create character methods
     public void createCharacter(){
-        view.characterCreation();
-        switch(view.getSelectedIndex()){
-            case 0:
-                inputUsername();
-                break;
-            case 1:
-                chooseJobClass();
-                break;
-            default:
-                view.error();
-                createCharacter();
-        }
+        CharacterCreation characterCreation = new CharacterCreation(model.getJobClasses(), View.getController());
     }
 
-    public void inputUsername(){
-        model.setPlayerName(view.inputUsername());
+    public void inputUsername(String username){
+        model.setPlayerName(username);
     }
 
-    public void chooseJobClass(){
-        model.chooseJobClass(view.getSelectedIndex());
+    public void chooseJobClass(int i){
+        model.chooseJobClass(i);
     }
 
     //lobby methods
     public void gameLobby(){
-        view.gameLobby();
-        switch(view.getSelectedIndex()){
-            case 0:
-                fastTravel();
-                break;
-            case 1:
-                levelUp();
-                break;
-            case 2:
-                inventory();
-                break;
-            case 3:
-                shop();
-                break;
-            case 4:
-                exitToTitle();
-                break;
-            default:
-                view.error();
-                gameLobby();
-        }
+        
     }
 
     public void fastTravel(){
 
     }
 
-    public void levelUp(){
+    public void levelUpMenu(){
+        LevelUp levelUpMenu = new LevelUp(playerInstance, View.getController());
+    }
 
+    public void levelUp(int i){
+        switch(i){
+            case 1:
+                model.levelUp(1);
+                break;
+            case 2:
+                model.levelUp(2);
+                break;
+            case 3:
+                model.levelUp(3);
+                break;
+            case 4:
+                model.levelUp(4);
+                break;
+            case 5:
+                model.levelUp(5);
+                break;
+            default:
+                System.out.println("Invalid input");
+                break;
+        }
     }
 
     public void inventory(){
-
+        Inventory inventory = new Inventory(playerInstance);
     }
 
     public void shop(){

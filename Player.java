@@ -10,11 +10,14 @@ public class Player {
     private String playerName = "";
     private String jobName = "";
     private int playerLevel = 1;
-    private int runeCount;
+    private int runeCount = 0;
     private Stats playerStats;
-    private Stats weaponStats;
     private ArrayList<Weapons> playerInventory = new ArrayList<Weapons>();
     private Weapons equippedWeapon;
+
+    public Player(){
+        this.playerStats = new Stats();
+    }
 
     public void addWeapon(Weapons weapon){
         playerInventory.add(weapon);
@@ -22,7 +25,6 @@ public class Player {
 
     public void setEquippedWeapon(int i){
         this.equippedWeapon = playerInventory.get(i);
-        this.weaponStats = equippedWeapon.getStats();
     }
 
     public Weapons getEquippedWeapon(){
