@@ -1,4 +1,4 @@
-public class TheEldenThrone extends Map{
+public class TheEldenThrone extends Map implements CreditsInterface{
     public TheEldenThrone(){
         super(new String[][][] 
         {
@@ -14,13 +14,13 @@ public class TheEldenThrone extends Map{
                 {"emptyTile","doorTile1","emptyTile"}
             },
             {
-                {"emptyTile","emptyTile","doorTile1","emptyTile","emptyTile"},
+                {"OOBTile","emptyTile","emptyTile","doorTile1","emptyTile","emptyTile","OOBTile"},
                 {"emptyTile","emptyTile","emptyTile","emptyTile","emptyTile","emptyTile","emptyTile"},
                 {"emptyTile","emptyTile","emptyTile","emptyTile","emptyTile","emptyTile","emptyTile"},
                 {"emptyTile","emptyTile","emptyTile","bossTile","emptyTile","emptyTile","emptyTile"},
                 {"emptyTile","emptyTile","emptyTile","emptyTile","emptyTile","emptyTile","emptyTile"},
                 {"emptyTile","emptyTile","emptyTile","emptyTile","emptyTile","emptyTile","emptyTile"},
-                {"emptyTile","emptyTile","doorTile0","emptyTile","emptyTile"}
+                {"OOBTile","emptyTile","emptyTile","doorTile0","emptyTile","emptyTile","OOBTile"}
             },
             {
                 {"emptyTile", "doorTile0", "emptyTile"},
@@ -33,6 +33,16 @@ public class TheEldenThrone extends Map{
                 {"emptyTile", "emptyTile", "emptyTile"},
                 {"emptyTile", "SFastTravelTile0", "emptyTile"}
             },
-        }, 2, 8, 1, 2, 3, 3, 3, "T");
+        }, 2, 8, 1, 0, 0, 0, 3, "T", "The Elden Throne");
+    }
+
+    @Override
+    public void spawnTile(int areaIndex){
+        int gainedRunes = (50 + random.nextInt(101))*areaIndex;
+        Model.getPlayer().addRunes(gainedRunes);
+    }
+
+    public void creditsTile(){
+        CreditScreen creditScreen = new CreditScreen();
     }
 }

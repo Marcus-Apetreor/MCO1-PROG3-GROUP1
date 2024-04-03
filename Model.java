@@ -10,7 +10,7 @@ public class Model {
     private double playerHealth = 0;
 
     //no weapon
-    private Weapons fists = new Weapons("Fists", 0, 0, 0, 0, 0, 0, 0);
+    private Weapons fists = new Weapons("No Weapon", "Fists", 0, 0, 0, 0, 0, 0, 0);
 
     //swords
     private Swords shortSword = new Swords("Short Sword", 1000, 0, 15, 13, 15, 15, 15);
@@ -58,9 +58,9 @@ public class Model {
     private JobClass[] jobClasses = {vagabond, samurai, warrior, hero, astrologer, prophet};
 
     //no jobclass
-    private JobClass jobClass = new JobClass(0, "jobless", 0, 0, 0, 0, 0, 0);
+    private JobClass jobless = new JobClass(0, "jobless", 0, 0, 0, 0, 0, 0);
 
-    //maps
+    //maps and map related variables
     private Map stormveilCastle = new StormveilCastle();
     private Map RayaLucariaAcademy = new RayaLucariaAcademy();
     private Map TheEldenThrone = new TheEldenThrone();
@@ -71,7 +71,6 @@ public class Model {
     //lobby
     private static String[] gameSelectorOptions = {"Fast Travel", "Level Up", "Inventory", "Shop", "Exit Game"};
     private static String[] mapOptions = {"Stormveil Castle", "Raya Lucaria Academy", "The Elden Throne"};
-    private static int lockedOptions = 2;
 
     //title screen
     private static String[] titleOptions = {"Start", "Exit"};
@@ -82,45 +81,25 @@ public class Model {
     //constructor
     public Model(){
         initializeShop();
+        initializePlayer();
+    }
+
+    //initialization methods
+    public void initializePlayer(){
         playerInstance.addWeapon(fists);
         playerInstance.setEquippedWeapon(0);
-        playerInstance.setJobClass(jobClass);
+        playerInstance.setJobClass(jobless);
     }
 
     public double getMaxHealth(){
-        return 100*((playerInstance.getStats().getVigor() + playerInstance.getEquippedWeapon().getStats().getVigor())/2);
+        return ((playerInstance.getStats().getVigor() + playerInstance.getEquippedWeapon().getStats().getVigor())/2.0)*100.0;
     }
     public void setMaxHealth(double playerHealth){
         playerHealth = getMaxHealth();
     }
     
     public double dodgeRate(){
-        return (20+((playerInstance.getStats().getEndurance() + playerInstance.getEquippedWeapon().getStats().getEndurance())/2))/100;
-    }
-    
-    public void physicalDamage(Enemy enemy){
-        double damage=(playerInstance.getStats().getStrength() + playerInstance.getEquippedWeapon().getStats().getStrength()) * (1-enemy.getPhysicalDefense());
-        enemy.setHealth(enemy.getHealth()-(int)damage);
-    }
-    
-    public void sorceryDamage(Enemy enemy){
-        double damage=(playerInstance.getStats().getIntelligence() + playerInstance.getEquippedWeapon().getStats().getIntelligence()) * (1-enemy.getSorceryDefense());
-        enemy.setHealth(enemy.getHealth()-(int)damage);
-    }
-
-    public void incantationDamage(Enemy enemy){
-        double damage=(playerInstance.getStats().getFaith() + playerInstance.getEquippedWeapon().getStats().getFaith()) * (1-enemy.getIncantationDefense());
-        enemy.setHealth(enemy.getHealth()-(int)damage);
-    }
-
-    public boolean calculateDodge(double chance) {
-        double randomValue = new Random().nextDouble() * 100;
-
-        if (randomValue < chance) {
-            return true; // Dodge successful
-        } else {
-            return false; // Dodge unsuccessful
-        }
+        return (20+((playerInstance.getStats().getEndurance() + playerInstance.getEquippedWeapon().getStats().getEndurance())/2.0))/100.0;
     }
 
     public void initializeShop(){
@@ -161,6 +140,7 @@ public class Model {
         shopInventory.add(dragonSeal); //23
     }
 
+    //character creation methods
     public JobClass[] getJobClasses(){
         return jobClasses;
     }
@@ -169,44 +149,34 @@ public class Model {
         playerInstance.setPlayerName(name.substring(0, Math.min(name.length(), 25)));
     }
 
-    public static Player getPlayer(){
-        return playerInstance;
-    }
-
-    public JobClass chooseJobClass(int jobIndex) {
+    public void chooseJobClass(int jobIndex) {
         JobClass[] jobClasses = {vagabond, samurai, warrior, hero, astrologer, prophet};
-        return jobClasses[jobIndex];
+        playerInstance.setJobClass(jobClasses[jobIndex]);
     }
 
-    public void levelUp(int userInput){
-        int levelUpCost = (playerLevel*100)/2;
-        if(playerInstance.getRuneCount()-levelUpCost<0){
+    //battle methods
+    public void physicalDamage(Enemy enemy){
+        double damage=(playerInstance.getStats().getStrength() + playerInstance.getEquippedWeapon().getStats().getStrength()) * (1-enemy.getPhysicalDefense());
+        enemy.setHealth(enemy.getHealth()-(int)damage);
+    }
+    
+    public void sorceryDamage(Enemy enemy){
+        double damage=(playerInstance.getStats().getIntelligence() + playerInstance.getEquippedWeapon().getStats().getIntelligence()) * (1-enemy.getSorceryDefense());
+        enemy.setHealth(enemy.getHealth()-(int)damage);
+    }
+
+    public void incantationDamage(Enemy enemy){
+        double damage=(playerInstance.getStats().getFaith() + playerInstance.getEquippedWeapon().getStats().getFaith()) * (1-enemy.getIncantationDefense());
+        enemy.setHealth(enemy.getHealth()-(int)damage);
+    }
+
+    public boolean calculateDodge(double chance) {
+        double randomValue = new Random().nextDouble() * 100;
+
+        if (randomValue < chance) {
+            return true; // Dodge successful
         } else {
-            if (userInput == 1){
-                playerInstance.addStats(1,0,0,0,0,0);
-                playerInstance.setPlayerLevel(playerLevel+1);
-                playerInstance.setRuneCount(runeCount-levelUpCost);
-            } else if (userInput == 2){
-                playerInstance.addStats(0,1,0,0,0,0);
-                playerInstance.setPlayerLevel(playerLevel+1);
-                playerInstance.setRuneCount(runeCount-levelUpCost);
-            } else if (userInput == 3){
-                playerInstance.addStats(0,0,1,0,0,0);
-                playerInstance.setPlayerLevel(playerLevel+1);
-                playerInstance.setRuneCount(runeCount-levelUpCost);
-            } else if (userInput == 4){
-                playerInstance.addStats(0,0,0,1,0,0);
-                playerInstance.setPlayerLevel(playerLevel+1);
-                playerInstance.setRuneCount(runeCount-levelUpCost);
-            } else if (userInput == 5){
-                playerInstance.addStats(0,0,0,0,1,0);
-                playerInstance.setPlayerLevel(playerLevel+1);
-                playerInstance.setRuneCount(runeCount-levelUpCost);
-            } else if (userInput == 6){
-                playerInstance.addStats(0,0,0,0,0,1);
-                playerInstance.setPlayerLevel(playerLevel+1);
-                playerInstance.setRuneCount(runeCount-levelUpCost);
-            }
+            return false; // Dodge unsuccessful
         }
     }
 
@@ -242,6 +212,45 @@ public class Model {
         }
     }
 
+    //player methods
+
+    public static Player getPlayer(){
+        return playerInstance;
+    }
+
+
+    public void levelUp(int userInput){
+        int levelUpCost = (playerLevel*100)/2;
+        if(playerInstance.getRuneCount()-levelUpCost<0){
+        } else {
+            if (userInput == 1){
+                playerInstance.addStats(1,0,0,0,0,0);
+                playerInstance.addPlayerLevel();
+                playerInstance.subtractRuneCount(levelUpCost);
+            } else if (userInput == 2){
+                playerInstance.addStats(0,1,0,0,0,0);
+                playerInstance.addPlayerLevel();
+                playerInstance.subtractRuneCount(levelUpCost);
+            } else if (userInput == 3){
+                playerInstance.addStats(0,0,1,0,0,0);
+                playerInstance.addPlayerLevel();
+                playerInstance.subtractRuneCount(levelUpCost);
+            } else if (userInput == 4){
+                playerInstance.addStats(0,0,0,1,0,0);
+                playerInstance.addPlayerLevel();
+                playerInstance.subtractRuneCount(levelUpCost);
+            } else if (userInput == 5){
+                playerInstance.addStats(0,0,0,0,1,0);
+                playerInstance.addPlayerLevel();
+                playerInstance.subtractRuneCount(levelUpCost);
+            } else if (userInput == 6){
+                playerInstance.addStats(0,0,0,0,0,1);
+                playerInstance.addPlayerLevel();
+                playerInstance.subtractRuneCount(levelUpCost);
+            }
+        }
+    }
+
     public void addWeapon(Weapons weapon){
         playerInstance.addWeapon(weapon);
     }
@@ -249,6 +258,8 @@ public class Model {
     public void equipWeapon(int i){
         playerInstance.setEquippedWeapon(i);
     }
+
+    //map methods
 
     public Map getMap(int i){
         switch(i){
@@ -263,4 +274,29 @@ public class Model {
         }
     }
 
+    public int getBossRoom(){
+        return Map.getBossRoom();
+    }
+
+    public int getBossRow(){
+        return Map.getBossRow();
+    }
+
+    public int getBossCol(){
+        return Map.getBossCol();
+    }
+
+    public int getUnlockedAreas(){
+        return Map.getUnlockedAreas();
+    }
+
+    public ArrayList<String> getUnlockedFastTravelTiles(){
+        return Map.getUnlockedFastTravelTiles();
+    }
+
+    //shop methods
+
+    public ArrayList<Weapons> getShopInventory(){
+        return shopInventory;
+    }
 }

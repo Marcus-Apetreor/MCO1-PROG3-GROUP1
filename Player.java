@@ -1,4 +1,6 @@
 import java.util.*;
+
+import javax.swing.JLabel;
 /**
  * Class for representing a player character in the game.
  * It contains player attributes and methods related to leveling up and managing stats.
@@ -8,12 +10,13 @@ import java.util.*;
 public class Player {
 
     private String playerName = "";
-    private String jobName = "";
+    private JobClass jobClass;
     private int playerLevel = 1;
-    private int runeCount = 0;
+    private int runeCount = 112313123;
     private Stats playerStats;
     private ArrayList<Weapons> playerInventory = new ArrayList<Weapons>();
     private Weapons equippedWeapon;
+    private String imagePath;
 
     public Player(){
         this.playerStats = new Stats();
@@ -34,6 +37,14 @@ public class Player {
     public ArrayList<Weapons> getPlayerInventory(){
         return playerInventory;
     }
+
+    public void setImagePath(String imagePath){
+        this.imagePath = imagePath;
+    }
+
+    public String getImagePath(){
+        return imagePath;
+    }
     
     /** 
      * Getter for the player's level.
@@ -43,21 +54,24 @@ public class Player {
     public int getPlayerLevel(){
         return playerLevel;
     }
-
     
     /** 
      * Setter for the player's level.
      * 
      * @param playerLevel The level to set for the player.
      */
-    public void setPlayerLevel(int playerLevel){
-        this.playerLevel = playerLevel;
+    public void addPlayerLevel(){
+        this.playerLevel ++;
     }
 
     public void setJobClass(JobClass jobClass){
-        this.jobName=jobClass.getJobName();
+        this.jobClass=jobClass;
         this.playerLevel=jobClass.getJobLevel();
         this.playerStats.setStats(jobClass.getJobStats());
+    }
+
+    public JobClass getJobClass(){
+        return this.jobClass;
     }
     
     /** 
@@ -89,8 +103,8 @@ public class Player {
         return runeCount;
     }
 
-    public void setRuneCount(int runeCount){
-        this.runeCount=runeCount;
+    public void subtractRuneCount(int runeCount){
+        this.runeCount-=runeCount;
     }
     
     /** 
@@ -122,5 +136,9 @@ public class Player {
 
     public void addStats(int Vigor,int Endurance,int Dexterity,int Strength,int Intelligence,int Faith){
         this.playerStats.addStats(Vigor, Endurance, Dexterity, Strength, Intelligence, Faith);
+    }
+
+    public String printPlayer(){
+        return "<html><b>Name: </b> " + playerName + "<br/>" + "<b>Level: </b>" + playerLevel + "<br/>";
     }
 }

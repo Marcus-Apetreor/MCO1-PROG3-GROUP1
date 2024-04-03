@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class CharacterCreation extends View {
-    private Controller controller;
     private JLabel characterNameLabel;
     private JLabel statsLabel;
     private JTextField usernameField;
@@ -19,14 +18,15 @@ public class CharacterCreation extends View {
         new ImageIcon("astrologer.png"),
         new ImageIcon("prophet.png")
     };
+    private Player playerInstance;
 
     private JobClass[] jobClasses;
     private int currentIndex;
 
     public CharacterCreation(JobClass[] jobClasses, Controller controller) {
         super("Character Creation Menu");
-        this.controller = controller;
         this.jobClasses = jobClasses;
+        this.playerInstance = controller.getPlayerInstance();
         this.currentIndex = 0;
 
         JPanel panel = new JPanel(new BorderLayout());
@@ -49,6 +49,7 @@ public class CharacterCreation extends View {
         bottomPanel.add(new JLabel("Username:"));
         bottomPanel.add(usernameField);
         bottomPanel.add(confirmButton);
+        
 
         statsLabel = new JLabel();
         updateCharacter();
@@ -77,10 +78,15 @@ public class CharacterCreation extends View {
 
         confirmButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String username = usernameField.getText();
-                controller.inputUsername(username);
+                if(usernameField.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please enter a username.");
+                    return;
+                }
+                controller.inputUsername(usernameField.getText());
                 controller.chooseJobClass(currentIndex);
-                JOptionPane.showMessageDialog(null, username + "," + "the" + jobClasses[currentIndex] + "has been created!");
+                controller.setImagePath(characterSprite[currentIndex].toString());
+                JOptionPane.showMessageDialog(null, playerInstance.getPlayerName() + ", " + "the " + playerInstance.getJobClass().getJobName() + " has been created!");
+                controller.gameLobby();
                 dispose();        
             }
         });

@@ -3,10 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class TitleScreen extends View {
-    private Controller controller;
     public TitleScreen(Controller controller) {
         super("Title Screen");
-        this.controller = controller;
 
         JPanel panel = new JPanel(new BorderLayout());
 
@@ -24,7 +22,6 @@ public class TitleScreen extends View {
         startButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 controller.createCharacter();
-                JOptionPane.showMessageDialog(null, "Starting the game...");
                 dispose();
             }
         });
@@ -32,11 +29,6 @@ public class TitleScreen extends View {
         exitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 controller.exit();
-                int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", "Confirm Exit", JOptionPane.YES_NO_OPTION);
-                if (choice == JOptionPane.YES_OPTION) {
-                    dispose();
-                    System.exit(0);
-                }
             }
         });
 

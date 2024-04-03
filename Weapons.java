@@ -2,11 +2,15 @@ public class Weapons {
     private Stats weaponStats;
     private String name;
     private int cost;
-    public Weapons(String Name, int Cost, int Vigor, int Endurance, int Dexterity, int Strength, int Intelligence, int Faith){
-        this.name=Name;
-        this.cost=Cost;
+    private String type;
+    protected String imagePath;
+    public Weapons(String type, String name, int cost, int vigor, int endurance, int dexterity, int strength, int intelligence, int faith){
+        this.type=type;
+        this.name=name;
+        this.cost=cost;
         this.weaponStats = new Stats();
-        this.weaponStats.setStats(Vigor, Endurance, Dexterity, Strength, Intelligence, Faith);
+        this.weaponStats.setStats(vigor, endurance, dexterity, strength, intelligence, faith);
+        this.imagePath = this.name + ".png";
     }
     public int getPrice(){
         return cost;
@@ -16,5 +20,11 @@ public class Weapons {
     }
     public Stats getStats(){
         return weaponStats;
+    }
+    public String getType(){
+        return type;
+    }
+    public String getImagePath(){
+        return imagePath;
     }
 }

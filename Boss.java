@@ -27,7 +27,10 @@ public class Boss extends Enemy {
         initializeStats(areaIndex); // Initialize boss stats based on type and area
         this.isDefeated = false; // Boss is initially not defeated
     }
-
+    
+    public boolean isDefeated(int index) {
+        return isDefeated;
+    }
     /**
      * Initializes boss stats based on the area index.
      * 

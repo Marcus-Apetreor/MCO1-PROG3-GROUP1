@@ -48,11 +48,7 @@ public class LevelUp extends View implements ActionListener {
         
         if (runeCount - levelUpCost < 0) {
             JOptionPane.showMessageDialog(this, "You do not have enough runes!", "Insufficient Runes", JOptionPane.ERROR_MESSAGE);
-            dispose(); // Exit the level up window
-            return;
-        }
-
-        if (source == vigorBtn) {
+        } else if (source == vigorBtn) {
             controller.levelUp(1); // Level up vigor
         } else if (source == enduranceBtn) {
             controller.levelUp(2); // Level up endurance
@@ -65,7 +61,7 @@ public class LevelUp extends View implements ActionListener {
         } else if (source == faithBtn) {
             controller.levelUp(6); // Level up faith
         }
-
+        controller.gameLobby();
         dispose(); // Close the level up window
     }
 }

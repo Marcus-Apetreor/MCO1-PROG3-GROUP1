@@ -40,6 +40,6 @@ public class StormveilCastle extends Map {
                  {"emptyTile", "emptyTile", "emptyTile"},
                  {"emptyTile", "SFastTravelTile0", "emptyTile"}
             }
-        }, 2, 6, 1, 0, 0, 2, 1, "S");
+        }, 2, 6, 1, 0, 0, 2, 1, "S", "Stormveil Castle");
     }
 }

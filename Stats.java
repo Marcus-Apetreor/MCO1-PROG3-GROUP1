@@ -5,83 +5,83 @@
  * @author Marcus Apetreor, Vincent Vuelva
  */
 public class Stats {
-    private int Vigor;
-    private int Endurance;
-    private int Dexterity;
-    private int Strength;
-    private int Intelligence;
-    private int Faith;
+    private int vigor;
+    private int endurance;
+    private int dexterity;
+    private int strength;
+    private int intelligence;
+    private int faith;
 
     /** 
      * Setter for the player's stats.
      * 
-     * @param Vigor The vigor stat attribute to set.
-     * @param Endurance The endurance stat attribute to set.
-     * @param Dexterity The dexterity stat attribute to set.
-     * @param Strength The strength stat attribute to set.
-     * @param Intelligence The intelligence stat attribute to set.
-     * @param Faith The faith stat attribute to set.
+     * @param vigor The vigor stat attribute to set.
+     * @param endurance The endurance stat attribute to set.
+     * @param dexterity The dexterity stat attribute to set.
+     * @param strength The strength stat attribute to set.
+     * @param intelligence The intelligence stat attribute to set.
+     * @param faith The faith stat attribute to set.
      */
-    public void setStats(int Vigor, int Endurance, int Dexterity, int Strength, int Intelligence, int Faith){
-        this.Vigor = Vigor;
-        this.Endurance = Endurance;
-        this.Dexterity = Dexterity;
-        this.Strength = Strength;
-        this.Intelligence = Intelligence;
-        this.Faith = Faith;
+    public void setStats(int vigor, int endurance, int dexterity, int strength, int intelligence, int faith){
+        this.vigor = vigor;
+        this.endurance = endurance;
+        this.dexterity = dexterity;
+        this.strength = strength;
+        this.intelligence = intelligence;
+        this.faith = faith;
     }
 
     public void setStats(Stats stats){
-        this.Vigor = stats.Vigor;
-        this.Endurance = stats.Endurance;
-        this.Dexterity = stats.Dexterity;
-        this.Strength = stats.Strength;
-        this.Intelligence = stats.Intelligence;
-        this.Faith = stats.Faith;
+        this.vigor = stats.vigor;
+        this.endurance = stats.endurance;
+        this.dexterity = stats.dexterity;
+        this.strength = stats.strength;
+        this.intelligence = stats.intelligence;
+        this.faith = stats.faith;
     }
 
     /** 
      * Method to add stats to the player's existing stats.
      * 
-     * @param Vigor The amount of stat point to add for vigor.
-     * @param Endurance The amount of stat point to add for endurance.
-     * @param Dexterity The amount of stat point to add for dexterity.
-     * @param Strength The amount of stat point to add for strength.
-     * @param Intelligence The amount of stat point to add for intelligence.
-     * @param Faith The amount of stat point to add for faith.
+     * @param vigor The amount of stat point to add for vigor.
+     * @param endurance The amount of stat point to add for endurance.
+     * @param dexterity The amount of stat point to add for dexterity.
+     * @param strength The amount of stat point to add for strength.
+     * @param intelligence The amount of stat point to add for intelligence.
+     * @param faith The amount of stat point to add for faith.
      */
-    public void addStats(int Vigor, int Endurance, int Dexterity, int Strength, int Intelligence, int Faith){
-        this.Vigor += Vigor;
-        this.Endurance += Endurance;
-        this.Dexterity += Dexterity;
-        this.Strength += Strength;
-        this.Intelligence += Intelligence;
-        this.Faith += Faith;
+    public void addStats(int vigor, int endurance, int dexterity, int strength, int intelligence, int faith){
+        this.vigor += vigor;
+        this.endurance += endurance;
+        this.dexterity += dexterity;
+        this.strength += strength;
+        this.intelligence += intelligence;
+        this.faith += faith;
     }
 
     public void addStats(Stats stats){
-        this.Vigor += stats.getVigor();
-        this.Endurance += stats.getEndurance();
-        this.Dexterity += stats.getDexterity();
-        this.Strength += stats.getStrength();
-        this.Intelligence += stats.getIntelligence();
-        this.Faith += stats.getFaith();
+        this.vigor += stats.getVigor();
+        this.endurance += stats.getEndurance();
+        this.dexterity += stats.getDexterity();
+        this.strength += stats.getStrength();
+        this.intelligence += stats.getIntelligence();
+        this.faith += stats.getFaith();
     }
 
     public String getStatName(int i){
         switch(i){
             case 0:
-                return "Vigor";
+                return "vigor";
             case 1:
-                return "Endurance";
+                return "endurance";
             case 2:
-                return "Dexterity";
+                return "dexterity";
             case 3:
-                return "Strength";
+                return "strength";
             case 4:
-                return "Intelligence";
+                return "intelligence";
             case 5:
-                return "Faith";
+                return "faith";
         }
         return null;
     }
@@ -89,43 +89,52 @@ public class Stats {
     public int getStatValue(int i){
         switch(i){
             case 0:
-                return Vigor;
+                return vigor;
             case 1:
-                return Endurance;
+                return endurance;
             case 2:
-                return Dexterity;
+                return dexterity;
             case 3:
-                return Strength;
+                return strength;
             case 4:
-                return Intelligence;
+                return intelligence;
             case 5:
-                return Faith;
+                return faith;
         }
         return 0;
     }
+    
+    public String printStats(){
+        return "<html><b>Vigor:</b> " + vigor + "<br/>" +
+        "<b>Endurance:</b> " + endurance + "<br/>" +
+        "<b>Dexterity:</b> " + dexterity + "<br/>" +
+        "<b>Strength:</b> " + strength + "<br/>" +
+        "<b>Intelligence:</b> " + intelligence + "<br/>" +
+        "<b>Faith:</b> " + faith + "</html>";
+    }
 
     public int getVigor() {
-        return Vigor;
+        return vigor;
     }
     
     public int getEndurance() {
-        return Endurance;
+        return endurance;
     }
     
     public int getDexterity() {
-        return Dexterity;
+        return dexterity;
     }
     
     public int getStrength() {
-        return Strength;
+        return strength;
     }
     
     public int getIntelligence() {
-        return Intelligence;
+        return intelligence;
     }
     
     public int getFaith() {
-        return Faith;
+        return faith;
     }
     
 }

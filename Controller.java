@@ -1,12 +1,15 @@
-import OLD_MAP_FILES.MapController;
+import java.util.ArrayList;
 
 public class Controller {
     private Model model;
-    private MapController mapController;
     private Player playerInstance = Model.getPlayer();
 
     public Controller(Model model){
         this.model = model;
+    }
+
+    public Player getPlayerInstance(){
+        return playerInstance;
     }
 
     //title screen methods
@@ -19,6 +22,10 @@ public class Controller {
         CharacterCreation characterCreation = new CharacterCreation(model.getJobClasses(), View.getController());
     }
 
+    public void setImagePath(String imagePath){
+        playerInstance.setImagePath(imagePath);
+    }
+
     public void inputUsername(String username){
         model.setPlayerName(username);
     }
@@ -29,15 +36,28 @@ public class Controller {
 
     //lobby methods
     public void gameLobby(){
-        
+        GameLobby gameLobby = new GameLobby(this);
     }
 
     public void fastTravel(){
+        FastTravel fastTravel = new FastTravel(this);
+    }
 
+    public int[] getBossFastTravel(){
+        int[] coordinates = {model.getBossRoom(),model.getBossRow(),model.getBossCol()};
+        return coordinates;
+    }
+
+    public int getUnlockedAreas(){
+        return model.getUnlockedAreas();
+    }
+
+    public ArrayList<String> getUnlockedFastTravelTiles(){
+        return model.getUnlockedFastTravelTiles();
     }
 
     public void levelUpMenu(){
-        LevelUp levelUpMenu = new LevelUp(playerInstance, View.getController());
+        LevelUp levelUpMenu = new LevelUp(playerInstance, this);
     }
 
     public void levelUp(int i){
@@ -68,11 +88,13 @@ public class Controller {
     }
 
     public void shop(){
-
+        Shop shop = new Shop(playerInstance, model.getShopInventory(), this);
     }
 
-    public void exitToTitle(){
-
+    public void buyWeapon(int i){
+        Weapons weapon = model.getShopInventory().get(i);
+        model.addWeapon(weapon);
+        Model.getPlayer().subtractRuneCount(weapon.getPrice());
     }
 
     //play game methods
@@ -85,7 +107,7 @@ public class Controller {
     }
 
     public void chooseSpawnLocation(){
-        mapController.chooseSpawnLocation();
+
     }
 
         //print current room

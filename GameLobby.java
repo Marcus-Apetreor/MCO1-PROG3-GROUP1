@@ -2,15 +2,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GameLobby extends View  implements ActionListener{
+public class GameLobby extends View implements ActionListener {
     private JButton fastTravelBtn, levelUpBtn, inventoryBtn, shopBtn, exitBtn;
+    private Player playerInstance;
 
-    public GameLobby(){
-
+    public GameLobby(Controller controller) {
         super("Roundtable Hold");
+        this.playerInstance = controller.getPlayerInstance();
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        JPanel panel = new JPanel(new BorderLayout()); // Use BorderLayout
+        JLabel playerStats = new JLabel();
+        playerStats.setText(playerInstance.printPlayer()+playerInstance.getStats().printStats());
+        JLabel characterSpriteLabel = new JLabel();
+        characterSpriteLabel.setIcon(new ImageIcon(playerInstance.getImagePath()));
 
         fastTravelBtn = new JButton("Fast Travel");
         levelUpBtn = new JButton("Level Up");
@@ -24,17 +28,23 @@ public class GameLobby extends View  implements ActionListener{
         shopBtn.addActionListener(this);
         exitBtn.addActionListener(this);
 
-        panel.add(Box.createVerticalGlue());
-        panel.add(fastTravelBtn);
-        panel.add(Box.createVerticalStrut(10));
-        panel.add(levelUpBtn);
-        panel.add(Box.createVerticalStrut(10));
-        panel.add(inventoryBtn);
-        panel.add(Box.createVerticalStrut(10));
-        panel.add(shopBtn);
-        panel.add(Box.createVerticalStrut(10));
-        panel.add(exitBtn);
-        panel.add(Box.createVerticalGlue());
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        buttonPanel.add(Box.createVerticalGlue());
+        buttonPanel.add(fastTravelBtn);
+        buttonPanel.add(Box.createVerticalStrut(10));
+        buttonPanel.add(levelUpBtn);
+        buttonPanel.add(Box.createVerticalStrut(10));
+        buttonPanel.add(inventoryBtn);
+        buttonPanel.add(Box.createVerticalStrut(10));
+        buttonPanel.add(shopBtn);
+        buttonPanel.add(Box.createVerticalStrut(10));
+        buttonPanel.add(exitBtn);
+        buttonPanel.add(Box.createVerticalGlue());
+
+        panel.add(buttonPanel, BorderLayout.WEST); 
+        panel.add(characterSpriteLabel, BorderLayout.EAST); 
+        panel.add(playerStats, BorderLayout.CENTER); 
 
         add(panel);
         setVisible(true);
@@ -42,26 +52,20 @@ public class GameLobby extends View  implements ActionListener{
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == fastTravelBtn) {
-            System.out.println("Fast Travel button clicked.");
             controller.fastTravel();
             dispose();
         } else if (e.getSource() == levelUpBtn) {
-            System.out.println("Level Up button clicked.");
             controller.levelUpMenu();
-            // Add your level up functionality here
-        } else if (e.getSource() == inventoryBtn) {
-            System.out.println("Inventory button clicked.");
-            controller.inventory();
-            // Add your inventory functionality here
-        } else if (e.getSource() == shopBtn) {
-            System.out.println("Shop button clicked.");
-            controller.shop();
-            // Add your shop functionality here
-        } else if (e.getSource() == exitBtn) {
-            System.out.println("Exit to Title Screen button clicked.");
-            controller.exitToTitle();
             dispose();
-            // Add your exit functionality here
+        } else if (e.getSource() == inventoryBtn) {
+            controller.inventory();
+            dispose();
+        } else if (e.getSource() == shopBtn) {
+            controller.shop();
+            dispose();
+        } else if (e.getSource() == exitBtn) {
+            View.titleScreen();
+            dispose();
         }
     }
 }

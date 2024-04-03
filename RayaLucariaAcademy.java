@@ -10,14 +10,14 @@ public class RayaLucariaAcademy extends Map{
                 {"emptyTile","emptyTile","doorTile0","emptyTile","emptyTile"}
             },
             {
-                {"emptyTile","RFastTravelTile1","emptyTile"},
+                {"OOBTile","OOBTile","emptyTile","RFastTravelTile1","emptyTile","OOBTile","OOBTile"},
                 {"emptyTile","emptyTile","emptyTile","emptyTile","emptyTile","emptyTile","emptyTile"},
                 {"emptyTile","spawnTile","emptyTile","spawnTile","emptyTile","spawnTile","emptyTile"},
                 {"emptyTile","emptyTile","emptyTile","emptyTile","emptyTile","emptyTile","emptyTile"},
                 {"emptyTile","spawnTile","emptyTile","bossTile","emptyTile","spawnTile","emptyTile"},
                 {"emptyTile","emptyTile","emptyTile","emptyTile","emptyTile","emptyTile","emptyTile"},
                 {"emptyTile","spawnTile","emptyTile","emptyTile","emptyTile","spawnTile","emptyTile"},
-                {"emptyTile","emptyTile","emptyTile","doorTile3","emptyTile","emptyTile",}
+                {"emptyTile","emptyTile","emptyTile","doorTile3","emptyTile","emptyTile","emptyTile",}
             },
             {
                 {"emptyTile", "doorTile0", "emptyTile"},
@@ -29,14 +29,14 @@ public class RayaLucariaAcademy extends Map{
                 {"emptyTile", "emptyTile", "emptyTile"}
             },
             {
-                {"emptyTile", "doorTile3", "emptyTile"},
-                {"emptyTile", "spawnTile", "emptyTile"},
+                {"OOBTile","emptyTile", "doorTile3", "emptyTile","OOBTile"},
+                {"OOBTile","emptyTile", "spawnTile", "emptyTile","OOBTile"},
                 {"emptyTile","emptyTile","emptyTile","emptyTile","emptyTile"},
                 {"doorTile1","emptyTile","emptyTile","emptyTile","doorTile2"},
                 {"emptyTile","emptyTile","emptyTile","emptyTile","emptyTile"},
-                {"emptyTile", "spawnTile", "emptyTile"},
-                {"emptyTile","emptyTile","emptyTile"}
+                {"OOBTile","emptyTile", "spawnTile", "emptyTile","OOBTile"},
+                {"OOBTile","emptyTile","emptyTile","emptyTile","OOBTile"}
             },
-        }, 0, 0, 2, 1, 4, 3, 2, "R");
+        }, 0, 0, 2, 1, 4, 3, 2, "R", "Raya Lucaria Academy");
     }
 }

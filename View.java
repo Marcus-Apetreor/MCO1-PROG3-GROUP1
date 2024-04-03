@@ -1,6 +1,4 @@
-import javax.swing.event.*;
 import javax.swing.*;
-import java.awt.*;
 
 public class View extends JFrame {
     protected static Controller controller;
@@ -14,6 +12,10 @@ public class View extends JFrame {
     
     public View(Controller c) {
         controller = c;
+        titleScreen();
+    }
+
+    public static void titleScreen(){
         TitleScreen titleScreen = new TitleScreen(controller);
     }
 

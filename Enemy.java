@@ -21,9 +21,9 @@ public class Enemy {
     protected double incantationDefense;
     protected boolean isDefeated;
 
-    private static final String[][] enemyNames = {{"Godrick Soldier", "Living Jar"}, 
-                                                  {"Godrick Archer", "Glintstone Sorcerer"}, 
-                                                  {"Godrick Knight", "Battlemage"}};
+    private static final String[][] enemyNames = {{"Godrick Soldier", "Living Jar", ""}, 
+                                                  {"Godrick Archer", "Glintstone Sorcerer", ""}, 
+                                                  {"Godrick Knight", "Battlemage", ""}};
     private static final int[][] healthRanges = {{20, 30}, {25, 35}, {70, 80}};
     private static final int[][] attackRanges = {{70, 80}, {110, 120}, {120, 130}};
     private static final double[][] defenseRanges = {
