@@ -1,6 +1,5 @@
 import java.util.*;
-
-import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 /**
  * Class for representing a player character in the game.
  * It contains player attributes and methods related to leveling up and managing stats.
@@ -17,9 +16,46 @@ public class Player {
     private ArrayList<Weapons> playerInventory = new ArrayList<Weapons>();
     private Weapons equippedWeapon;
     private String imagePath;
+    private double maxHealth = 0;
+    private double dodgeRate = 0;
+    private Stats combinedStats;
 
     public Player(){
         this.playerStats = new Stats();
+        this.combinedStats = new Stats();
+    }
+
+    public void initializeMaxHealth(){
+        this.maxHealth=((getStats().getVigor() + getEquippedWeapon().getStats().getVigor())/2.0)*100.0;
+    }
+
+    public double getMaxHealth(){
+        return maxHealth;
+    }
+
+    public void setMaxHealth(double maxHealth){
+        this.maxHealth = maxHealth;
+    }
+
+    public void subtractMaxHealth(double maxHealth){
+        this.maxHealth-=maxHealth;
+    }
+
+    public boolean isDead(){
+        if(maxHealth<=0){
+            JOptionPane.showMessageDialog(null, "YOU DIED");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void initializeDodgeRate(){
+        this.dodgeRate=(20+((getStats().getEndurance() + getEquippedWeapon().getStats().getEndurance())/2.0))/100.0;
+    }
+
+    public double getDodgeRate(){
+        return dodgeRate;
     }
 
     public void addWeapon(Weapons weapon){
@@ -140,5 +176,14 @@ public class Player {
 
     public String printPlayer(){
         return "<html><b>Name: </b> " + playerName + "<br/>" + "<b>Level: </b>" + playerLevel + "<br/>";
+    }
+
+    public void initializeCombinedStats() {
+        combinedStats.setStats(playerStats);
+        combinedStats.addStats(equippedWeapon.getStats());
+    }
+
+    public Stats getCombinedStats() {
+        return combinedStats;
     }
 }

@@ -1,5 +1,7 @@
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 /**
  * Enemy class to create enemy instances with specific attributes.
  * Each enemy has a type, name, health, attack, and defense values.
@@ -19,7 +21,6 @@ public class Enemy {
     protected double physicalDefense;
     protected double sorceryDefense;
     protected double incantationDefense;
-    protected boolean isDefeated;
 
     private static final String[][] enemyNames = {{"Godrick Soldier", "Living Jar", ""}, 
                                                   {"Godrick Archer", "Glintstone Sorcerer", ""}, 
@@ -34,6 +35,8 @@ public class Enemy {
 
     private static final Random random = new Random();
 
+    private int areaIndex;
+
     /**
      * Constructs an enemy instance with a specified type and area index.
      * 
@@ -42,8 +45,8 @@ public class Enemy {
      */
     public Enemy(EnemyType type, int areaIndex) {
         this.type = type;
+        this.areaIndex = areaIndex;
         initializeStats(areaIndex);
-        this.isDefeated = false;
     }
 
     /**
@@ -55,7 +58,6 @@ public class Enemy {
         int typeIndex = type.ordinal();
         name = enemyNames[typeIndex][areaIndex - 1];
         health = randomValue(healthRanges[typeIndex]) * areaIndex;
-        attack = randomValue(attackRanges[typeIndex]) * areaIndex;
         physicalDefense = defenseRanges[0][typeIndex];
         sorceryDefense = defenseRanges[1][typeIndex];
         incantationDefense = defenseRanges[2][typeIndex];
@@ -77,14 +79,12 @@ public class Enemy {
      * @return True if the enemy is defeated, false otherwise.
      */
     public boolean isDefeated() {
-        return isDefeated;
-    }
-
-    /**
-     * Marks the enemy as defeated.
-     */
-    public void defeat() {
-        isDefeated = true;
+        if(health <= 0){
+            JOptionPane.showMessageDialog(null, "ENEMY FELLED");
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -139,9 +139,6 @@ public class Enemy {
      */
     public void setHealth(double d) {
         this.health = d;
-        if (this.health <= 0) {
-            defeat();
-        }
     }
 
     /**
@@ -150,7 +147,8 @@ public class Enemy {
      * @return The attack power of the enemy.
      */
     public int getAttack() {
-        return attack;
+        int typeIndex = type.ordinal();
+        return randomValue(attackRanges[typeIndex]) * areaIndex;
     }
 
     /**

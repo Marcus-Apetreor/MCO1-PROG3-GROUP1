@@ -8,8 +8,18 @@ public class TitleScreen extends View {
 
         JPanel panel = new JPanel(new BorderLayout());
 
+        // Get screen size
+        Dimension windowSize = getSize();
+        double width = windowSize.getWidth();
+        double height = windowSize.getHeight();
+
         // Create a label for the title image
         ImageIcon titleImage = new ImageIcon("title.png");
+
+        // Scale the image to fit the screen
+        Image scaledImage = titleImage.getImage().getScaledInstance((int) width, (int) height, Image.SCALE_DEFAULT);
+        titleImage = new ImageIcon(scaledImage);
+
         JLabel titleLabel = new JLabel(titleImage);
         panel.add(titleLabel, BorderLayout.CENTER);
 

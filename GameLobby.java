@@ -8,11 +8,24 @@ public class GameLobby extends View implements ActionListener {
 
     public GameLobby(Controller controller) {
         super("Roundtable Hold");
-        this.playerInstance = controller.getPlayerInstance();
+        this.playerInstance = Controller.getPlayerInstance();
+        playerInstance.initializeMaxHealth();
+        playerInstance.initializeDodgeRate();
+        playerInstance.initializeCombinedStats();
 
         JPanel panel = new JPanel(new BorderLayout()); // Use BorderLayout
+        JPanel statsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT)); // Use FlowLayout
+
         JLabel playerStats = new JLabel();
-        playerStats.setText(playerInstance.printPlayer()+playerInstance.getStats().printStats());
+        playerStats.setText(playerInstance.printPlayer() + playerInstance.getStats().printStats());
+
+        JLabel combinedStats = new JLabel();
+        combinedStats.setText("<html>Stats with Weapons: <br>" + playerInstance.getCombinedStats().printStats());
+
+        statsPanel.add(playerStats);
+        statsPanel.add(combinedStats);
+
+        panel.add(statsPanel, BorderLayout.NORTH); // Add statsPanel to the top of the main panel
         JLabel characterSpriteLabel = new JLabel();
         characterSpriteLabel.setIcon(new ImageIcon(playerInstance.getImagePath()));
 

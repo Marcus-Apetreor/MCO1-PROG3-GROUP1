@@ -16,7 +16,7 @@ public class View extends JFrame {
     }
 
     public static void titleScreen(){
-        TitleScreen titleScreen = new TitleScreen(controller);
+        new TitleScreen(controller);
     }
 
     public static Controller getController(){

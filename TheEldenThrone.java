@@ -1,4 +1,6 @@
-public class TheEldenThrone extends Map implements CreditsInterface{
+import javax.swing.JOptionPane;
+
+public class TheEldenThrone extends TileMap implements CreditsInterface{
     public TheEldenThrone(){
         super(new String[][][] 
         {
@@ -31,18 +33,19 @@ public class TheEldenThrone extends Map implements CreditsInterface{
                 {"emptyTile", "emptyTile", "emptyTile"},
                 {"emptyTile", "emptyTile", "emptyTile"},
                 {"emptyTile", "emptyTile", "emptyTile"},
-                {"emptyTile", "SFastTravelTile0", "emptyTile"}
+                {"emptyTile", "TFastTravelTile0", "emptyTile"}
             },
         }, 2, 8, 1, 0, 0, 0, 3, "T", "The Elden Throne");
     }
 
     @Override
-    public void spawnTile(int areaIndex){
+    public void spawnTile(){
         int gainedRunes = (50 + random.nextInt(101))*areaIndex;
         Model.getPlayer().addRunes(gainedRunes);
+        JOptionPane.showMessageDialog(null, "You have gained " + gainedRunes + " runes!");
     }
 
     public void creditsTile(){
-        CreditScreen creditScreen = new CreditScreen();
+        new CreditScreen();
     }
 }

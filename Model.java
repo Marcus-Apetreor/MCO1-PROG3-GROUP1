@@ -4,10 +4,7 @@ public class Model {
 
     //player 
     private static Player playerInstance = new Player();
-    private int runeCount = playerInstance.getRuneCount();
     private int playerLevel = playerInstance.getPlayerLevel();
-    private ArrayList<Weapons> playerInventory = playerInstance.getPlayerInventory();
-    private double playerHealth = 0;
 
     //no weapon
     private Weapons fists = new Weapons("No Weapon", "Fists", 0, 0, 0, 0, 0, 0, 0);
@@ -61,22 +58,12 @@ public class Model {
     private JobClass jobless = new JobClass(0, "jobless", 0, 0, 0, 0, 0, 0);
 
     //maps and map related variables
-    private Map stormveilCastle = new StormveilCastle();
-    private Map RayaLucariaAcademy = new RayaLucariaAcademy();
-    private Map TheEldenThrone = new TheEldenThrone();
+    private TileMap stormveilCastle = new StormveilCastle();
+    private TileMap RayaLucariaAcademy = new RayaLucariaAcademy();
+    private TileMap TheEldenThrone = new TheEldenThrone();
 
     //shop
     private static ArrayList<Weapons> shopInventory = new ArrayList<Weapons>();
-
-    //lobby
-    private static String[] gameSelectorOptions = {"Fast Travel", "Level Up", "Inventory", "Shop", "Exit Game"};
-    private static String[] mapOptions = {"Stormveil Castle", "Raya Lucaria Academy", "The Elden Throne"};
-
-    //title screen
-    private static String[] titleOptions = {"Start", "Exit"};
-
-    //battle
-    private boolean turn = true;
     
     //constructor
     public Model(){
@@ -89,17 +76,6 @@ public class Model {
         playerInstance.addWeapon(fists);
         playerInstance.setEquippedWeapon(0);
         playerInstance.setJobClass(jobless);
-    }
-
-    public double getMaxHealth(){
-        return ((playerInstance.getStats().getVigor() + playerInstance.getEquippedWeapon().getStats().getVigor())/2.0)*100.0;
-    }
-    public void setMaxHealth(double playerHealth){
-        playerHealth = getMaxHealth();
-    }
-    
-    public double dodgeRate(){
-        return (20+((playerInstance.getStats().getEndurance() + playerInstance.getEquippedWeapon().getStats().getEndurance())/2.0))/100.0;
     }
 
     public void initializeShop(){
@@ -171,44 +147,11 @@ public class Model {
     }
 
     public boolean calculateDodge(double chance) {
-        double randomValue = new Random().nextDouble() * 100;
-
+        double randomValue = new Random().nextDouble();
         if (randomValue < chance) {
             return true; // Dodge successful
         } else {
             return false; // Dodge unsuccessful
-        }
-    }
-
-    public void battle(Enemy enemy, int userInput, int attackInput){
-        //print incoming damage    
-
-        //player turn
-        //attack
-        if (userInput == 1 && turn){
-            //attack options
-            if(attackInput == 1){
-                physicalDamage(enemy);
-            } else if (attackInput == 2){
-                sorceryDamage(enemy);
-            } else if (attackInput == 3){
-                incantationDamage(enemy);
-            }
-            turn = false;
-        //dodge
-        } else if (userInput == 2 && turn){
-            if(calculateDodge(dodgeRate())){
-                //success
-            } else {
-                setMaxHealth(enemy.getAttack());
-                //fail
-            }
-            turn = true;
-
-        //enemy turn
-        } else {
-            setMaxHealth(enemy.getAttack());
-            turn = true;
         }
     }
 
@@ -261,7 +204,7 @@ public class Model {
 
     //map methods
 
-    public Map getMap(int i){
+    public TileMap getMap(int i){
         switch(i){
             case 1:
                 return stormveilCastle;
@@ -274,24 +217,12 @@ public class Model {
         }
     }
 
-    public int getBossRoom(){
-        return Map.getBossRoom();
-    }
-
-    public int getBossRow(){
-        return Map.getBossRow();
-    }
-
-    public int getBossCol(){
-        return Map.getBossCol();
+    public ArrayList<String> getUnlockedFastTravelTiles(){
+        return TileMap.getUnlockedFastTravelTiles();
     }
 
     public int getUnlockedAreas(){
-        return Map.getUnlockedAreas();
-    }
-
-    public ArrayList<String> getUnlockedFastTravelTiles(){
-        return Map.getUnlockedFastTravelTiles();
+        return TileMap.getUnlockedAreas();
     }
 
     //shop methods

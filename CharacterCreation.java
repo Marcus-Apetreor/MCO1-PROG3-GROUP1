@@ -26,7 +26,7 @@ public class CharacterCreation extends View {
     public CharacterCreation(JobClass[] jobClasses, Controller controller) {
         super("Character Creation Menu");
         this.jobClasses = jobClasses;
-        this.playerInstance = controller.getPlayerInstance();
+        this.playerInstance = Controller.getPlayerInstance();
         this.currentIndex = 0;
 
         JPanel panel = new JPanel(new BorderLayout());

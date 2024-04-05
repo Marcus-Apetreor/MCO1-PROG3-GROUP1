@@ -2,13 +2,13 @@ import java.util.ArrayList;
 
 public class Controller {
     private Model model;
-    private Player playerInstance = Model.getPlayer();
+    private static Player playerInstance = Model.getPlayer();
 
     public Controller(Model model){
         this.model = model;
     }
 
-    public Player getPlayerInstance(){
+    public static Player getPlayerInstance(){
         return playerInstance;
     }
 
@@ -19,7 +19,7 @@ public class Controller {
 
     //create character methods
     public void createCharacter(){
-        CharacterCreation characterCreation = new CharacterCreation(model.getJobClasses(), View.getController());
+        new CharacterCreation(model.getJobClasses(), View.getController());
     }
 
     public void setImagePath(String imagePath){
@@ -36,16 +36,11 @@ public class Controller {
 
     //lobby methods
     public void gameLobby(){
-        GameLobby gameLobby = new GameLobby(this);
+        new GameLobby(this);
     }
 
     public void fastTravel(){
-        FastTravel fastTravel = new FastTravel(this);
-    }
-
-    public int[] getBossFastTravel(){
-        int[] coordinates = {model.getBossRoom(),model.getBossRow(),model.getBossCol()};
-        return coordinates;
+        new FastTravel(this);
     }
 
     public int getUnlockedAreas(){
@@ -57,7 +52,7 @@ public class Controller {
     }
 
     public void levelUpMenu(){
-        LevelUp levelUpMenu = new LevelUp(playerInstance, this);
+        new LevelUp(playerInstance, this);
     }
 
     public void levelUp(int i){
@@ -77,18 +72,15 @@ public class Controller {
             case 5:
                 model.levelUp(5);
                 break;
-            default:
-                System.out.println("Invalid input");
-                break;
         }
     }
 
     public void inventory(){
-        Inventory inventory = new Inventory(playerInstance);
+        new Inventory(playerInstance);
     }
 
     public void shop(){
-        Shop shop = new Shop(playerInstance, model.getShopInventory(), this);
+        new Shop(playerInstance, model.getShopInventory(), this);
     }
 
     public void buyWeapon(int i){
@@ -97,26 +89,38 @@ public class Controller {
         Model.getPlayer().subtractRuneCount(weapon.getPrice());
     }
 
-    //play game methods
-    public void loadMap(){
-
-    }
-    
-    public void loadLevels(){
-        
-    }
-
-    public void chooseSpawnLocation(){
-
-    }
-
-        //print current room
-
-    public void movePlayer(){
-
-    }
-
     //battle methods
 
-        //tile logic
+    public boolean playerTurn(Enemy enemy, int userInput, int attackInput){
+        //print incoming damage    
+
+        //player turn
+        //attack
+        if (userInput == 1){
+            //attack options
+            if(attackInput == 1){
+                model.physicalDamage(enemy);
+            } else if (attackInput == 2){
+                model.sorceryDamage(enemy);
+            } else if (attackInput == 3){
+                model.incantationDamage(enemy);
+            }
+        enemyTurn(enemy);
+        return true;
+
+        //dodge
+        } else if (userInput == 2){
+            if(model.calculateDodge(playerInstance.getDodgeRate())){
+                return false;
+            } else {
+                enemyTurn(enemy);
+                return true;
+            }
+        }
+        return true;
+    }
+
+    public void enemyTurn(Enemy enemy){
+        playerInstance.subtractMaxHealth(enemy.getAttack());
+    }
 }

@@ -1,4 +1,4 @@
-public class RayaLucariaAcademy extends Map{
+public class RayaLucariaAcademy extends TileMap{
     public RayaLucariaAcademy(){
         super(new String[][][] 
         {
@@ -37,6 +37,11 @@ public class RayaLucariaAcademy extends Map{
                 {"OOBTile","emptyTile", "spawnTile", "emptyTile","OOBTile"},
                 {"OOBTile","emptyTile","emptyTile","emptyTile","OOBTile"}
             },
-        }, 0, 0, 2, 1, 4, 3, 2, "R", "Raya Lucaria Academy");
+            {
+                {"emptyTile","emptyTile","spawnTile","emptyTile","spawnTile","emptyTile"},
+                {"doorTile2","emptyTile","emptyTile","emptyTile","emptyTile","emptyTile"},
+                {"emptyTile","emptyTile","spawnTile","emptyTile","spawnTile","emptyTile"},
+            },
+        }, 0, 0, 2, 1, 0, 3, 2, "R", "Raya Lucaria Academy");
     }
 }

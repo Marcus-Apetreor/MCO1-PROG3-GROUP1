@@ -5,7 +5,7 @@
  * 
  * @author Marcus Apetreor, Vincent Vuelva
  */
-public class StormveilCastle extends Map {
+public class StormveilCastle extends TileMap {
     /**
      * Constructor to initialize the Stormveil Castle map.
      * Constructs the Stormveil Castle map with its specific layout and features.

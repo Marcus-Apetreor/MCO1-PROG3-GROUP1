@@ -20,6 +20,15 @@ public class Shop extends View implements ActionListener {
         this.purchaseButtons = new HashMap<>();
         setLocationRelativeTo(null);
         initComponents();
+        JButton exitButton = new JButton("Exit");
+        exitButton.addActionListener(e -> {
+            controller.gameLobby();
+            dispose();
+        });
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        buttonPanel.add(exitButton);
+        add(buttonPanel, BorderLayout.SOUTH);
+
         setVisible(true);
     }
 

@@ -1,5 +1,7 @@
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 /**
  * The Boss class represents boss enemies players encounter in specific game areas.
  * Each boss has unique characteristics and stats.
@@ -14,6 +16,7 @@ public class Boss extends Enemy {
     private int healthValues[] = { 200, 400, 800 };
     private String bossNames[] = { "Godrick the Grafted", "Rennala, Queen of the Full Moon", "The Elden Beast" };
     private double defenseValues[][] = { { 0.35, 0.2, 0.15 }, { 0.15, 0.35, 0.25 }, { 0.25, 0.5, 0.4 } };
+    private int areaIndex;
 
     /**
      * Constructs a Boss object with specified type and area index.
@@ -24,13 +27,10 @@ public class Boss extends Enemy {
      */
     public Boss(EnemyType type, int areaIndex) {
         super(type, areaIndex);
+        this.areaIndex = areaIndex;
         initializeStats(areaIndex); // Initialize boss stats based on type and area
-        this.isDefeated = false; // Boss is initially not defeated
     }
-    
-    public boolean isDefeated(int index) {
-        return isDefeated;
-    }
+
     /**
      * Initializes boss stats based on the area index.
      * 
@@ -40,7 +40,6 @@ public class Boss extends Enemy {
         int bossAreaIndex = areaIndex - 1;
         name = bossNames[bossAreaIndex];
         health = healthValues[bossAreaIndex];
-        attack = randomValue(attackRanges[bossAreaIndex]);
         physicalDefense = defenseValues[bossAreaIndex][0];
         sorceryDefense = defenseValues[bossAreaIndex][1];
         incantationDefense = defenseValues[bossAreaIndex][2];
@@ -55,6 +54,19 @@ public class Boss extends Enemy {
     private int randomValue(int[] range) {
         Random random = new Random();
         return random.nextInt(range[1] - range[0] + 1) + range[0];
+    }
+    
+    public boolean isDefeated(){
+        if(health <= 0){
+            JOptionPane.showMessageDialog(null, "GREAT ENEMY FELLED");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public int getAttack() {
+        return randomValue(attackRanges[areaIndex-1]);
     }
 
     /**

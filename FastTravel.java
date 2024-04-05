@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -19,8 +21,8 @@ public class FastTravel extends View implements ActionListener {
     public FastTravel(Controller controller) { // Modify this line
         super("Fast Travel Menu");
         this.controller = controller;
-        this.unlockedAreas = controller.getUnlockedAreas();
-        this.unlockedFastTravelTiles = controller.getUnlockedFastTravelTiles();
+        this.unlockedAreas = TileMap.getUnlockedAreas();
+        this.unlockedFastTravelTiles = TileMap.getUnlockedFastTravelTiles();
 
         setLocationRelativeTo(null);
         areaUnlockStatus = new LinkedHashMap<>();
@@ -55,6 +57,14 @@ public class FastTravel extends View implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        // Check if the exit button was clicked
+        if (e.getSource() == exitButton) {
+            controller.gameLobby();
+            dispose();
+            return; // Exit the method immediately
+        }
+
+        // Handle selected map
         String selectedArea = areaList.getSelectedValue();
         if (selectedArea != null && areaUnlockStatus.get(selectedArea.replace(" [LOCKED]", ""))) {
             // Create options
@@ -67,16 +77,25 @@ public class FastTravel extends View implements ActionListener {
             int option = JOptionPane.showOptionDialog(this, "Choose a destination:", "Travel to " + selectedArea.replace(" [LOCKED]", ""),
                     JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
             // Handle selected option
-            if (option == 0) {
-                JOptionPane.showMessageDialog(this, "Traveling to the Spawn Point in " + selectedArea.replace(" [LOCKED]", ""));
-                // logic to travel to spawn
-            } else if (option == 1 && options[1].equals("Boss Room")) {
-                JOptionPane.showMessageDialog(this, "Traveling to the Boss Room in " + selectedArea.replace(" [LOCKED]", ""));
-                // logic to travel to boss room
+            if (option == 0 || (option == 1 && options[1].equals("Boss Room"))) {
+                Object areaInstance = null;
+                if (selectedArea.startsWith("S")) {
+                    areaInstance = new StormveilCastle();
+                } else if (selectedArea.startsWith("R")) {
+                    areaInstance = new RayaLucariaAcademy();
+                } else if (selectedArea.startsWith("T")) {
+                    areaInstance = new TheEldenThrone();
+                }
+                if (areaInstance != null) {
+                    try {
+                        Method displayGUIMethod = areaInstance.getClass().getMethod("displayGUI", int.class);
+                        displayGUIMethod.invoke(areaInstance, option == 0 ? 1 : 2);
+                        dispose();
+                    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
+                        ex.printStackTrace();
+                    }
+                }
             }
-        } else if (e.getSource() == exitButton) {
-            controller.gameLobby();
-            dispose();
         } else {
             JOptionPane.showMessageDialog(this, "This area is locked or not selected.");
         }
@@ -96,21 +115,19 @@ public class FastTravel extends View implements ActionListener {
         }
     }
 
-    public boolean unlockFastTravelTiles(String prefix, ArrayList<String> unlockedFastTravelTiles, int playerInput){
-        int i;
-        boolean unlocked = false;
-        for(i=0; i<unlockedFastTravelTiles.size(); i++){
-            if (unlockedFastTravelTiles.get(i).startsWith(prefix)){
-                if(unlockedFastTravelTiles.get(i).endsWith("1")){
-                    unlocked = true;
-                }
-            }
+public boolean unlockFastTravelTiles(String prefix, ArrayList<String> unlockedFastTravelTiles, int playerInput){
+    boolean unlocked = false;
+    for(String tile : unlockedFastTravelTiles){
+        if (tile.startsWith(prefix.substring(0, 1)) && tile.endsWith("1")){
+            unlocked = true;
+            break;
         }
+    }
 
-        if (playerInput == 1 && unlocked){
-            return true;
-        } else {
-            return false;
-        }
-    } 
+    if (playerInput == 1 && unlocked){
+        return true;
+    } else {
+        return false;
+    }
+}
 }
