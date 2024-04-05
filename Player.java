@@ -179,7 +179,7 @@ public class Player {
     }
 
     public String printPlayer(){
-        return "<html><b>Name: </b> " + playerName + "<br/>" + "<b>Level: </b>" + playerLevel + "<br/>";
+        return "<html><b>Name: </b> " + playerName + "<br/>" + "<b>Level: </b>" + playerLevel + "<br/>" + "<b>Rune Count: </b>" + runeCount + "<br/>" + "<b>Stats: </b>" + playerStats.printStats() + "</html>";
     }
 
     public void initializeCombinedStats() {

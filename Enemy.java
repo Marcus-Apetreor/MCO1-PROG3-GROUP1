@@ -86,7 +86,7 @@ public class Enemy {
      */
     public boolean isDefeated() {
         if(health <= 0){
-            JOptionPane.showMessageDialog(null, "ENEMY FELLED");
+            JOptionPane.showMessageDialog(null, "ENEMY FELLED, YOU HAVE GAINED " + dropRunes() + " RUNES");
             return true;
         } else {
             return false;

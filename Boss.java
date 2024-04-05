@@ -64,7 +64,7 @@ public class Boss extends Enemy {
      */
     public boolean isDefeated(){
         if(health <= 0){
-            JOptionPane.showMessageDialog(null, "GREAT ENEMY FELLED");
+            JOptionPane.showMessageDialog(null, "GREAT ENEMY FELLED, YOU HAVE GAINED " + dropRunes() + " RUNES");
             return true;
         } else {
             return false;

@@ -18,6 +18,7 @@ public class Shop extends View implements ActionListener {
     private HashMap<String, JButton> purchaseButtons;
     private ArrayList<Weapons> shopInventory;
     private Controller controller;
+    private JLabel runeCountLabel;
 
     /**
      * Constructs a new Shop object.
@@ -34,6 +35,13 @@ public class Shop extends View implements ActionListener {
         this.purchaseButtons = new HashMap<>();
         setLocationRelativeTo(null);
         initComponents();
+        runeCountLabel = new JLabel("Rune Count: " + player.getRuneCount());
+        runeCountLabel.setHorizontalAlignment(JLabel.RIGHT); 
+
+        JPanel runeCountPanel = new JPanel(new BorderLayout());
+        runeCountPanel.add(runeCountLabel, BorderLayout.EAST);
+
+        add(runeCountPanel, BorderLayout.NORTH);
         JButton exitButton = new JButton("Exit");
         exitButton.addActionListener(e -> {
             controller.gameLobby();
