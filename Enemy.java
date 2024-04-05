@@ -19,6 +19,7 @@ public class Enemy {
     
     protected EnemyType type;
     protected String name;
+    protected double maxHealth;
     protected double health;
     protected int attack;
     protected double physicalDefense;
@@ -62,6 +63,7 @@ public class Enemy {
         int typeIndex = type.ordinal();
         name = enemyNames[typeIndex][areaIndex - 1];
         health = randomValue(healthRanges[typeIndex]) * areaIndex;
+        maxHealth = health;
         physicalDefense = defenseRanges[0][typeIndex];
         sorceryDefense = defenseRanges[1][typeIndex];
         incantationDefense = defenseRanges[2][typeIndex];
@@ -89,6 +91,15 @@ public class Enemy {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Returns the calculated ammount of runes dropped by the enemy.
+     * 
+     * @return The ammount of runes dropped by enemy.
+     */
+    public double dropRunes(){
+        return maxHealth * 2;
     }
 
     // Getters and setters for enemy attributes

@@ -107,6 +107,7 @@ public class Battle extends View {
     private void messagePrompts() {
         if (enemy.isDefeated()) {
             frame.dispose();
+            player.addRunes((int)enemy.dropRunes());
         } else if (player.isDead()) {
             frame.dispose();
             MapGUI.getCurrentInstance().dispose();

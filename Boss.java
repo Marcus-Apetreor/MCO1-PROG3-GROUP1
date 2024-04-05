@@ -72,6 +72,15 @@ public class Boss extends Enemy {
     }
 
     /**
+     * Returns the calculated ammount of runes dropped by the boss.
+     * 
+     * @return The ammount of runes dropped by boss.
+     */
+    public double dropRunes(){
+        return healthValues[areaIndex-1] * 5;
+    }
+
+    /**
      * Gets the attack value of the boss.
      * 
      * @return The attack value of the boss.
