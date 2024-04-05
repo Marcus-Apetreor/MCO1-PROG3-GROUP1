@@ -12,7 +12,7 @@ import java.util.*;
  * <p>Note: This class assumes that the game has various types of weapons, job classes, maps, and a shop
  * inventory, all of which are initialized upon construction of the Model object.</p>
  * 
- * @author Marcus Apetreor
+ * @author Marcus Apetreor, Vincent Vuelva
  */
 public class Model {
 

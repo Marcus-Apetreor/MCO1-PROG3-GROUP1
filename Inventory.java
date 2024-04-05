@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Extends View.
  * 
  * Inherits from the {@link View} class.
- * @author Marcus Apetreor
+ * @author Marcus Apetreor, Vincent Vuelva
  */
 public class Inventory extends View {
     private Player playerInstance;

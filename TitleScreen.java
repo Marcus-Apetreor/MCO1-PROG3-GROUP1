@@ -8,7 +8,7 @@ import java.awt.event.*;
  * <p>
  * Inherits from the {@link View} class.
  * 
- * @author Marcus Apetreor
+ * @author Marcus Apetreor, Vincent Vuelva
  */
 public class TitleScreen extends View {
 

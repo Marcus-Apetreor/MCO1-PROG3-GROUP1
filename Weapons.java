@@ -2,7 +2,7 @@
  * Represents a weapon in the game.
  * Each weapon has its own name, cost, type, stats, and image path.
  * 
- * @author Marcus Apetreor
+ * @author Marcus Apetreor, Vincent Vuelva
  */
 public class Weapons {
     private Stats weaponStats; // Stats of the weapon

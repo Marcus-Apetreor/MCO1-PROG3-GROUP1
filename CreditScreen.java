@@ -6,7 +6,7 @@ import java.awt.*;
  * It inherits from the View class.
  * 
  * Inherits from the {@link View} class.
- * @author Marcus Apetreor
+ * @author Marcus Apetreor, Vincent Vuelva
  */
 public class CreditScreen extends View {
     /**

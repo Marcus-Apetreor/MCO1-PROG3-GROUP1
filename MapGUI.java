@@ -24,7 +24,7 @@ import java.util.Map;
  * <p>Note: The MapGUI class is a singleton, meaning that only one instance of it can exist at a time.</p>
  * 
  * Inherits from the {@link View} class.
- * @author Marcus Apetreor
+ * @author Marcus Apetreor, Vincent Vuelva
  */
 public class MapGUI extends View implements KeyListener {
     private JPanel[][][] roomsPanel;

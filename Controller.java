@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * The Controller class manages the flow of the game by coordinating interactions between the model and the views.
  * 
- * @author Marcus Apetreor
+ * @author Marcus Apetreor, Vincent Vuelva
  */
 public class Controller {
     private Model model;

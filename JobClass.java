@@ -1,7 +1,7 @@
 /**
  * The JobClass class represents a job class with specific attributes such as stats, name, and level.
  * 
- * @author Marcus Apetreor
+ * @author Marcus Apetreor, Vincent Vuelva
  */
 public class JobClass {
     private Stats jobStats;

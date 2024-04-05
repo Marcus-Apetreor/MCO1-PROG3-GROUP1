@@ -13,7 +13,7 @@ import java.awt.event.*;
  * button click events.</p>
  * 
  * Inherits from the {@link View} class.
- * @author Marcus Apetreor
+ * @author Marcus Apetreor, Vincent Vuelva
  */
 public class LevelUp extends View implements ActionListener {
     private JButton vigorBtn, enduranceBtn, dexterityBtn, strengthBtn, intelligenceBtn, faithBtn;

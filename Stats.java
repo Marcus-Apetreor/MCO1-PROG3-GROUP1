@@ -2,7 +2,7 @@
  * Class that represents player statistics and provides methods to manage them.
  * It houses attributes and methods related to player stats.
  * 
- * @author Marcus Apetreor
+ * @author Marcus Apetreor, Vincent Vuelva
  */
 public class Stats {
     private int vigor;

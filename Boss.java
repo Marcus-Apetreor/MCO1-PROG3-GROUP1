@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
  * Each boss has unique characteristics and stats.
  * It inherits from the Enemy class.
  * 
- * @author Marcus Apetreor
+ * @author Marcus Apetreor, Vincent Vuelva
  */
 public class Boss extends Enemy {
 

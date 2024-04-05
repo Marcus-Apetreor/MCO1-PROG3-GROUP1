@@ -1,7 +1,7 @@
 /**
  * Data for the Stormveil Castle map.
  * Inherits from the {@link TileMap} class.
- * @author Marcus Apetreor
+ * @author Marcus Apetreor, Vincent Vuelva
  */
 public class StormveilCastle extends TileMap {
     /**

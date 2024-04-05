@@ -4,7 +4,7 @@ import javax.swing.*;
  * Represents a generic view in the application.
  * This class extends JFrame and provides methods to create and manage graphical user interfaces.
  * 
- * @author Marcus Apetreor
+ * @author Marcus Apetreor, Vincent Vuelva
  */
 public class View extends JFrame {
     protected static Controller controller;

@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
  * Class for representing a player character in the game.
  * It contains player attributes and methods related to leveling up and managing stats.
  * 
- * @author Marcus Apetreor
+ * @author Marcus Apetreor, Vincent Vuelva
  */
 public class Player {
 

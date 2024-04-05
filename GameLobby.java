@@ -8,7 +8,7 @@ import java.awt.event.*;
  * Extends View and implements ActionListener.
  * 
  * Inherits from the {@link View} class.
- * @author Marcus Apetreor
+ * @author Marcus Apetreor, Vincent Vuelva
  */
 public class GameLobby extends View implements ActionListener {
     private JButton fastTravelBtn, levelUpBtn, inventoryBtn, shopBtn, exitBtn;
