@@ -2,10 +2,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * The GameLobby class represents the game lobby interface where players can access various game functionalities.
+ * It displays player stats, character sprite, and buttons for fast travel, leveling up, accessing inventory, visiting shop, and exiting to title screen.
+ * Extends View and implements ActionListener.
+ * 
+ * Inherits from the {@link View} class.
+ * @author Marcus Apetreor
+ */
 public class GameLobby extends View implements ActionListener {
     private JButton fastTravelBtn, levelUpBtn, inventoryBtn, shopBtn, exitBtn;
     private Player playerInstance;
 
+    /**
+     * Constructs a GameLobby object.
+     * 
+     * @param controller The game's controller instance.
+     */
     public GameLobby(Controller controller) {
         super("Roundtable Hold");
         this.playerInstance = Controller.getPlayerInstance();
@@ -63,6 +76,11 @@ public class GameLobby extends View implements ActionListener {
         setVisible(true);
     }
 
+    /**
+     * ActionListener implementation for handling button clicks.
+     * 
+     * @param e The ActionEvent instance.
+     */
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == fastTravelBtn) {
             controller.fastTravel();

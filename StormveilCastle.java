@@ -1,9 +1,7 @@
 /**
- * Child class of Maps to facilitate Stormveil Castle's information.
- * Represents the Stormveil Castle area in the game.
- * Extends the Maps class to define the specific layout and mechanics of Stormveil Castle.
- * 
- * @author Marcus Apetreor, Vincent Vuelva
+ * Data for the Stormveil Castle map.
+ * Inherits from the {@link TileMap} class.
+ * @author Marcus Apetreor
  */
 public class StormveilCastle extends TileMap {
     /**

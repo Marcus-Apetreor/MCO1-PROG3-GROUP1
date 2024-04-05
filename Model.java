@@ -1,5 +1,19 @@
 import java.util.*;
 
+/**
+ * The Model class represents the data model of the game, including player stats, weapons, job classes,
+ * maps, and shop inventory.
+ * 
+ * <p>It provides methods for character creation, battle calculations, player management, map navigation,
+ * and shop functionality.</p>
+ * 
+ * <p>This class serves as the backbone of the game's logic and data management.</p>
+ * 
+ * <p>Note: This class assumes that the game has various types of weapons, job classes, maps, and a shop
+ * inventory, all of which are initialized upon construction of the Model object.</p>
+ * 
+ * @author Marcus Apetreor
+ */
 public class Model {
 
     //player 
@@ -72,12 +86,19 @@ public class Model {
     }
 
     //initialization methods
+
+    /**
+     * Initializes the player with default attributes and equips them with fists as their weapon.
+     */
     public void initializePlayer(){
         playerInstance.addWeapon(fists);
         playerInstance.setEquippedWeapon(0);
         playerInstance.setJobClass(jobless);
     }
 
+    /**
+     * Initializes the shop inventory with various weapons.
+     */
     public void initializeShop(){
         //swords [0-3]
         shopInventory.add(shortSword); //0
@@ -117,35 +138,73 @@ public class Model {
     }
 
     //character creation methods
+
+    /**
+     * Retrieves the available job classes for character creation.
+     * 
+     * @return An array of JobClass objects representing the available job classes.
+     */
     public JobClass[] getJobClasses(){
         return jobClasses;
     }
 
+    /**
+     * Sets the player's name.
+     * 
+     * @param name The name to be set for the player.
+     */
     public void setPlayerName(String name){
         playerInstance.setPlayerName(name.substring(0, Math.min(name.length(), 25)));
     }
 
+    /**
+     * Chooses a job class for the player based on the provided index.
+     * 
+     * @param jobIndex The index of the selected job class.
+     */
     public void chooseJobClass(int jobIndex) {
         JobClass[] jobClasses = {vagabond, samurai, warrior, hero, astrologer, prophet};
         playerInstance.setJobClass(jobClasses[jobIndex]);
     }
 
     //battle methods
+
+    /**
+     * Calculates physical damage inflicted on an enemy by the player.
+     * 
+     * @param enemy The enemy on which the damage is inflicted.
+     */
     public void physicalDamage(Enemy enemy){
         double damage=(playerInstance.getStats().getStrength() + playerInstance.getEquippedWeapon().getStats().getStrength()) * (1-enemy.getPhysicalDefense());
         enemy.setHealth(enemy.getHealth()-(int)damage);
     }
     
+    /**
+     * Calculates sorcery damage inflicted on an enemy by the player.
+     * 
+     * @param enemy The enemy on which the damage is inflicted.
+     */
     public void sorceryDamage(Enemy enemy){
         double damage=(playerInstance.getStats().getIntelligence() + playerInstance.getEquippedWeapon().getStats().getIntelligence()) * (1-enemy.getSorceryDefense());
         enemy.setHealth(enemy.getHealth()-(int)damage);
     }
 
+    /**
+     * Calculates incantation damage inflicted on an enemy by the player.
+     * 
+     * @param enemy The enemy on which the damage is inflicted.
+     */
     public void incantationDamage(Enemy enemy){
         double damage=(playerInstance.getStats().getFaith() + playerInstance.getEquippedWeapon().getStats().getFaith()) * (1-enemy.getIncantationDefense());
         enemy.setHealth(enemy.getHealth()-(int)damage);
     }
 
+    /**
+     * Calculates whether the player dodges an incoming attack based on the provided chance.
+     * 
+     * @param chance The chance of dodging the attack.
+     * @return true if the dodge is successful, false otherwise.
+     */
     public boolean calculateDodge(double chance) {
         double randomValue = new Random().nextDouble();
         if (randomValue < chance) {
@@ -157,11 +216,20 @@ public class Model {
 
     //player methods
 
+    /**
+     * Retrieves the player instance.
+     * 
+     * @return The Player object representing the player.
+     */
     public static Player getPlayer(){
         return playerInstance;
     }
 
-
+    /**
+     * Increases the player's level and adjusts their stats accordingly based on the user input.
+     * 
+     * @param userInput The user's input specifying which stat to increase.
+     */
     public void levelUp(int userInput){
         int levelUpCost = (playerLevel*100)/2;
         if(playerInstance.getRuneCount()-levelUpCost<0){
@@ -194,16 +262,32 @@ public class Model {
         }
     }
 
+    /**
+     * Adds a weapon to the player's inventory.
+     * 
+     * @param weapon The weapon to be added.
+     */
     public void addWeapon(Weapons weapon){
         playerInstance.addWeapon(weapon);
     }
 
+    /**
+     * Equips a weapon from the player's inventory.
+     * 
+     * @param i The index of the weapon to be equipped.
+     */
     public void equipWeapon(int i){
         playerInstance.setEquippedWeapon(i);
     }
 
     //map methods
 
+    /**
+     * Retrieves the specified map.
+     * 
+     * @param i The index of the map to be retrieved.
+     * @return The TileMap object representing the specified map.
+     */
     public TileMap getMap(int i){
         switch(i){
             case 1:
@@ -217,16 +301,31 @@ public class Model {
         }
     }
 
+    /**
+     * Retrieves the unlocked fast travel tiles.
+     * 
+     * @return An ArrayList of String objects representing the unlocked fast travel tiles.
+     */
     public ArrayList<String> getUnlockedFastTravelTiles(){
         return TileMap.getUnlockedFastTravelTiles();
     }
 
+    /**
+     * Retrieves the number of unlocked areas.
+     * 
+     * @return The number of unlocked areas.
+     */
     public int getUnlockedAreas(){
         return TileMap.getUnlockedAreas();
     }
 
     //shop methods
 
+    /**
+     * Retrieves the shop inventory.
+     * 
+     * @return An ArrayList of Weapons representing the shop inventory.
+     */
     public ArrayList<Weapons> getShopInventory(){
         return shopInventory;
     }

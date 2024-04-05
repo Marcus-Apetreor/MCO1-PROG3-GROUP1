@@ -5,6 +5,27 @@ import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The MapGUI class represents the graphical user interface for displaying the game map
+ * and navigating through it.
+ * 
+ * <p>This class extends the View class and implements the KeyListener interface to handle
+ * keyboard input for player movement.</p>
+ * 
+ * <p>It provides methods for initializing the map, updating the player's position, handling
+ * different types of tiles, and responding to keyboard events for player movement.</p>
+ * 
+ * <p>Instances of this class allow players to move around the game map, interact with tiles,
+ * and trigger various game events.</p>
+ * 
+ * <p>Note: This class assumes that the map is represented as a three-dimensional matrix of strings,
+ * where each string represents a type of tile in the game.</p>
+ * 
+ * <p>Note: The MapGUI class is a singleton, meaning that only one instance of it can exist at a time.</p>
+ * 
+ * Inherits from the {@link View} class.
+ * @author Marcus Apetreor
+ */
 public class MapGUI extends View implements KeyListener {
     private JPanel[][][] roomsPanel;
     private Map<String, ImageIcon> tileIcons;
@@ -15,6 +36,14 @@ public class MapGUI extends View implements KeyListener {
 
     private static MapGUI currentInstance = null;
 
+    /**
+     * Constructs a MapGUI object with the specified TileMap, player room, row, and column.
+     * 
+     * @param tileMap     The TileMap representing the game map.
+     * @param playerRoom  The initial room index where the player is located.
+     * @param playerRow   The initial row index where the player is located.
+     * @param playerCol   The initial column index where the player is located.
+     */
     public MapGUI(TileMap tileMap, int playerRoom, int playerRow, int playerCol) {
         super("Map Display");
         this.tileMap = tileMap;
@@ -41,6 +70,11 @@ public class MapGUI extends View implements KeyListener {
         setVisible(true);
     }
 
+    /**
+     * Returns the current instance of the MapGUI class.
+     * 
+     * @return The current instance of MapGUI.
+     */
     public static MapGUI getCurrentInstance() {
         return currentInstance;
     }
@@ -58,6 +92,10 @@ public class MapGUI extends View implements KeyListener {
         }
     }
 
+    /**
+     * Handles the creation of the room panels in order to display them properly.
+     * 
+     */
     private void createRoomPanels() {
         int numRooms = matrix.length;
         roomsPanel = new JPanel[numRooms][][];
@@ -78,6 +116,13 @@ public class MapGUI extends View implements KeyListener {
         }
     }
 
+    /**
+     * Handles the updates of any tile icons when player moves around the map.
+     * @param label The label of the tile.
+     * @param room The room index of the tile.
+     * @param row The row index of the tile.
+     * @param col The column index of the tile.
+     */
     private void updateTileIcon(JLabel label, int room, int row, int col) {
         if (room == playerRoom && row == playerRow && col == playerCol) {
             label.setIcon(tileIcons.get("playerIcon"));
@@ -90,6 +135,10 @@ public class MapGUI extends View implements KeyListener {
         }
     }
 
+    /**
+     * Handles the display of the room that the player is currently in.
+     * 
+     */
     private void displayCurrentRoom() {
         getContentPane().removeAll();
         setLayout(new GridLayout(roomsPanel[playerRoom].length, roomsPanel[playerRoom][0].length));
@@ -107,6 +156,10 @@ public class MapGUI extends View implements KeyListener {
     @Override
     public void keyTyped(KeyEvent e) {}
 
+    /**
+     * Handles the movement inputs for player movement.
+     *  @param e The KeyEvent object representing the key press event.
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -129,6 +182,12 @@ public class MapGUI extends View implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {}
 
+    /**
+     * Handles the validation of movement and updating the player's position.
+     * 
+     * @param newRow The row index of the player's new position.
+     * @param newCol The column index of the player's new position.
+     */
     private void movePlayer(int rowChange, int colChange) {
         int newRow = playerRow + rowChange;
         int newCol = playerCol + colChange;
@@ -137,7 +196,12 @@ public class MapGUI extends View implements KeyListener {
             displayCurrentRoom();
         }
     }
-
+    /**
+     * Handles the updating of the players position using helper functions for special tile interactions.
+     * 
+     * @param newRow The row index of the player's new position.
+     * @param newCol The column index of the player's new position.
+     */
     private void updatePlayerPosition(int newRow, int newCol) {
         playerRow = newRow;
         playerCol = newCol;
@@ -148,6 +212,12 @@ public class MapGUI extends View implements KeyListener {
         creditTile(newRow, newCol);
     }
 
+    /**
+     * Handles the movement of the player through door tiles to other rooms.
+     * 
+     * @param newRow The row index of the player's new position.
+     * @param newCol The column index of the player's new position.
+     */
     public void doorTile(int newRow, int newCol){
         if (matrix[playerRoom][newRow][newCol].startsWith("doorTile")){
             String currentDoor = matrix[playerRoom][newRow][newCol];
@@ -167,6 +237,12 @@ public class MapGUI extends View implements KeyListener {
         }
     }
 
+    /**
+     * Handles player interaction with fast travel tiles.
+     * 
+     * @param newRow The row index of the player's new position.
+     * @param newCol The column index of the player's new position.
+     */
     public void fastTravelTile(int newRow, int newCol){
         if (newRow >= 0 && newRow < matrix[playerRoom].length && newCol >= 0 && newCol < matrix[playerRoom][newRow].length) {
             if (matrix[playerRoom][newRow][newCol].startsWith(prefix)&&TileMap.getUnlockedFastTravelTiles().contains(matrix[playerRoom][newRow][newCol])){
@@ -180,6 +256,12 @@ public class MapGUI extends View implements KeyListener {
         }
     }
 
+    /**
+     * Handles player interaction with spawn tiles.
+     * 
+     * @param newRow The row index of the player's new position.
+     * @param newCol The column index of the player's new position.
+     */
     public void spawnTile(int newRow, int newCol){
         if (newRow >= 0 && newRow < matrix[playerRoom].length && newCol >= 0 && newCol < matrix[playerRoom][newRow].length) {
             if(matrix[playerRoom][newRow][newCol].equals("spawnTile")){
@@ -189,6 +271,12 @@ public class MapGUI extends View implements KeyListener {
         }
     }
 
+    /**
+     * Handles player interaction with boss tiles.
+     * 
+     * @param newRow The row index of the player's new position.
+     * @param newCol The column index of the player's new position.
+     */
     public void bossTile(int newRow, int newCol){
         if (newRow >= 0 && newRow < matrix[playerRoom].length && newCol >= 0 && newCol < matrix[playerRoom][newRow].length) {
             if(matrix[playerRoom][newRow][newCol].equals("bossTile")){
@@ -211,6 +299,12 @@ public class MapGUI extends View implements KeyListener {
         }
     }
 
+    /**
+     * Handles player interaction with credit tiles.
+     * 
+     * @param newRow The row index of the player's new position.
+     * @param newCol The column index of the player's new position.
+     */
     public void creditTile(int newRow, int newCol){
         if (newRow >= 0 && newRow < matrix[playerRoom].length && newCol >= 0 && newCol < matrix[playerRoom][newRow].length) {
             if(matrix[playerRoom][newRow][newCol].equals("creditsTile")){
@@ -219,3 +313,4 @@ public class MapGUI extends View implements KeyListener {
         }
     }
 }
+

@@ -1,3 +1,8 @@
+/**
+ * Data for the Raya Lucaria Academy map.
+ * Inherits from the {@link TileMap} class.
+ * @author Marcus Apetreor
+ */
 public class RayaLucariaAcademy extends TileMap{
     public RayaLucariaAcademy(){
         super(new String[][][] 

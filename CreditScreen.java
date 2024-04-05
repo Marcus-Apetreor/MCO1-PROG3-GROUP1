@@ -1,7 +1,17 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The CreditScreen class displays the credits for the game.
+ * It inherits from the View class.
+ * 
+ * Inherits from the {@link View} class.
+ * @author Marcus Apetreor
+ */
 public class CreditScreen extends View {
+    /**
+     * Constructs a CreditScreen object.
+     */
     public CreditScreen() {
         super("Credits");
 

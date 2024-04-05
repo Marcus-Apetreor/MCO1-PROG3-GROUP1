@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
  * Each boss has unique characteristics and stats.
  * It inherits from the Enemy class.
  * 
- * @author Marcus Apetreor, Vincent Vuelva
+ * @author Marcus Apetreor
  */
 public class Boss extends Enemy {
 
@@ -56,6 +56,12 @@ public class Boss extends Enemy {
         return random.nextInt(range[1] - range[0] + 1) + range[0];
     }
     
+    
+    /** 
+     * Checks if the boss is defeated.
+     * 
+     * @return true if the boss is defeated, false otherwise.
+     */
     public boolean isDefeated(){
         if(health <= 0){
             JOptionPane.showMessageDialog(null, "GREAT ENEMY FELLED");
@@ -65,6 +71,11 @@ public class Boss extends Enemy {
         }
     }
 
+    /**
+     * Gets the attack value of the boss.
+     * 
+     * @return The attack value of the boss.
+     */
     public int getAttack() {
         return randomValue(attackRanges[areaIndex-1]);
     }

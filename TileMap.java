@@ -6,7 +6,7 @@ import javax.swing.*;
  * Class to facilitate map traversal, map loading, and manage map rules.
  * It allows players to move around the game world, encounter enemies, find items, and interact with various tiles.
  * 
- * @author Marcus Apetreor, Vincent Vuelva
+ * @author Marcus Apetreor
  */
 public class TileMap {
     protected static final Random random = new Random();
@@ -53,6 +53,10 @@ public class TileMap {
         areaIndex = index;
     }
 
+    
+    /** 
+     * @return ArrayList<String>
+     */
     public static ArrayList<String> getUnlockedFastTravelTiles(){
         return unlockedFastTravelTiles;
     }

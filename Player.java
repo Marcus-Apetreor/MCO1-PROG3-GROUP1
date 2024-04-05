@@ -4,14 +4,14 @@ import javax.swing.JOptionPane;
  * Class for representing a player character in the game.
  * It contains player attributes and methods related to leveling up and managing stats.
  * 
- * @author Marcus Apetreor, Vincent Vuelva
+ * @author Marcus Apetreor
  */
 public class Player {
 
     private String playerName = "";
     private JobClass jobClass;
     private int playerLevel = 1;
-    private int runeCount = 112313123;
+    private int runeCount = 0;
     private Stats playerStats;
     private ArrayList<Weapons> playerInventory = new ArrayList<Weapons>();
     private Weapons equippedWeapon;
@@ -29,6 +29,10 @@ public class Player {
         this.maxHealth=((getStats().getVigor() + getEquippedWeapon().getStats().getVigor())/2.0)*100.0;
     }
 
+    
+    /** 
+     * @return double
+     */
     public double getMaxHealth(){
         return maxHealth;
     }

@@ -2,7 +2,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Represents the title screen of the game.
+ * This screen displays the game title and provides buttons for starting the game or exiting.
+ * <p>
+ * Inherits from the {@link View} class.
+ * 
+ * @author Marcus Apetreor
+ */
 public class TitleScreen extends View {
+
+    /**
+     * Constructs a new TitleScreen object.
+     *
+     * @param controller The controller responsible for managing the game flow.
+     */
     public TitleScreen(Controller controller) {
         super("Title Screen");
 

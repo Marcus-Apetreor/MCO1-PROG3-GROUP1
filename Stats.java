@@ -2,7 +2,7 @@
  * Class that represents player statistics and provides methods to manage them.
  * It houses attributes and methods related to player stats.
  * 
- * @author Marcus Apetreor, Vincent Vuelva
+ * @author Marcus Apetreor
  */
 public class Stats {
     private int vigor;
@@ -31,6 +31,10 @@ public class Stats {
         this.faith = faith;
     }
 
+    
+    /** 
+     * @param stats
+     */
     public void setStats(Stats stats){
         this.vigor = stats.vigor;
         this.endurance = stats.endurance;

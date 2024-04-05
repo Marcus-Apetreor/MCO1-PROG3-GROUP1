@@ -3,6 +3,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
+/**
+ * The Inventory class represents the inventory interface where players can view and manage their weapons.
+ * Extends View.
+ * 
+ * Inherits from the {@link View} class.
+ * @author Marcus Apetreor
+ */
 public class Inventory extends View {
     private Player playerInstance;
     private JPanel weaponsPanel;
@@ -11,6 +18,11 @@ public class Inventory extends View {
     private JButton equipButton;
     private ArrayList<JButton> weaponButtons;
 
+    /**
+     * Constructs an Inventory object.
+     * 
+     * @param playerInstance The player instance associated with the inventory.
+     */
     public Inventory(Player playerInstance) {
         super("Inventory"); // Add constructor call to superclass View
         this.playerInstance = playerInstance;
@@ -52,6 +64,11 @@ public class Inventory extends View {
         setVisible(true);
     }
 
+    /**
+     * Displays the details of the selected weapon.
+     * 
+     * @param weapon The selected weapon.
+     */
     private void displayWeaponDetails(Weapons weapon) {
         weaponDetailsPanel.removeAll();
         weaponDetailsPanel.add(new JLabel("Selected Weapon: " + weapon.getName()), BorderLayout.NORTH);

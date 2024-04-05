@@ -3,13 +3,16 @@ import java.util.Random;
 import javax.swing.JOptionPane;
 
 /**
- * Enemy class to create enemy instances with specific attributes.
+ * The Enemy class creates enemy instances with specific attributes.
  * Each enemy has a type, name, health, attack, and defense values.
  * It also handles enemy spawning and initialization of enemy stats.
  * 
  * @author Marcus Apetreor, Vincent Vuelva
  */
 public class Enemy {
+    /**
+     * Enum representing different types of enemies.
+     */
     public enum EnemyType {
         TYPE1, TYPE2, TYPE3
     }
@@ -22,6 +25,7 @@ public class Enemy {
     protected double sorceryDefense;
     protected double incantationDefense;
 
+    // Arrays to store enemy-specific attributes
     private static final String[][] enemyNames = {{"Godrick Soldier", "Living Jar", ""}, 
                                                   {"Godrick Archer", "Glintstone Sorcerer", ""}, 
                                                   {"Godrick Knight", "Battlemage", ""}};
@@ -86,6 +90,8 @@ public class Enemy {
             return false;
         }
     }
+
+    // Getters and setters for enemy attributes
 
     /**
      * Get the type of the enemy.

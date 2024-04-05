@@ -2,6 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * The CharacterCreation class represents the graphical interface for character creation.
+ * Players can choose their character's name, class, and view their character's attributes.
+ * It inherits from the View class.
+ * 
+ * Inherits from the {@link View} class.
+ * @author Marcus Apetreor
+ */
 public class CharacterCreation extends View {
     private JLabel characterNameLabel;
     private JLabel statsLabel;
@@ -23,6 +31,12 @@ public class CharacterCreation extends View {
     private JobClass[] jobClasses;
     private int currentIndex;
 
+    /**
+     * Constructs a CharacterCreation object with specified job classes and a controller.
+     * 
+     * @param jobClasses An array of JobClass representing available character classes.
+     * @param controller The controller managing game logic.
+     */
     public CharacterCreation(JobClass[] jobClasses, Controller controller) {
         super("Character Creation Menu");
         this.jobClasses = jobClasses;
@@ -49,7 +63,6 @@ public class CharacterCreation extends View {
         bottomPanel.add(new JLabel("Username:"));
         bottomPanel.add(usernameField);
         bottomPanel.add(confirmButton);
-        
 
         statsLabel = new JLabel();
         updateCharacter();
@@ -92,6 +105,9 @@ public class CharacterCreation extends View {
         });
     }
 
+    /**
+     * Updates the character's information based on the selected job class.
+     */
     private void updateCharacter() {
         JobClass currentJob = jobClasses[currentIndex];
         characterNameLabel.setText(currentJob.getJobName() + " (Level " + currentJob.getJobLevel() + ")");
@@ -105,14 +121,29 @@ public class CharacterCreation extends View {
                 "<b>Faith:</b> " + currentJob.getJobStats().getFaith() + "</html>");
     }
 
+    /**
+     * Sets the username in the username field.
+     * 
+     * @param username The username to set.
+     */
     public void setUsername(String username) {
         usernameField.setText(username);
     }
 
+    /**
+     * Retrieves the username from the username field.
+     * 
+     * @return The username entered by the user.
+     */
     public String getUsername() {
         return usernameField.getText();
     }
 
+    /**
+     * Retrieves the index of the selected job class.
+     * 
+     * @return The index of the selected job class.
+     */
     public int getSelectedJobIndex() {
         return currentIndex;
     }

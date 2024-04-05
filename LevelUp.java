@@ -2,11 +2,30 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * The LevelUp class represents the level up menu where players can allocate attribute points
+ * upon leveling up their character.
+ * 
+ * <p>It provides buttons for allocating points to different attributes such as vigor, endurance,
+ * dexterity, strength, intelligence, and faith.</p>
+ * 
+ * <p>This class extends the View class and implements the ActionListener interface to handle
+ * button click events.</p>
+ * 
+ * Inherits from the {@link View} class.
+ * @author Marcus Apetreor
+ */
 public class LevelUp extends View implements ActionListener {
     private JButton vigorBtn, enduranceBtn, dexterityBtn, strengthBtn, intelligenceBtn, faithBtn;
     private Player playerInstance;
     private Controller controller;
 
+    /**
+     * Constructs a LevelUp object with the specified player instance and controller.
+     * 
+     * @param playerInstance The player instance for which the level up menu is displayed.
+     * @param controller     The controller instance to handle game logic.
+     */
     public LevelUp(Player playerInstance, Controller controller) {
         super("Level Up");
         this.controller = controller;
@@ -40,6 +59,11 @@ public class LevelUp extends View implements ActionListener {
         setVisible(true);
     }
 
+    /**
+     * Handles button click events for allocating attribute points upon leveling up.
+     * 
+     * @param e The ActionEvent object representing the button click event.
+     */
     public void actionPerformed(ActionEvent e) {
         JButton source = (JButton)e.getSource();
         int playerLevel = playerInstance.getPlayerLevel();

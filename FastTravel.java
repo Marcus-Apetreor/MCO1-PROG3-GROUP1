@@ -8,6 +8,15 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * The FastTravel class represents a menu for fast traveling to unlocked areas in the game.
+ * It allows the player to select an area and choose between spawn point or boss room.
+ * It also handles the unlocking of fast travel tiles based on player progress.
+ * Extends View and implements ActionListener.
+ * 
+ * Inherits from the {@link View} class.
+ * @author Marcus Apetreor, Vincent Vuelva
+ */
 public class FastTravel extends View implements ActionListener {
     private JList<String> areaList;
     private DefaultListModel<String> listModel;
@@ -18,7 +27,12 @@ public class FastTravel extends View implements ActionListener {
     private int unlockedAreas;
     private ArrayList<String> unlockedFastTravelTiles;
 
-    public FastTravel(Controller controller) { // Modify this line
+    /**
+     * Constructs a FastTravel object.
+     * 
+     * @param controller The game's controller instance.
+     */
+    public FastTravel(Controller controller) {
         super("Fast Travel Menu");
         this.controller = controller;
         this.unlockedAreas = TileMap.getUnlockedAreas();
@@ -55,6 +69,11 @@ public class FastTravel extends View implements ActionListener {
         setVisible(true);
     }
 
+    /**
+     * ActionListener implementation for handling button clicks.
+     * 
+     * @param e The ActionEvent instance.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         // Check if the exit button was clicked
@@ -101,6 +120,9 @@ public class FastTravel extends View implements ActionListener {
         }
     }
 
+    /**
+     * Custom cell renderer for the area list to display locked areas in gray.
+     */
     private static class AreaListCellRenderer extends DefaultListCellRenderer {
         @Override
         public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -115,19 +137,27 @@ public class FastTravel extends View implements ActionListener {
         }
     }
 
-public boolean unlockFastTravelTiles(String prefix, ArrayList<String> unlockedFastTravelTiles, int playerInput){
-    boolean unlocked = false;
-    for(String tile : unlockedFastTravelTiles){
-        if (tile.startsWith(prefix.substring(0, 1)) && tile.endsWith("1")){
-            unlocked = true;
-            break;
+    /**
+     * Method to unlock fast travel tiles based on player progress.
+     * 
+     * @param prefix                 The prefix of the area.
+     * @param unlockedFastTravelTiles The list of unlocked fast travel tiles.
+     * @param playerInput            The player input option.
+     * @return                       True if the fast travel tiles are unlocked, false otherwise.
+     */
+    public boolean unlockFastTravelTiles(String prefix, ArrayList<String> unlockedFastTravelTiles, int playerInput) {
+        boolean unlocked = false;
+        for(String tile : unlockedFastTravelTiles) {
+            if (tile.startsWith(prefix.substring(0, 1)) && tile.endsWith("1")) {
+                unlocked = true;
+                break;
+            }
+        }
+
+        if (playerInput == 1 && unlocked) {
+            return true;
+        } else {
+            return false;
         }
     }
-
-    if (playerInput == 1 && unlocked){
-        return true;
-    } else {
-        return false;
-    }
-}
 }

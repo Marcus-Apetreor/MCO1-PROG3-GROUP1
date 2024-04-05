@@ -1,5 +1,9 @@
 import javax.swing.JOptionPane;
-
+/**
+ * Data for the The Elden Throne map.
+ * Inherits from the {@link TileMap} class.
+ * @author Marcus Apetreor
+ */
 public class TheEldenThrone extends TileMap implements CreditsInterface{
     public TheEldenThrone(){
         super(new String[][][] 
